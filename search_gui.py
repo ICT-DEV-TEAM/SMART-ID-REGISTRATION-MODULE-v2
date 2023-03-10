@@ -14,17 +14,17 @@ class SearchGUI:
 
         self.userNoLabel = ctk.CTkLabel(master=self.searchGUIFrame, text="User No.", font=ctk.CTkFont(size=int(self.frameWidth * .035), family="Inter"))
         self.userNoLabel.grid(column=0, row=0, padx=int((self.frameWidth * .025)/2), pady=int((self.frameHeight * .08)/2), sticky='e')
-        self.userNoEntry = ctk.CTkEntry(master=self.searchGUIFrame, width=int(.5 * self.frameWidth), fg_color="#AEB9F1", border_width=0)
+        self.userNoEntry = ctk.CTkEntry(master=self.searchGUIFrame, width=int(.5 * self.frameWidth), fg_color="#AEB9F1", border_width=0, corner_radius=5)
         self.userNoEntry.grid(column=1, row=0, padx=int((self.frameWidth * .025)/2), pady=int((self.frameHeight * .08)/2), sticky='ews')
 
         self.surnameLabel = ctk.CTkLabel(master=self.searchGUIFrame, text="Surname", font=ctk.CTkFont(size=int(self.frameWidth * .035), family="Inter"))
         self.surnameLabel.grid(column=0, row=1, padx=int((self.frameWidth * .025)/2), pady=int((self.frameHeight * .08)/2), sticky='e')
-        self.surnameEntry = ctk.CTkEntry(master=self.searchGUIFrame, width=int(.5 * self.frameWidth), fg_color="#AEB9F1", border_width=0)
+        self.surnameEntry = ctk.CTkEntry(master=self.searchGUIFrame, width=int(.5 * self.frameWidth), fg_color="#AEB9F1", border_width=0, corner_radius=5)
         self.surnameEntry.grid(column=1, row=1, padx=int((self.frameWidth * .025)/2), pady=int((self.frameHeight * .08)/2), sticky='ew')
 
         self.firstNameLabel = ctk.CTkLabel(master=self.searchGUIFrame, text="First Name", font=ctk.CTkFont(size=int(self.frameWidth * .035), family="Inter"))
         self.firstNameLabel.grid(column=0, row=2, padx=int((self.frameWidth * .025)/2), pady=int((self.frameHeight * .08)/2), sticky='e')
-        self.firstNameEntry = ctk.CTkEntry(master=self.searchGUIFrame, width=int(.5 * self.frameWidth), fg_color="#AEB9F1", border_width=0)
+        self.firstNameEntry = ctk.CTkEntry(master=self.searchGUIFrame, width=int(.5 * self.frameWidth), fg_color="#AEB9F1", border_width=0, corner_radius=5)
         self.firstNameEntry.grid(column=1, row=2, padx=int((self.frameWidth * .025)/2), pady=int((self.frameHeight * .08)/2), sticky='ewn')
 
         self.btnWidth = int(self.frameWidth * .21)

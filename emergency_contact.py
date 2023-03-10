@@ -18,4 +18,32 @@ class EmergencyContactGUI():
         self.emergencyGUI.grid_propagate(False)
         self.emergencyGUI.grid(row=1, column=0, sticky='w', columnspan=2)
 
+        self.font = ctk.CTkFont(size=int(height * .018), family="Inter")
+        self.firstNameLabel = ctk.CTkLabel(master=self.emergencyGUI, font=self.font, text="First Name", text_color="#000000")
+        self.firstNameLabel.grid(row=0, column=0, sticky='e')
+
+        self.midNameLabel = ctk.CTkLabel(master=self.emergencyGUI, font=self.font, text="Middle Name", text_color="#000000")
+        self.midNameLabel.grid(row=1, column=0, sticky='e')
+
+        self.lastNameLabel = ctk.CTkLabel(master=self.emergencyGUI, font=self.font, text="Last Name", text_color="#000000")
+        self.lastNameLabel.grid(row=2, column=0, sticky='e')
+        
+        self.suffixLabel = ctk.CTkLabel(master=self.emergencyGUI, font=self.font, text="Suffix", text_color="#000000")
+        self.suffixLabel.grid(row=3, column=0, sticky='e')
+
+        self.textBoxWidth = int(width * .1292)
+        self.textBoxHeight = int(height * .0338)
+        self.fnameEntry = ctk.CTkEntry(master=self.emergencyGUI, fg_color='#AEB9F1', width=self.textBoxWidth, height=self.textBoxHeight, border_width=0, corner_radius=5)
+        self.fnameEntry.grid(row=0, column=1, sticky="we")
+
+        self.fnameEntry = ctk.CTkEntry(master=self.emergencyGUI, fg_color='#AEB9F1', width=self.textBoxWidth, height=self.textBoxHeight, border_width=0, corner_radius=5)
+        self.fnameEntry.grid(row=1, column=1, sticky="we")
+
+        self.fnameEntry = ctk.CTkEntry(master=self.emergencyGUI, fg_color='#AEB9F1', width=self.textBoxWidth, height=self.textBoxHeight, border_width=0, corner_radius=5)
+        self.fnameEntry.grid(row=2, column=1, sticky="we")
+
+        self.fnameEntry = ctk.CTkEntry(master=self.emergencyGUI, fg_color='#AEB9F1', width=self.textBoxWidth, height=self.textBoxHeight, border_width=0, corner_radius=5)
+        self.fnameEntry.grid(row=3, column=1, sticky="we")
+        
+
         
