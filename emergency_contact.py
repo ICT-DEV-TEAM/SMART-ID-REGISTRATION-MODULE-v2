@@ -62,26 +62,26 @@ class EmergencyContactGUI():
         self.fnameEntry = ctk.CTkEntry(master=self.emergencyGUI, fg_color='#AEB9F1', width=self.textBoxWidth, height=self.textBoxHeight, border_width=0, corner_radius=5, font=self.font)
         self.fnameEntry.grid(row=1, column=2, padx=self.paddingX, pady=self.paddingY)
 
-        self.fnameEntry = ctk.CTkEntry(master=self.emergencyGUI, fg_color='#AEB9F1', width=self.textBoxWidth, height=self.textBoxHeight, border_width=0, corner_radius=5, font=self.font)
-        self.fnameEntry.grid(row=2, column=2, padx=self.paddingX, pady=self.paddingY)
+        self.mnameEntry = ctk.CTkEntry(master=self.emergencyGUI, fg_color='#AEB9F1', width=self.textBoxWidth, height=self.textBoxHeight, border_width=0, corner_radius=5, font=self.font)
+        self.mnameEntry.grid(row=2, column=2, padx=self.paddingX, pady=self.paddingY)
 
-        self.fnameEntry = ctk.CTkEntry(master=self.emergencyGUI, fg_color='#AEB9F1', width=self.textBoxWidth, height=self.textBoxHeight, border_width=0, corner_radius=5, font=self.font)
-        self.fnameEntry.grid(row=3, column=2, padx=self.paddingX, pady=self.paddingY)
+        self.lnameEntry = ctk.CTkEntry(master=self.emergencyGUI, fg_color='#AEB9F1', width=self.textBoxWidth, height=self.textBoxHeight, border_width=0, corner_radius=5, font=self.font)
+        self.lnameEntry.grid(row=3, column=2, padx=self.paddingX, pady=self.paddingY)
 
-        self.fnameEntry = ctk.CTkEntry(master=self.emergencyGUI, fg_color='#AEB9F1', width=self.textBoxWidth, height=self.textBoxHeight, border_width=0, corner_radius=5, font=self.font)
-        self.fnameEntry.grid(row=4, column=2, padx=self.paddingX, pady=self.paddingY)
+        self.suffixEntry = ctk.CTkEntry(master=self.emergencyGUI, fg_color='#AEB9F1', width=self.textBoxWidth, height=self.textBoxHeight, border_width=0, corner_radius=5, font=self.font)
+        self.suffixEntry.grid(row=4, column=2, padx=self.paddingX, pady=self.paddingY)
 
-        self.fnameEntry = ctk.CTkEntry(master=self.emergencyGUI, fg_color='#AEB9F1', width=self.textBoxWidth, height=self.textBoxHeight, border_width=0, corner_radius=5, font=self.font)
-        self.fnameEntry.grid(row=1, column=4, padx=self.paddingX, pady=self.paddingY)
+        self.genderEntry = ctk.CTkEntry(master=self.emergencyGUI, fg_color='#AEB9F1', width=self.textBoxWidth, height=self.textBoxHeight, border_width=0, corner_radius=5, font=self.font)
+        self.genderEntry.grid(row=1, column=4, padx=self.paddingX, pady=self.paddingY)
 
-        self.fnameEntry = ctk.CTkEntry(master=self.emergencyGUI, fg_color='#AEB9F1', width=self.textBoxWidth, height=self.textBoxHeight, border_width=0, corner_radius=5, font=self.font)
-        self.fnameEntry.grid(row=2, column=4, padx=self.paddingX, pady=self.paddingY)
+        self.addressEntry = ctk.CTkEntry(master=self.emergencyGUI, fg_color='#AEB9F1', width=self.textBoxWidth, height=self.textBoxHeight, border_width=0, corner_radius=5, font=self.font)
+        self.addressEntry.grid(row=2, column=4, padx=self.paddingX, pady=self.paddingY)
 
-        self.fnameEntry = ctk.CTkEntry(master=self.emergencyGUI, fg_color='#AEB9F1', width=self.textBoxWidth, height=self.textBoxHeight, border_width=0, corner_radius=5, font=self.font)
-        self.fnameEntry.grid(row=3, column=4, padx=self.paddingX, pady=self.paddingY)
+        self.mobileNoEntry = ctk.CTkEntry(master=self.emergencyGUI, fg_color='#AEB9F1', width=self.textBoxWidth, height=self.textBoxHeight, border_width=0, corner_radius=5, font=self.font)
+        self.mobileNoEntry.grid(row=3, column=4, padx=self.paddingX, pady=self.paddingY)
 
-        self.fnameEntry = ctk.CTkEntry(master=self.emergencyGUI, fg_color='#AEB9F1', width=self.textBoxWidth, height=self.textBoxHeight, border_width=0, corner_radius=5, font=self.font)
-        self.fnameEntry.grid(row=4, column=4, padx=self.paddingX, pady=self.paddingY)
+        self.emailEntry = ctk.CTkEntry(master=self.emergencyGUI, fg_color='#AEB9F1', width=self.textBoxWidth, height=self.textBoxHeight, border_width=0, corner_radius=5, font=self.font)
+        self.emailEntry.grid(row=4, column=4, padx=self.paddingX, pady=self.paddingY)
         
 
         
