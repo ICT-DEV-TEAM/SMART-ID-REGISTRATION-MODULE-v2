@@ -5,7 +5,7 @@ from photo_storage import PhotoStorage
 class IDRegSettingsGUI():
     def __init__(self):
         self.app = ctk.CTk(fg_color="#1F1F1F")
-        self.app.title("LOGIN")
+        self.app.title("ID REGISTRATION SETTINGS")
 
         self.screen_width = self.app.winfo_screenwidth()
         self.screen_height = self.app.winfo_screenheight()
