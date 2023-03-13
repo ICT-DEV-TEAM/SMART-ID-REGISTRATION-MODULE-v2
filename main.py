@@ -4,6 +4,7 @@ from search_result import Search_Result
 from status import Status
 from personal_information import PersonalInformation
 from emergency_contact import EmergencyContactGUI
+from controls import ControlsGUI
 from PIL import Image
 import os
 
@@ -46,7 +47,7 @@ class SmartID_GUI:
         
         self.personalInformation = PersonalInformation(master=self.rightFrame, row=1, column=0, sticky='n', padx=10, pady=5, width=self.window_width, height=self.window_height)
         self.emergencyContact = EmergencyContactGUI(master=self.rightFrame, row=2, column=0, sticky='s', padx=10, pady=0, width=self.window_width, height=self.window_height)
-        
+        self.controls = ControlsGUI(master=self.rightFrame, row=3, column=0, sticky='s', padx=10, pady=0, width=self.window_width, height=self.window_height)
         
         self.app.mainloop()
 
