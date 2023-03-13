@@ -13,12 +13,12 @@ class ControlsGUI():
 
         self.controlsGUI = ctk.CTkFrame(master=self.controlsFrame, fg_color="#FFFFFF", width = self.frameWidth, height=self.frameHeight)
         self.controlsGUI.grid_propagate(False)
-        self.controlsGUI.grid(row=1, column=0, sticky='w', columnspan=2)
+        self.controlsGUI.grid(row=1, column=0, sticky='w', padx=int((width * .00369)/2))
         self.controlsGUI.grid_columnconfigure((0,2), weight=1)
         self.controlsGUI.grid_rowconfigure((0,4), weight=1)
 
         self.paddingY = int((self.frameHeight * .0243)/3)
-        print(self.paddingY)
+
         self.font = ctk.CTkFont(size=int(height * .018), family="Inter")
         self.saveBtn = ctk.CTkButton(master=self.controlsGUI, fg_color="#0F1C5D", width=int(.53 * self.frameWidth), height=int(.3 * self.frameHeight), text="Save/Update", font=self.font)
         self.saveBtn.grid(row=1, column=1, pady=self.paddingY)
