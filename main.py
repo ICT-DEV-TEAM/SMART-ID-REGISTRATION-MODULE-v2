@@ -38,13 +38,15 @@ class SmartID_GUI:
         self.searchgui = SearchGUI(master=self.leftFrame, row=1, column=0, sticky='w', padx=10, pady=5, width=self.window_width, height=self.window_height)
         self.searchResult = Search_Result(master=self.leftFrame, row=2, column=0, sticky='w', padx=10, pady=5, width=self.window_width, height=self.window_height)
         self.status = Status(master=self.leftFrame, row=3, column=0, sticky='w', padx=10, pady=5, width=self.window_width, height=self.window_height)
-        # self.personalInformation = PersonalInformation(master=self.mainGui, row=1, column=1, sticky='w', padx=10, pady=5, width=self.window_width, height=self.window_height)
+        
 
         self.rightFrame = ctk.CTkFrame(master=self.mainGui, fg_color="#1F1F1F")
         self.rightFrame.grid(row=1, column=2)
         self.rightFrame.grid_rowconfigure((1,2), weight=1)
-
-        self.emergencyContact = EmergencyContactGUI(master=self.rightFrame, row=1, column=0, sticky='n', padx=10, pady=0, width=self.window_width, height=self.window_height)
+        
+        self.personalInformation = PersonalInformation(master=self.rightFrame, row=1, column=0, sticky='n', padx=10, pady=5, width=self.window_width, height=self.window_height)
+        self.emergencyContact = EmergencyContactGUI(master=self.rightFrame, row=2, column=0, sticky='s', padx=10, pady=0, width=self.window_width, height=self.window_height)
+        
         
         self.app.mainloop()
 
