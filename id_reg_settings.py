@@ -1,6 +1,7 @@
 import customtkinter as ctk
 from database import Database
 from photo_storage import PhotoStorage
+from company_info import CompanyInfoGUI
 
 class IDRegSettingsGUI():
     def __init__(self):
@@ -30,6 +31,11 @@ class IDRegSettingsGUI():
         self.leftFrame.grid(row=1, column=1, sticky='e')
         self.database = Database(master=self.leftFrame, row=1, column=1, sticky='w', padx=10, pady=5, width=self.window_width, height=self.window_height)
         self.photo_storage = PhotoStorage(master=self.leftFrame, row=2, column=1, sticky='w', padx=10, pady=5, width=self.window_width, height=self.window_height)
+
+        self.rightFrame = ctk.CTkFrame(master=self.mainGui, fg_color="#1F1F1F")
+        self.rightFrame.grid(row=1, column=2, sticky='w')
+        self.company_info = CompanyInfoGUI(master=self.rightFrame, row=1, column=1, sticky='w', padx=10, pady=5, width=self.window_width, height=self.window_height)
+
 
         self.font = ctk.CTkFont(size=int(self.window_height * 0.0344), family="Inter")
         self.clearAllButton = ctk.CTkButton(master=self.mainGui, fg_color="#950000", width=int(self.window_width * 0.1429), height=int(self.window_height * 0.065), text='Clear All', font=self.font, text_color="#FFFFFF")
