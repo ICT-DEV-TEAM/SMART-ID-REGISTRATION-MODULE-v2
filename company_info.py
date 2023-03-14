@@ -3,18 +3,17 @@ import os
 from PIL import Image
 
 class CompanyInfoGUI:
-    def __init__(self, master, row, column, sticky, padx, pady, width, height, ipadx=0, ipady=0):
+    def __init__(self, master, row, column, sticky, padx, pady, width, height, ipadx=0, ipady=0, rowspan=1, columnspan=1):
         self.frameWidth = int(width * 0.4643)
         self.frameHeight = int(height * 0.6204)
         self.compInfoGUI = ctk.CTkFrame(master=master, fg_color="#1F1F1F", width = self.frameWidth, height=self.frameHeight)
         # self.compInfoGUI.grid_propagate(False)
-        self.compInfoGUI.grid(padx=padx, pady=pady, row=row, column=column, sticky=sticky, ipadx=ipadx, ipady=ipady)
+        self.compInfoGUI.grid(padx=padx, pady=pady, row=row, column=column, sticky=sticky, ipadx=ipadx, ipady=ipady, rowspan=rowspan, columnspan=columnspan)
         # self.compInfoGUI.grid_columnconfigure((0,1,3), weight=1)
         # self.compInfoGUI.grid_rowconfigure((0,7), weight=1)
-        self.compInfoHeader = ctk.CTkLabel(master=self.compInfoGUI, font=ctk.CTkFont(size=int(self.frameHeight * 0.0827), family="Inter"), text="Company Information", text_color="#FFFFFF")
-        self.compInfoHeader.grid(row=0, sticky='w', padx=int(0.0199 * self.frameWidth), pady=int((0.0199 * self.frameWidth)/2))
+        
 
-        self.compInfoFrame = ctk.CTkFrame(master=self.compInfoGUI, fg_color="#FFFFFF", width = self.frameWidth, height=self.frameHeight)
+        self.compInfoFrame = ctk.CTkFrame(master=self.compInfoGUI, fg_color="#FFFFFF", width = self.frameWidth, height=self.frameHeight, corner_radius=5)
         self.compInfoFrame.grid_propagate(False)
         self.compInfoFrame.grid(row=1)
         self.compInfoFrame.grid_columnconfigure((0,1,3), weight=1)

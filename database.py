@@ -3,17 +3,16 @@ import customtkinter as ctk
 class Database:
     def __init__(self, master, row, column, sticky, padx, pady, width, height):
         self.frameWidth = int(width * .49)
-        self.frameHeight = int(height * .412)
+        self.frameHeight = int(height * 0.4126)
 
 
         self.databaseFrame = ctk.CTkFrame(master=master, fg_color="#1F1F1F")
         self.databaseFrame.grid(padx=padx, pady=pady, row=row, column=column, sticky=sticky)
 
-        self.databaseHeaderLabel = ctk.CTkLabel(master=self.databaseFrame, text="Database", font=ctk.CTkFont(size=int(height * .061), family="Inter" ), text_color="#FFFFFF")    
-        self.databaseHeaderLabel.grid(row=0, column=0, sticky='w')
+        
 
 
-        self.databaseBoxFrame = ctk.CTkFrame(master=self.databaseFrame, fg_color="#FFFFFF", width = self.frameWidth, height= self.frameHeight)
+        self.databaseBoxFrame = ctk.CTkFrame(master=self.databaseFrame, fg_color="#FFFFFF", width = self.frameWidth, height= self.frameHeight, corner_radius=5)
         self.databaseBoxFrame.grid_propagate(False)
         self.databaseBoxFrame.grid(row=1, column=0, sticky='w', columnspan=2)
         self.databaseBoxFrame.grid_columnconfigure((0,3), weight=1)
