@@ -8,6 +8,8 @@ from controls import ControlsGUI
 from user_info import UserInfo
 from PIL import Image
 import os
+from id_reg_settings import IDRegSettingsGUI
+from login import LoginGUI
 
 class SmartID_GUI:
     def __init__(self):
@@ -50,7 +52,16 @@ class SmartID_GUI:
         self.emergencyContact = EmergencyContactGUI(master=self.rightFrame, row=2, column=0, sticky='s', padx=10, pady=0, width=self.window_width, height=self.window_height)
         self.userinfo = UserInfo(master=self.rightFrame, row=3, column=0, sticky='w', padx=10, pady=0, width=self.window_width, height=self.window_height)
         self.controls = ControlsGUI(master=self.rightFrame, row=3, column=0, sticky='e', padx=10, pady=0, width=self.window_width, height=self.window_height)
+        self.login = LoginGUI()
         
-        self.app.mainloop()
+    def main(self):
+        while bool(self.login.app.winfo_exists()):
+            print(bool(self.login.app.winfo_exists()))
+            self.app.mainloop()
+            
+            break
+        exit()
 
-main = SmartID_GUI()
+if __name__ == "__main__":
+    main = SmartID_GUI()
+    main.main()

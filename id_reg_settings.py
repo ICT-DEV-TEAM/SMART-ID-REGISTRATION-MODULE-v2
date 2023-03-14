@@ -5,7 +5,7 @@ from company_info import CompanyInfoGUI
 
 class IDRegSettingsGUI():
     def __init__(self):
-        self.app = ctk.CTk(fg_color="#1F1F1F")
+        self.app = ctk.CTkToplevel(fg_color="#1F1F1F")
         self.app.title("ID REGISTRATION SETTINGS")
 
         self.screen_width = self.app.winfo_screenwidth()
@@ -43,7 +43,10 @@ class IDRegSettingsGUI():
         self.saveButton = ctk.CTkButton(master=self.mainGui, fg_color="#2F4BD2", width=int(self.window_width * 0.1429), height=int(self.window_height * 0.065), text='Save', font=self.font, text_color="#FFFFFF")
         self.saveButton.grid(row=6, column=2, pady=int(0.0309 * self.window_height), padx=int((0.0294 * self.window_width)), sticky='w')
         print(int(0.0309 * self.window_height))
+
+    def main(self):
         self.app.mainloop()
         
-
-main = IDRegSettingsGUI()   
+if __name__ == "__main__":
+    main = IDRegSettingsGUI()   
+    main.main()
