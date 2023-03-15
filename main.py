@@ -53,13 +53,31 @@ class SmartID_GUI:
         self.userinfo = UserInfo(master=self.rightFrame, row=3, column=0, sticky='w', padx=10, pady=0, width=self.window_width, height=self.window_height)
         self.controls = ControlsGUI(master=self.rightFrame, row=3, column=0, sticky='e', padx=10, pady=0, width=self.window_width, height=self.window_height)
         self.login = LoginGUI()
+        self.login.app.grab_set()
+        self.id_reg = IDRegSettingsGUI()
         
     def main(self):
-        while bool(self.login.app.winfo_exists()):
-            print(bool(self.login.app.winfo_exists()))
-            self.app.mainloop()
-            
-            break
+        self.id_reg.app.destroy()
+        while True:
+            if not bool(self.login.app.winfo_exists()) and not self.login.authenticated:
+                break
+            if not bool(self.id_reg.app.winfo_exists()):
+                if bool(self.login.app.winfo_exists()) and self.login.noAccountDetected:
+                    self.id_reg = IDRegSettingsGUI()
+                    self.id_reg.app.grab_set()
+                    self.login.noAccountDetected = False
+                    while True:
+                        if not bool(self.id_reg.app.winfo_exists()) and not self.id_reg.configured:
+                            self.login.app.destroy()
+                            break
+                        if self.login.authenticated and self.id_reg.configured:
+                            self.login.app.destroy()
+                            self.id_reg.app.destroy()
+                            break
+                        if not self.login.authenticated and self.id_reg.configured:
+                            self.login.authenticated = True
+                        self.app.update()
+            self.app.update()
         exit()
 
 if __name__ == "__main__":
