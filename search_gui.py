@@ -31,5 +31,10 @@ class SearchGUI:
         self.searchBtn = ctk.CTkButton(master=self.searchGUIFrame, text="SEARCH", font=ctk.CTkFont(size=int(self.btnWidth * .19), family="Inter"), width=self.btnWidth, fg_color='#0F1C5D')
         self.searchBtn.grid(column=3, rowspan=2, row=1, padx=int((self.frameWidth * .025)/2), pady=int((self.frameHeight * .08)/2), sticky='nsw')
 
-        self.clearBtn = ctk.CTkButton(master=self.searchGUIFrame, text="Clear", font=ctk.CTkFont(size=int(self.btnWidth * .16), family="Inter"), width=self.btnWidth, fg_color='#950000')
+        self.clearBtn = ctk.CTkButton(master=self.searchGUIFrame, text="Clear", font=ctk.CTkFont(size=int(self.btnWidth * .16), family="Inter"), width=self.btnWidth, fg_color='#950000', command=self.clearAll)
         self.clearBtn.grid(column=3, row=3, padx=int((self.frameWidth * .025)/2), pady=int((self.frameHeight * .08)/2), sticky='nw')
+
+    def clearAll(self):
+        self.userNoEntry.delete(0, 'end')
+        self.surnameEntry.delete(0, 'end')
+        self.firstNameEntry.delete(0, 'end')

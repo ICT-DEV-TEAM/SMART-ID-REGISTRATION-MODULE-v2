@@ -3,8 +3,12 @@ import os
 from PIL import Image
 
 class LoginGUI():
+    usernames = ['test1', 'test2']
+    passwords = ['pass1', 'pass2']
+    authenticated = False
+    noAccountDetected = False
     def __init__(self):
-        self.app = ctk.CTk(fg_color="#1F1F1F")
+        self.app = ctk.CTkToplevel(fg_color="#1F1F1F")
         self.app.title("LOGIN")
 
         self.screen_width = self.app.winfo_screenwidth()
@@ -44,15 +48,37 @@ class LoginGUI():
 
         self.userEntry = ctk.CTkEntry(master=self.loginFrame, fg_color='#AEB9F1', width=int(0.6794 * self.loginFrame_width), height=int(0.1147 * self.loginFrame_height), border_width=0, corner_radius=5, font=self.font)
         self.userEntry.grid(row=2, column=2, padx=self.paddingX, pady=self.paddingY, columnspan=2)
-        self.passEntry = ctk.CTkEntry(master=self.loginFrame, fg_color='#AEB9F1', width=int(0.6794 * self.loginFrame_width), height=int(0.1147 * self.loginFrame_height), border_width=0, corner_radius=5, font=self.font)
+        self.passEntry = ctk.CTkEntry(master=self.loginFrame, fg_color='#AEB9F1', width=int(0.6794 * self.loginFrame_width), height=int(0.1147 * self.loginFrame_height), border_width=0, corner_radius=5, font=self.font, show="*")
         self.passEntry.grid(row=3, column=2, padx=self.paddingX, pady=self.paddingY, columnspan=2)
 
-        self.loginButton = ctk.CTkButton(master=self.loginFrame, fg_color="#0F1C5D", width=int(self.loginFrame_width * 0.403), height=int(self.loginFrame_height * 0.1325), text='LOGIN', font=self.font, text_color="#FFFFFF")
+        self.loginButton = ctk.CTkButton(master=self.loginFrame, fg_color="#0F1C5D", width=int(self.loginFrame_width * 0.403), height=int(self.loginFrame_height * 0.1325), text='LOGIN', font=self.font, text_color="#FFFFFF", command=self.login)
         self.loginButton.grid(row=4, column=2, pady=self.paddingY, padx=int((0.0225 * self.loginFrame_width)/2), sticky='e')
 
-        self.clearButton = ctk.CTkButton(master=self.loginFrame, fg_color="#950000", width=int(self.loginFrame_width * 0.2545), height=int(self.loginFrame_height * 0.1325), text='CLEAR', font=self.font, text_color="#FFFFFF")
+        self.clearButton = ctk.CTkButton(master=self.loginFrame, fg_color="#950000", width=int(self.loginFrame_width * 0.2545), height=int(self.loginFrame_height * 0.1325), text='CLEAR', font=self.font, text_color="#FFFFFF", command=self.clear)
         self.clearButton.grid(row=4, column=3, sticky='w', pady=int(self.loginFrame_height * .0047619), padx=int((0.0225 * self.loginFrame_width)/2))
+    
+    def login(self):
+        username = self.userEntry.get()
+        password = self.passEntry.get()
+        if username in self.usernames:
+            idx = self.usernames.index(username)
+            if password == self.passwords[idx]:
+                print("Login")
+                self.authenticated = True
+            else:
+                print("Wrong credentials")
+        else:
+            print("no account")
+            self.noAccountDetected = True
 
+    
+    def clear(self):
+        self.userEntry.delete(0, 'end')
+        self.passEntry.delete(0, 'end')
+
+    def main(self):
         self.app.mainloop()
 
-login = LoginGUI()
+if __name__ == "__main__":
+    login = LoginGUI()
+    login.main()

@@ -8,6 +8,8 @@ from controls import ControlsGUI
 from user_info import UserInfo
 from PIL import Image
 import os
+from id_reg_settings import IDRegSettingsGUI
+from login import LoginGUI
 
 class SmartID_GUI:
     def __init__(self):
@@ -50,7 +52,40 @@ class SmartID_GUI:
         self.emergencyContact = EmergencyContactGUI(master=self.rightFrame, row=2, column=0, sticky='s', padx=10, pady=0, width=self.window_width, height=self.window_height)
         self.userinfo = UserInfo(master=self.rightFrame, row=3, column=0, sticky='w', padx=10, pady=0, width=self.window_width, height=self.window_height)
         self.controls = ControlsGUI(master=self.rightFrame, row=3, column=0, sticky='e', padx=10, pady=0, width=self.window_width, height=self.window_height)
+        self.controls.logoutBtn.configure(command=self.logout)
+        self.login = LoginGUI()
+        self.login.app.grab_set()
+        self.id_reg = IDRegSettingsGUI()
+    
+    def logout(self):
+        self.login.authenticated = False
+        self.login = LoginGUI()
+        self.login.app.grab_set()
         
-        self.app.mainloop()
+    def main(self):
+        self.id_reg.app.destroy()
+        while True:
+            if bool(self.login.app.winfo_exists()) and self.login.authenticated:
+                self.login.app.destroy()
+            if not bool(self.login.app.winfo_exists()) and not self.login.authenticated:
+                break
+            if not bool(self.id_reg.app.winfo_exists()):
+                if bool(self.login.app.winfo_exists()) and self.login.noAccountDetected:
+                    self.id_reg = IDRegSettingsGUI()
+                    self.id_reg.app.grab_set()
+                    self.login.noAccountDetected = False
+                    while True:
+                        if not bool(self.id_reg.app.winfo_exists()) and self.id_reg.configured:
+                            self.id_reg.app.destroy()
+                            self.id_reg.configured = False
+                            break
+                        if not bool(self.id_reg.app.winfo_exists()) and not self.id_reg.configured:
+                            self.login.app.destroy()
+                            break
+                        self.app.update()
+            self.app.update()
+        exit()
 
-main = SmartID_GUI()
+if __name__ == "__main__":
+    main = SmartID_GUI()
+    main.main()

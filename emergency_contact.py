@@ -11,7 +11,7 @@ class EmergencyContactGUI():
         self.emerContLabel = ctk.CTkLabel(master=self.emerContFrame, font=ctk.CTkFont(size=int(height * .047619), family="Inter"), text="Emergency Contact Information", text_color="#FFFFFF")
         self.emerContLabel.grid(row=0, column=0, sticky='w')
 
-        self.clearButton = ctk.CTkButton(master=self.emerContFrame, fg_color="#950000", width=int(self.frameWidth * .1839), text='Clear')
+        self.clearButton = ctk.CTkButton(master=self.emerContFrame, fg_color="#950000", width=int(self.frameWidth * .1839), text='Clear', command=self.clearAll)
         self.clearButton.grid(row=0, column=1, sticky='e', pady=int(height * .0047619))
 
         self.emergencyGUI = ctk.CTkFrame(master=self.emerContFrame, fg_color="#FFFFFF", width = self.frameWidth, height=self.frameHeight)
@@ -84,4 +84,13 @@ class EmergencyContactGUI():
         self.emailEntry.grid(row=4, column=4, padx=self.paddingX, pady=self.paddingY)
         
 
-        
+    def clearAll(self):
+        self.fnameEntry.delete(0, 'end')
+        self.mnameEntry.delete(0, 'end')
+        self.lnameEntry.delete(0, 'end')
+        self.suffixEntry.delete(0, 'end')
+        self.genderEntry.delete(0, 'end')
+        self.addressEntry.delete(0, 'end')
+        self.mobileNoEntry.delete(0, 'end')
+        self.emailEntry.delete(0, 'end')
+        self.affStringVar.set('Guardian')  
