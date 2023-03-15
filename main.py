@@ -52,13 +52,21 @@ class SmartID_GUI:
         self.emergencyContact = EmergencyContactGUI(master=self.rightFrame, row=2, column=0, sticky='s', padx=10, pady=0, width=self.window_width, height=self.window_height)
         self.userinfo = UserInfo(master=self.rightFrame, row=3, column=0, sticky='w', padx=10, pady=0, width=self.window_width, height=self.window_height)
         self.controls = ControlsGUI(master=self.rightFrame, row=3, column=0, sticky='e', padx=10, pady=0, width=self.window_width, height=self.window_height)
+        self.controls.logoutBtn.configure(command=self.logout)
         self.login = LoginGUI()
         self.login.app.grab_set()
         self.id_reg = IDRegSettingsGUI()
+    
+    def logout(self):
+        self.login.authenticated = False
+        self.login = LoginGUI()
+        self.login.app.grab_set()
         
     def main(self):
         self.id_reg.app.destroy()
         while True:
+            if bool(self.login.app.winfo_exists()) and self.login.authenticated:
+                self.login.app.destroy()
             if not bool(self.login.app.winfo_exists()) and not self.login.authenticated:
                 break
             if not bool(self.id_reg.app.winfo_exists()):
