@@ -11,7 +11,7 @@ class PersonalInformation():
         self.emerContLabel = ctk.CTkLabel(master=self.emerContFrame, font=ctk.CTkFont(size=int(height * .047619), family="Inter"), text="Personal Information", text_color="#FFFFFF")
         self.emerContLabel.grid(row=0, column=0, sticky='w')
 
-        self.clearButton = ctk.CTkButton(master=self.emerContFrame, fg_color="#950000", width=int(self.frameWidth * .1839), text='Clear')
+        self.clearButton = ctk.CTkButton(master=self.emerContFrame, fg_color="#950000", width=int(self.frameWidth * .1839), text='Clear', command=self.clearAll)
         self.clearButton.grid(row=0, column=1, sticky='e', pady=int(height * .0047619))
 
         self.emergencyGUI = ctk.CTkFrame(master=self.emerContFrame, fg_color="#FFFFFF", width = self.frameWidth, height=self.frameHeight)
@@ -93,6 +93,23 @@ class PersonalInformation():
 
         self.emailEntry = ctk.CTkEntry(master=self.emergencyGUI, fg_color='#AEB9F1', width=self.textBoxWidth, height=self.textBoxHeight, border_width=0, corner_radius=5, font=self.font)
         self.emailEntry.grid(row=3, column=6, padx=self.paddingX, pady=self.paddingY)
+
+
+    def clearAll(self):
+        self.fnameEntry.delete(0, 'end')
+        self.midnameEntry.delete(0, 'end')
+        self.lastNameEntry.delete(0, 'end')
+        self.suffixEntry.delete(0, 'end')
+        self.birthDateEntry.delete(0, 'end')
+        self.birthPlaceEntry.delete(0, 'end')
+        self.genderEntry.delete(0, 'end')
+        self.addressEntry.delete(0, 'end')
+        self.ageEntry.delete(0, 'end')
+        self.mobileNoEntry.delete(0, 'end')
+        self.emailEntry.delete(0, 'end')
+
+
+
         
 
         

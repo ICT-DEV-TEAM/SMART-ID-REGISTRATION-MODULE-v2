@@ -48,9 +48,8 @@ class Database:
         self.portEntry = ctk.CTkEntry(master=self.databaseBoxFrame, fg_color='#AEB9F1', width=self.frameWidth * .677, height=self.frameHeight * .161, border_width=0, corner_radius=5, font=self.font)
         self.portEntry.grid(row=4, column=2, padx=self.paddingX, pady=self.paddingY)
 
-        
 
-
+    
 
         
         

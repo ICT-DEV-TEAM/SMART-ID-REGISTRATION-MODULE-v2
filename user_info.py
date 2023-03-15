@@ -14,7 +14,7 @@ class UserInfo:
         self.statusFrame = ctk.CTkLabel(master=self.userInfoFrame, text="User Information", font=ctk.CTkFont(size=int(height * .0475), family="Inter" ), text_color="#FFFFFF")    
         self.statusFrame.grid(row=0, column=0, sticky='w')
 
-        self.clearButton = ctk.CTkButton(master=self.userInfoFrame, fg_color="#950000", width=int(width * .121056), text="Clear")
+        self.clearButton = ctk.CTkButton(master=self.userInfoFrame, fg_color="#950000", width=int(width * .121056), text="Clear", command=self.clearAll)
         self.clearButton.grid(row=0, column=1, sticky='e', pady=int(height * .0047619))
 
 
@@ -90,19 +90,15 @@ class UserInfo:
 
 
 
-        
+    def clearAll(self):
+        self.userNoEntry.delete(0, 'end')
+        self.affStringVar.set("User Type")
+        self.posStringVar.set("Pos/Gr/Crs")
+        self.deptStringVar.set("Dept/Section")
+        self.lrnEntry.delete(0, 'end')
+        self.cardEntry.delete(0, 'end')
 
-        
 
-
-
-       
-
-        # self.status2boxFrame = ctk.CTkFrame(master=self.statusboxFrame, fg_color="#1f1f1f", width = self.frameWidth, height= self.frameHeight)
-        # #self.status2boxFrame.grid_propagate(False)
-        # self.status2boxFrame.grid(row=0, column=5, sticky='we',rowspan=5)
-        # # self.status1boxFrame.grid_columnconfigure((0,3), weight=1)
-        # # self.status1boxFrame.grid_rowconfigure((0,3), weight=1)
 
         
         
