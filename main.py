@@ -67,15 +67,13 @@ class SmartID_GUI:
                     self.id_reg.app.grab_set()
                     self.login.noAccountDetected = False
                     while True:
+                        if not bool(self.id_reg.app.winfo_exists()) and self.id_reg.configured:
+                            self.id_reg.app.destroy()
+                            self.id_reg.configured = False
+                            break
                         if not bool(self.id_reg.app.winfo_exists()) and not self.id_reg.configured:
                             self.login.app.destroy()
                             break
-                        if self.login.authenticated and self.id_reg.configured:
-                            self.login.app.destroy()
-                            self.id_reg.app.destroy()
-                            break
-                        if not self.login.authenticated and self.id_reg.configured:
-                            self.login.authenticated = True
                         self.app.update()
             self.app.update()
         exit()
