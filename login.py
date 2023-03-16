@@ -3,8 +3,8 @@ import os
 from PIL import Image
 
 class LoginGUI():
-    usernames = ['test1', 'test2']
-    passwords = ['pass1', 'pass2']
+    usernames = []
+    passwords = []
     authenticated = False
     noAccountDetected = False
     def __init__(self):

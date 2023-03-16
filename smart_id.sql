@@ -21,19 +21,19 @@ USE `smart_id`;
 DROP TABLE IF EXISTS `emergencyinformation`;
 
 CREATE TABLE `emergencyinformation` (
-  `emergency_id` int(10) NOT NULL AUTO_INCREMENT,
-  `emergency_fname` varchar(100) NOT NULL,
-  `emergency_mname` varchar(100) NOT NULL,
-  `emergency_lname` varchar(100) NOT NULL,
-  `emergency_suffix` varchar(10) NOT NULL,
-  `emergency_gender` varchar(100) NOT NULL,
-  `emergency_address` varchar(100) NOT NULL,
-  `emergency_no` varchar(11) NOT NULL,
-  `emergency_email` varchar(100) NOT NULL,
-  `emergency_affiliation` varchar(100) NOT NULL,
+  `emergency_id` INT(10) NOT NULL AUTO_INCREMENT,
+  `emergency_fname` VARCHAR(100) NOT NULL,
+  `emergency_mname` VARCHAR(100) NOT NULL,
+  `emergency_lname` VARCHAR(100) NOT NULL,
+  `emergency_suffix` VARCHAR(10) NOT NULL,
+  `emergency_gender` VARCHAR(100) NOT NULL,
+  `emergency_address` VARCHAR(100) NOT NULL,
+  `emergency_no` VARCHAR(11) NOT NULL,
+  `emergency_email` VARCHAR(100) NOT NULL,
+  `emergency_affiliation` VARCHAR(100) NOT NULL,
   PRIMARY KEY (`emergency_id`),
   UNIQUE KEY `emergency_email` (`emergency_email`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+) ENGINE=INNODB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 /*Data for the table `emergencyinformation` */
 
@@ -42,18 +42,18 @@ CREATE TABLE `emergencyinformation` (
 DROP TABLE IF EXISTS `id_reg_settings`;
 
 CREATE TABLE `id_reg_settings` (
-  `id_reg_id` int(15) NOT NULL AUTO_INCREMENT,
-  `id_reg_hname` varchar(100) NOT NULL,
-  `id_reg_uname` varchar(100) NOT NULL,
-  `id_reg_password` varchar(100) NOT NULL,
-  `id_reg_database` varchar(100) NOT NULL,
-  `id_reg_port` varchar(100) NOT NULL,
-  `id_reg_path` varchar(4000) NOT NULL,
-  `id_reg_cname` varchar(150) NOT NULL,
-  `id_reg_abbreviation` varchar(100) NOT NULL,
-  `id_reg_photo` varchar(255) NOT NULL,
+  `id_reg_id` INT(15) NOT NULL AUTO_INCREMENT,
+  `id_reg_hname` VARCHAR(100) NOT NULL,
+  `id_reg_uname` VARCHAR(100) NOT NULL,
+  `id_reg_password` VARCHAR(100) NOT NULL,
+  `id_reg_database` VARCHAR(100) NOT NULL,
+  `id_reg_port` VARCHAR(100) NOT NULL,
+  `id_reg_path` VARCHAR(4000) NOT NULL,
+  `id_reg_cname` VARCHAR(150) NOT NULL,
+  `id_reg_abbreviation` VARCHAR(100) NOT NULL,
+  `id_reg_photo` VARCHAR(255) NOT NULL,
   PRIMARY KEY (`id_reg_id`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+) ENGINE=INNODB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 /*Data for the table `id_reg_settings` */
 
@@ -62,25 +62,25 @@ CREATE TABLE `id_reg_settings` (
 DROP TABLE IF EXISTS `personalinformation`;
 
 CREATE TABLE `personalinformation` (
-  `personal_id` int(10) NOT NULL AUTO_INCREMENT,
-  `personal_fname` varchar(100) NOT NULL,
-  `personal_mname` varchar(100) NOT NULL,
-  `personal_lname` varchar(100) NOT NULL,
-  `personal_suffix` varchar(10) NOT NULL,
-  `personal_bdate` date NOT NULL,
-  `personal_bplace` varchar(100) NOT NULL,
-  `personal_gender` varchar(100) NOT NULL,
-  `personal_address` varchar(255) NOT NULL,
-  `personal_age` int(3) NOT NULL,
-  `personal_no` varchar(11) NOT NULL,
-  `personal_email` varchar(100) NOT NULL,
+  `personal_id` INT(10) NOT NULL AUTO_INCREMENT,
+  `personal_fname` VARCHAR(100) NOT NULL,
+  `personal_mname` VARCHAR(100) NOT NULL,
+  `personal_lname` VARCHAR(100) NOT NULL,
+  `personal_suffix` VARCHAR(10) NOT NULL,
+  `personal_bdate` DATE NOT NULL,
+  `personal_bplace` VARCHAR(100) NOT NULL,
+  `personal_gender` VARCHAR(100) NOT NULL,
+  `personal_address` VARCHAR(255) NOT NULL,
+  `personal_age` INT(3) NOT NULL,
+  `personal_no` VARCHAR(11) NOT NULL,
+  `personal_email` VARCHAR(100) NOT NULL,
   PRIMARY KEY (`personal_id`),
   UNIQUE KEY `personal_email` (`personal_email`)
-) ENGINE=InnoDB AUTO_INCREMENT=4 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+) ENGINE=INNODB AUTO_INCREMENT=4 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 /*Data for the table `personalinformation` */
 
-insert  into `personalinformation`(`personal_id`,`personal_fname`,`personal_mname`,`personal_lname`,`personal_suffix`,`personal_bdate`,`personal_bplace`,`personal_gender`,`personal_address`,`personal_age`,`personal_no`,`personal_email`) values 
+INSERT  INTO `personalinformation`(`personal_id`,`personal_fname`,`personal_mname`,`personal_lname`,`personal_suffix`,`personal_bdate`,`personal_bplace`,`personal_gender`,`personal_address`,`personal_age`,`personal_no`,`personal_email`) VALUES 
 (2,'eqweqw','3qwe','wqewqewqeds','dasdsa','0000-00-00','wqedsad','asds','adasdsad',12,'321321421','ewqewq@yahoo.com'),
 (3,'eqweqw3','3qwe','wqewqewqeds','dasdsa','0000-00-00','wqedsad','asds','adasdsad',12,'321321421','ewqeq@yahoo.com');
 
@@ -89,16 +89,16 @@ insert  into `personalinformation`(`personal_id`,`personal_fname`,`personal_mnam
 DROP TABLE IF EXISTS `userinformation`;
 
 CREATE TABLE `userinformation` (
-  `user_id` int(10) NOT NULL AUTO_INCREMENT,
-  `user_no` int(10) NOT NULL,
-  `user_type` varchar(100) NOT NULL,
-  `user_pos_gr_crs` varchar(100) NOT NULL,
-  `user_dept_section` varchar(100) NOT NULL,
-  `user_lrn_eno` varchar(100) NOT NULL,
-  `user_card_id` varchar(100) NOT NULL,
-  `user_photo` varchar(255) NOT NULL,
+  `user_id` INT(10) NOT NULL AUTO_INCREMENT,
+  `user_no` INT(10) NOT NULL,
+  `user_type` VARCHAR(100) NOT NULL,
+  `user_pos_gr_crs` VARCHAR(100) NOT NULL,
+  `user_dept_section` VARCHAR(100) NOT NULL,
+  `user_lrn_eno` VARCHAR(100) NOT NULL,
+  `user_card_id` VARCHAR(100) NOT NULL,
+  `user_photo` VARCHAR(255) NOT NULL,
   PRIMARY KEY (`user_id`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+) ENGINE=INNODB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 /*Data for the table `userinformation` */
 
@@ -106,3 +106,12 @@ CREATE TABLE `userinformation` (
 /*!40014 SET FOREIGN_KEY_CHECKS=@OLD_FOREIGN_KEY_CHECKS */;
 /*!40014 SET UNIQUE_CHECKS=@OLD_UNIQUE_CHECKS */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
+
+CREATE TABLE user_login (
+user_id INT(10) PRIMARY KEY NOT NULL AUTO_INCREMENT,
+user_name VARCHAR(100),
+user_pass VARCHAR(100)
+);
+
+INSERT INTO user_login(user_name, user_pass) VALUES ('asd', 'qwe');
+INSERT INTO user_login(user_name, user_pass) VALUES ('123', 'zxc');

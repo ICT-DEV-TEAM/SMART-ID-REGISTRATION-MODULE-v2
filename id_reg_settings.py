@@ -24,7 +24,7 @@ class IDRegSettingsGUI():
         self.mainGui = ctk.CTkFrame(master=self.app, fg_color="#1F1F1F", width=self.window_width, height=self.window_height)
         self.mainGui.grid()
         self.mainGui.grid_columnconfigure((0,3), weight=1)
-        self.mainGui.grid_rowconfigure((0,7), weight=1)
+        self.mainGui.grid_rowconfigure((0,6), weight=1)
         self.mainGui.grid_propagate(False)
         self.headerLabel = ctk.CTkLabel(master=self.mainGui, text='ID REGISTRATION SETTINGS', font=ctk.CTkFont(size=int(self.window_height * .075), family="Inter"), text_color="#FFFFFF")
         self.headerLabel.grid(pady=0, padx=20, row=1, columnspan=2, column=1, sticky='n')

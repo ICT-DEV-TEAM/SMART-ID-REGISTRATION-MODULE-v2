@@ -10,7 +10,9 @@ from PIL import Image
 import os
 from id_reg_settings import IDRegSettingsGUI
 from login import LoginGUI
-from connection import mydb
+import connection as conn
+import security as sec
+
 class SmartID_GUI:
     def __init__(self):
         self.app = ctk.CTk(fg_color="#1F1F1F")
@@ -43,7 +45,6 @@ class SmartID_GUI:
         self.searchResult = Search_Result(master=self.leftFrame, row=2, column=0, sticky='w', padx=10, pady=5, width=self.window_width, height=self.window_height)
         self.status = Status(master=self.leftFrame, row=3, column=0, sticky='w', padx=10, pady=5, width=self.window_width, height=self.window_height)
         
-
         self.rightFrame = ctk.CTkFrame(master=self.mainGui, fg_color="#1F1F1F")
         self.rightFrame.grid(row=1, column=2)
         self.rightFrame.grid_rowconfigure((1,2), weight=1)
@@ -59,20 +60,8 @@ class SmartID_GUI:
         self.login.app.grab_set()
         self.id_reg = IDRegSettingsGUI()
 
-        
-       
-
-
-
-
-
-        
-
-        
-       
-        
     def save(self):
-        mycursor = mydb.cursor()
+        mycursor = self.mydb.cursor()
 
         insert_personalinfo = "INSERT INTO personalinformation(personal_fname, personal_mname, personal_lname, personal_suffix, personal_bdate, personal_bplace, personal_gender, personal_address, personal_age, personal_no, personal_email) VALUES (%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s)"
         personalinfo_values = (self.personalInformation.fnameEntry.get(),self.personalInformation.midnameEntry.get(),self.personalInformation.lastNameEntry.get(),self.personalInformation.suffixEntry.get(),self.personalInformation.birthDateEntry.get(),self.personalInformation.birthPlaceEntry.get(),self.personalInformation.genderEntry.get(),self.personalInformation.addressEntry.get(),self.personalInformation.ageEntry.get(),self.personalInformation.mobileNoEntry.get(),self.personalInformation.emailEntry.get())
@@ -83,17 +72,27 @@ class SmartID_GUI:
         mycursor.execute(insert_personalinfo, personalinfo_values)
         mycursor.execute(insert_emergencyinfo, emergencyinfo_values)
         #mycursor.execute(insert_userinfo, userinfo_values)
-
-
-        mydb.commit()
+        self.mydb.commit()
         
-
     def logout(self):
         self.login.authenticated = False
         self.login = LoginGUI()
         self.login.app.grab_set()
+
+    def get_login_credentials(self):
+        mycursor = self.mydb.cursor()
+        login_credentials = "SELECT user_name, user_pass FROM user_login"
+        mycursor.execute(login_credentials)
+        result = mycursor.fetchall()
+        for i in result:
+            temp = list(i)
+            self.login.usernames.append(temp[0])
+            self.login.passwords.append(temp[1])
         
     def main(self):
+        config = sec.decrypt('db_config.txt', "!")
+        self.mydb = conn.connect(config[0], config[1], config[2], config[3])
+        self.get_login_credentials()
         self.id_reg.app.destroy()
         while True:
             if bool(self.login.app.winfo_exists()) and self.login.authenticated:
