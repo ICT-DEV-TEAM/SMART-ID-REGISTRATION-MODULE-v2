@@ -10,7 +10,7 @@ from PIL import Image
 import os
 from id_reg_settings import IDRegSettingsGUI
 from login import LoginGUI
-
+from connection import mydb
 class SmartID_GUI:
     def __init__(self):
         self.app = ctk.CTk(fg_color="#1F1F1F")
@@ -53,10 +53,22 @@ class SmartID_GUI:
         self.userinfo = UserInfo(master=self.rightFrame, row=3, column=0, sticky='w', padx=10, pady=0, width=self.window_width, height=self.window_height)
         self.controls = ControlsGUI(master=self.rightFrame, row=3, column=0, sticky='e', padx=10, pady=0, width=self.window_width, height=self.window_height)
         self.controls.logoutBtn.configure(command=self.logout)
+        self.controls.saveBtn.configure(command=self.save)
         self.login = LoginGUI()
         self.login.app.grab_set()
         self.id_reg = IDRegSettingsGUI()
+ 
     
+    def save(self):
+        mycursor = mydb.cursor()
+        insert_personalinfo = "INSERT INTO personalinformation(personal_fname, personal_mname, personal_lname, personal_suffix, personal_bdate, personal_bplace, personal_gender, personal_address, personal_age, personal_no, personal_email) VALUES (%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s)"
+        personalinfo_values = (self.personalInformation.fnameEntry.get(),self.personalInformation.midnameEntry.get(),self.personalInformation.lastNameEntry.get(),self.personalInformation.suffixEntry.get(),self.personalInformation.birthDateEntry.get(),self.personalInformation.birthPlaceEntry.get(),self.personalInformation.genderEntry.get(),self.personalInformation.addressEntry.get(),self.personalInformation.ageEntry.get(),self.personalInformation.mobileNoEntry.get(),self.personalInformation.emailEntry.get())
+        
+        mycursor.execute(insert_personalinfo, personalinfo_values)
+
+        mydb.commit()
+        
+
     def logout(self):
         self.login.authenticated = False
         self.login = LoginGUI()
