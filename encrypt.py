@@ -1,8 +1,6 @@
 import random
 
-data = "test123"
-
-set_1 = "abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789!@#$%^&*(-)+=?/,:.<>_`~"
+set_1 = "abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789!@#$%^&*(-)+=?/,:.<>_`~ "
 
 seed = 9
 
@@ -40,17 +38,10 @@ def insert_padding(string):
             padded_string.append(padding[random.randint(0, len(padding) - 1)])
     return "".join(padded_string)
 
-def encrypt(data, filename):
+def encrypt(data):
     encrypted = insert_padding(translate(data))
-    with open(filename, 'w') as file:
-        file.write(encrypted)
+    return encrypted
 
 set_2 = create_cipher(seed)
 
 padding = get_padding(set_2)
-
-encrypt(data, 'db_config.txt')
-
-
-
-        
