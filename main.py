@@ -54,17 +54,36 @@ class SmartID_GUI:
         self.controls = ControlsGUI(master=self.rightFrame, row=3, column=0, sticky='e', padx=10, pady=0, width=self.window_width, height=self.window_height)
         self.controls.logoutBtn.configure(command=self.logout)
         self.controls.saveBtn.configure(command=self.save)
+        #self.emergencyContact.affiliationDropdown.configure(command=self.affdropdown)
         self.login = LoginGUI()
         self.login.app.grab_set()
         self.id_reg = IDRegSettingsGUI()
- 
-    
+
+        
+       
+
+
+
+
+
+        
+
+        
+       
+        
     def save(self):
         mycursor = mydb.cursor()
+
         insert_personalinfo = "INSERT INTO personalinformation(personal_fname, personal_mname, personal_lname, personal_suffix, personal_bdate, personal_bplace, personal_gender, personal_address, personal_age, personal_no, personal_email) VALUES (%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s)"
         personalinfo_values = (self.personalInformation.fnameEntry.get(),self.personalInformation.midnameEntry.get(),self.personalInformation.lastNameEntry.get(),self.personalInformation.suffixEntry.get(),self.personalInformation.birthDateEntry.get(),self.personalInformation.birthPlaceEntry.get(),self.personalInformation.genderEntry.get(),self.personalInformation.addressEntry.get(),self.personalInformation.ageEntry.get(),self.personalInformation.mobileNoEntry.get(),self.personalInformation.emailEntry.get())
-        
+        insert_emergencyinfo = "INSERT INTO emergencyinformation(emergency_fname, emergency_mname, emergency_lname, emergency_suffix, emergency_gender, emergency_address, emergency_no, emergency_email, emergency_affiliation) VALUES (%s,%s,%s,%s,%s,%s,%s,%s,%s)"
+        emergencyinfo_values = (self.emergencyContact.fnameEntry.get(),self.emergencyContact.mnameEntry.get(),self.emergencyContact.lnameEntry.get(),self.emergencyContact.suffixEntry.get(),self.emergencyContact.genderEntry.get(),self.emergencyContact.addressEntry.get(),self.emergencyContact.mobileNoEntry.get(),self.emergencyContact.emailEntry.get(),self.emergencyContact.affStringVar.get())
+        #insert_userinfo = "INSERT INTO personalinformation(user_no, user_type, user_pos_gr_crs, user_dept_section, user_lrn_eno, user_card_id, user_photo) VALUES (%s,%s,%s,%s,%s,%s,%s)"
+        #userinfo_values = (self.userinfo.userNoEntry.get(),self.userinfo.affiliationDropdown.get(), self.userinfo.posDropdown.get(), self.userinfo.deptDropdown.get(), self.userinfo.lrnEntry.get(), self.userinfo.cardEntry.get(), self.userinfo.photoButton.get() )
         mycursor.execute(insert_personalinfo, personalinfo_values)
+        mycursor.execute(insert_emergencyinfo, emergencyinfo_values)
+        #mycursor.execute(insert_userinfo, userinfo_values)
+
 
         mydb.commit()
         
