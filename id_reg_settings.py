@@ -2,6 +2,7 @@ import customtkinter as ctk
 from database import Database
 from photo_storage import PhotoStorage
 from company_info import CompanyInfoGUI
+import security as sec
 
 class IDRegSettingsGUI():
     configured = False
@@ -49,6 +50,13 @@ class IDRegSettingsGUI():
 
     def configure(self):
         self.configured = True
+        db_config = []
+        db_config.append(self.database.hostnameEntry.get())
+        db_config.append(self.database.usernameEntry.get())
+        db_config.append(self.database.passwordEntry.get())
+        db_config.append(self.database.databaseEntry.get())
+        db_config.append(self.database.portEntry.get())
+        sec.encrypt(data=db_config, filename="db_config.txt", delimiter='!')
         
 if __name__ == "__main__":
     main = IDRegSettingsGUI()   

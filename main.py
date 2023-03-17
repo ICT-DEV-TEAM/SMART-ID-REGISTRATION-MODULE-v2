@@ -58,7 +58,7 @@ class SmartID_GUI:
         #self.emergencyContact.affiliationDropdown.configure(command=self.affdropdown)
         self.login = LoginGUI()
         self.login.app.grab_set()
-        self.id_reg = IDRegSettingsGUI()
+        self.id_reg = None
 
     def save(self):
         mycursor = self.mydb.cursor()
@@ -88,33 +88,54 @@ class SmartID_GUI:
             temp = list(i)
             self.login.usernames.append(temp[0])
             self.login.passwords.append(temp[1])
-        
+
     def main(self):
+        self.app.lift()
+        self.login.app.lift()
         config = sec.decrypt('db_config.txt', "!")
-        self.mydb = conn.connect(config[0], config[1], config[2], config[3])
-        self.get_login_credentials()
-        self.id_reg.app.destroy()
+        self.mydb = conn.connect(config[0], config[1], config[2], config[3], config[4])
         while True:
-            if bool(self.login.app.winfo_exists()) and self.login.authenticated:
-                self.login.app.destroy()
-            if not bool(self.login.app.winfo_exists()) and not self.login.authenticated:
-                break
-            if not bool(self.id_reg.app.winfo_exists()):
-                if bool(self.login.app.winfo_exists()) and self.login.noAccountDetected:
-                    self.id_reg = IDRegSettingsGUI()
-                    self.id_reg.app.grab_set()
-                    self.login.noAccountDetected = False
-                    while True:
-                        if not bool(self.id_reg.app.winfo_exists()) and self.id_reg.configured:
-                            self.id_reg.app.destroy()
-                            self.id_reg.configured = False
-                            break
-                        if not bool(self.id_reg.app.winfo_exists()) and not self.id_reg.configured:
-                            self.login.app.destroy()
-                            break
-                        self.app.update()
-            self.app.update()
-        exit()
+            if type(self.mydb) is conn.mysql.connector.connection_cext.CMySQLConnection:
+                self.get_login_credentials()
+                while True:
+                    if bool(self.login.app.winfo_exists()) and self.login.authenticated:
+                        self.login.app.destroy()
+                    if not bool(self.login.app.winfo_exists()) and not self.login.authenticated:
+                        break
+                    # if not bool(self.id_reg.app.winfo_exists()):
+                    if bool(self.login.app.winfo_exists()) and self.login.noAccountDetected and not hasattr(self.id_reg, 'app'):
+                        self.id_reg = IDRegSettingsGUI()
+                        self.id_reg.app.grab_set()
+                        self.login.noAccountDetected = False
+                        while True:
+                            if bool(self.id_reg.app.winfo_exists()) and self.id_reg.configured:
+                                self.id_reg.app.destroy()
+                                self.id_reg.configured = False
+                                self.id_reg = None
+                                self.main()
+                            if not bool(self.id_reg.app.winfo_exists()) and not self.id_reg.configured:
+                                self.login.app.destroy()
+                                break
+                            self.app.update()
+                    self.app.update()
+            else:
+                self.id_reg = IDRegSettingsGUI()
+                self.id_reg.app.grab_set()
+                while True:
+                    if bool(self.id_reg.app.winfo_exists()) and self.id_reg.configured:
+                        self.id_reg.app.destroy()
+                        self.id_reg.configured = False
+                        self.id_reg = None
+                        self.main()
+                    if not bool(self.login.app.winfo_exists()) and not self.login.authenticated:
+                        break
+                    if not bool(self.id_reg.app.winfo_exists()) and not self.id_reg.configured:
+                        self.id_reg.app.destroy()
+                        self.id_reg = None
+                        self.login.app.destroy()
+                        break
+                    self.app.update()
+            exit()
 
 if __name__ == "__main__":
     main = SmartID_GUI()
