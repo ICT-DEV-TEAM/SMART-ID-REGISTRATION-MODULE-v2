@@ -1,4 +1,8 @@
 import customtkinter as ctk
+from PIL import Image
+import os
+from calendar_gui import CalendarGUI
+from datetime import datetime
 
 class PersonalInformation():
     def __init__(self, master, row, column, sticky, padx, pady, width, height, ipadx=0, ipady=0):
@@ -60,7 +64,6 @@ class PersonalInformation():
         self.textBoxWidth = int(self.frameWidth * .196)
         self.textBoxHeight = int(self.frameHeight * .192)
 
-      
         self.fnameEntry = ctk.CTkEntry(master=self.emergencyGUI, fg_color='#AEB9F1', width=self.textBoxWidth, height=self.textBoxHeight, border_width=0, corner_radius=5, font=self.font)
         self.fnameEntry.grid(row=1, column=2, padx=self.paddingX, pady=self.paddingY)
 
@@ -73,8 +76,15 @@ class PersonalInformation():
         self.suffixEntry = ctk.CTkEntry(master=self.emergencyGUI, fg_color='#AEB9F1', width=self.textBoxWidth, height=self.textBoxHeight, border_width=0, corner_radius=5, font=self.font)
         self.suffixEntry.grid(row=4, column=2, padx=self.paddingX, pady=self.paddingY)
 
-        self.birthDateEntry = ctk.CTkEntry(master=self.emergencyGUI, fg_color='#AEB9F1', width=self.textBoxWidth, height=self.textBoxHeight, border_width=0, corner_radius=5, font=self.font)
+        
+        self.current_path = os.path.dirname(os.path.realpath(__file__))
+        self.calendarIcon = ctk.CTkImage(Image.open(self.current_path + "/img/cal.png"),
+                                               size=(int(self.textBoxWidth * 0.125), int(self.textBoxHeight * 0.864)))
+        self.birthDateEntry = ctk.CTkButton(master=self.emergencyGUI, fg_color='#AEB9F1', width=self.textBoxWidth, height=self.textBoxHeight, image=self.calendarIcon, border_width=0, corner_radius=5, font=self.font, text_color='#000000', compound='right', anchor='w', border_spacing=0, text='   22/22/2222      ', hover_color='#97A0D1', command=self.open_calendar)
+        self.date = datetime.today().strftime(r'%d/%m/%Y')
+        self.birthDateEntry.configure(text="   " + self.date + "      ")
         self.birthDateEntry.grid(row=1, column=4, padx=self.paddingX, pady=self.paddingY)
+        self.birthDateEntry.grid_propagate(False)
 
         self.birthPlaceEntry = ctk.CTkEntry(master=self.emergencyGUI, fg_color='#AEB9F1', width=self.textBoxWidth, height=self.textBoxHeight, border_width=0, corner_radius=5, font=self.font)
         self.birthPlaceEntry.grid(row=2, column=4, padx=self.paddingX, pady=self.paddingY)
@@ -94,19 +104,30 @@ class PersonalInformation():
         self.emailEntry = ctk.CTkEntry(master=self.emergencyGUI, fg_color='#AEB9F1', width=self.textBoxWidth, height=self.textBoxHeight, border_width=0, corner_radius=5, font=self.font)
         self.emailEntry.grid(row=3, column=6, padx=self.paddingX, pady=self.paddingY)
 
-
     def clearAll(self):
         self.fnameEntry.delete(0, 'end')
         self.midnameEntry.delete(0, 'end')
         self.lastNameEntry.delete(0, 'end')
         self.suffixEntry.delete(0, 'end')
-        self.birthDateEntry.delete(0, 'end')
         self.birthPlaceEntry.delete(0, 'end')
         self.genderEntry.delete(0, 'end')
         self.addressEntry.delete(0, 'end')
         self.ageEntry.delete(0, 'end')
         self.mobileNoEntry.delete(0, 'end')
         self.emailEntry.delete(0, 'end')
+    
+    def set_date(self):
+        date = self.cal.cal.get_date()
+        self.date = date
+        self.birthDateEntry.configure(text="   " + date + "      ")
+
+    def open_calendar(self):
+        date = self.date.split('/')
+        self.cal = CalendarGUI(year=int(date[2]), month=int(date[1]), day=int(date[0]))
+        self.cal.cal.bind('<<CalendarSelected>>', lambda e: self.set_date())
+        self.cal.app.grab_set()
+    
+    
 
 
 

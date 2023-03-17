@@ -6,6 +6,7 @@ from personal_information import PersonalInformation
 from emergency_contact import EmergencyContactGUI
 from controls import ControlsGUI
 from user_info import UserInfo
+from calendar_gui import CalendarGUI
 from PIL import Image
 import os
 from id_reg_settings import IDRegSettingsGUI
@@ -77,7 +78,7 @@ class SmartID_GUI:
     def logout(self):
         self.login.authenticated = False
         self.login = LoginGUI()
-        self.login.app.grab_set()
+        self.main()
 
     def get_login_credentials(self):
         mycursor = self.mydb.cursor()
@@ -90,8 +91,8 @@ class SmartID_GUI:
             self.login.passwords.append(temp[1])
 
     def main(self):
-        self.app.lift()
         self.login.app.lift()
+        self.login.app.grab_set()
         config = sec.decrypt('db_config.txt', "!")
         self.mydb = conn.connect(config[0], config[1], config[2], config[3], config[4])
         while True:
