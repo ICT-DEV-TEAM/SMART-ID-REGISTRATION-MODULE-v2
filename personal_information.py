@@ -95,7 +95,7 @@ class PersonalInformation():
         self.addressEntry = ctk.CTkEntry(master=self.emergencyGUI, fg_color='#AEB9F1', width=self.textBoxWidth, height=self.textBoxHeight, border_width=0, corner_radius=5, font=self.font)
         self.addressEntry.grid(row=4, column=4, padx=self.paddingX, pady=self.paddingY)
 
-        self.ageEntry = ctk.CTkEntry(master=self.emergencyGUI, fg_color='#AEB9F1', width=self.textBoxWidth, height=self.textBoxHeight, border_width=0, corner_radius=5, font=self.font)
+        self.ageEntry = ctk.CTkEntry(master=self.emergencyGUI, state="disabled",fg_color='#AEB9F1', width=self.textBoxWidth, height=self.textBoxHeight, border_width=0, corner_radius=5, font=self.font)
         self.ageEntry.grid(row=1, column=6, padx=self.paddingX, pady=self.paddingY)
 
         self.mobileNoEntry = ctk.CTkEntry(master=self.emergencyGUI, fg_color='#AEB9F1', width=self.textBoxWidth, height=self.textBoxHeight, border_width=0, corner_radius=5, font=self.font)
