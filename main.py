@@ -24,7 +24,7 @@ class SmartID_GUI:
         self.screen_height = self.app.winfo_screenheight()
         # self.window_width = int(.8 * self.screen_width)
         # self.window_height = int(.7 * self.screen_height)
-        self.h = 500
+        self.h = 840
         self.w = 1363
         self.window_width = self.w
         self.window_height = self.h
@@ -57,13 +57,40 @@ class SmartID_GUI:
         self.controls = ControlsGUI(master=self.rightFrame, row=3, column=0, sticky='e', padx=10, pady=0, width=self.window_width, height=self.window_height)
         self.controls.logoutBtn.configure(command=self.logout)
         self.controls.saveBtn.configure(command=self.save)
-
+        self.userinfo.affiliationDropdown.configure(command=self.user_info_dropdowns)
         self.login = LoginGUI()
         self.login.app.grab_set()
         self.id_reg = None
         
-     
-        
+    def user_info_dropdowns(self, value):
+        if self.userinfo.affStringVar.get() == 'Employee':
+            self.userinfo.posValuesList = ['pos1', 'pos2', 'pos3']
+            self.userinfo.posDropdown.configure(values=self.userinfo.posValuesList)
+            self.userinfo.posStringVar.set(self.userinfo.posValuesList[0])
+            self.userinfo.deptValuesList = ['dept1', 'dept2', 'dept3']
+            self.userinfo.deptDropdown.configure(values=self.userinfo.deptValuesList)
+            self.userinfo.deptStringVar.set(self.userinfo.deptValuesList[0])
+        elif self.userinfo.affStringVar.get() == 'Student - Basic Ed':
+            self.userinfo.posValuesList = ['grd1', 'grd2', 'grd3']
+            self.userinfo.posDropdown.configure(values=self.userinfo.posValuesList)
+            self.userinfo.posStringVar.set(self.userinfo.posValuesList[0])
+            self.userinfo.deptValuesList = ['sec1', 'sec2', 'sec3']
+            self.userinfo.deptDropdown.configure(values=self.userinfo.deptValuesList)
+            self.userinfo.deptStringVar.set(self.userinfo.deptValuesList[0])
+        elif self.userinfo.affStringVar.get() == 'Student - Tertiary':
+            self.userinfo.posValuesList = ['crs1', 'crs2', 'crs3']
+            self.userinfo.posDropdown.configure(values=self.userinfo.posValuesList)
+            self.userinfo.posStringVar.set(self.userinfo.posValuesList[0])
+            self.userinfo.deptValuesList = ['clg1', 'clg2', 'clg3']
+            self.userinfo.deptDropdown.configure(values=self.userinfo.deptValuesList)
+            self.userinfo.deptStringVar.set(self.userinfo.deptValuesList[0])
+        elif self.userinfo.affStringVar.get() == 'Visitor' or self.userinfo.affStringVar.get() == 'User Type':
+            self.userinfo.posValuesList = ['Pos/Gr/Crs']
+            self.userinfo.posDropdown.configure(values=self.userinfo.posValuesList)
+            self.userinfo.posStringVar.set(self.userinfo.posValuesList[0])
+            self.userinfo.deptValuesList = ['Dept/Section']
+            self.userinfo.deptDropdown.configure(values=self.userinfo.deptValuesList)
+            self.userinfo.deptStringVar.set(self.userinfo.deptValuesList[0])
 
     def save(self):
         mycursor = self.mydb.cursor()
@@ -73,7 +100,7 @@ class SmartID_GUI:
         insert_emergencyinfo = "INSERT INTO emergencyinformation(emergency_fname, emergency_mname, emergency_lname, emergency_suffix, emergency_gender, emergency_address, emergency_no, emergency_email, emergency_affiliation) VALUES (%s,%s,%s,%s,%s,%s,%s,%s,%s)"
         emergencyinfo_values = (self.emergencyContact.fnameEntry.get(),self.emergencyContact.mnameEntry.get(),self.emergencyContact.lnameEntry.get(),self.emergencyContact.suffixEntry.get(),self.emergencyContact.genderEntry.get(),self.emergencyContact.addressEntry.get(),self.emergencyContact.mobileNoEntry.get(),self.emergencyContact.emailEntry.get(),self.emergencyContact.affStringVar.get())
         insert_userinfo = "INSERT INTO userinformation(user_no, user_type, user_pos_gr_crs, user_dept_section, user_lrn_eno, user_card_id, user_photo) VALUES (%s,%s,%s,%s,%s,%s,%s)"
-        userinfo_values = (self.userinfo.userNoEntry.get(),self.userinfo.affStringVar.get(), self.userinfo.posStringVar.get(), self.userinfo.deptStringVar.get(), self.userinfo.lrnEntry.get(), self.userinfo.cardEntry.get(), self.userinfo.file_path )
+        userinfo_values = (self.userinfo.userNoEntry.get(),self.userinfo.affStringVar.get(), self.userinfo.userinfo.posStringVar.get(), self.userinfo.deptStringVar.get(), self.userinfo.lrnEntry.get(), self.userinfo.cardEntry.get(), self.userinfo.file_path )
         mycursor.execute(insert_personalinfo, personalinfo_values)
         mycursor.execute(insert_emergencyinfo, emergencyinfo_values)
         mycursor.execute(insert_userinfo, userinfo_values)

@@ -44,7 +44,7 @@ class UserInfo:
         self.copyButton.grid(row=0, column=3, sticky='w', pady=int(height * .0047619))
 
         self.affStringVar = ctk.StringVar()
-        self.affValuesList = ['User Type']
+        self.affValuesList = ['User Type', 'Employee', 'Student - Basic Ed', 'Student - Tertiary', 'Visitor']
         self.affStringVar.set(self.affValuesList[0])
         self.affiliationDropdown = ctk.CTkOptionMenu(master=self.status1boxFrame, font=self.font, text_color="#FFFFFF", variable=self.affStringVar, corner_radius=5, fg_color="#0F1C5D", width=int(self.frameWidth * .589), height=int(self.frameHeight * .135), button_color="#0F1C5D", anchor="center", values=self.affValuesList)
         self.affiliationDropdown.grid(row=1, column=1, sticky='w', padx=self.paddingX, pady=self.paddingY, columnspan=3)
