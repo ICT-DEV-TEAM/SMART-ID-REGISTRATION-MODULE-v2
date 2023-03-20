@@ -1,8 +1,9 @@
 import random
+import time
 
 set_1 = "abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789!@#$%^&*(-)+=?/,:.<>_`~ "
 
-seed = 9
+seed = str(time.time()).split('.')[-1][0:4]
 
 def create_cipher(seed):
     random.seed(seed)
