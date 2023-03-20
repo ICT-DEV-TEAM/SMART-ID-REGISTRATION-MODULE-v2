@@ -6,10 +6,14 @@ from personal_information import PersonalInformation
 from emergency_contact import EmergencyContactGUI
 from controls import ControlsGUI
 from user_info import UserInfo
-from PIL import Image
+from calendar_gui import CalendarGUI
+from PIL import Image, ImageTk
 import os
 from id_reg_settings import IDRegSettingsGUI
 from login import LoginGUI
+import connection as conn
+import security as sec
+from tkinter import filedialog
 
 class SmartID_GUI:
     def __init__(self):
@@ -43,7 +47,6 @@ class SmartID_GUI:
         self.searchResult = Search_Result(master=self.leftFrame, row=2, column=0, sticky='w', padx=10, pady=5, width=self.window_width, height=self.window_height)
         self.status = Status(master=self.leftFrame, row=3, column=0, sticky='w', padx=10, pady=5, width=self.window_width, height=self.window_height)
         
-
         self.rightFrame = ctk.CTkFrame(master=self.mainGui, fg_color="#1F1F1F")
         self.rightFrame.grid(row=1, column=2)
         self.rightFrame.grid_rowconfigure((1,2), weight=1)
@@ -53,38 +56,101 @@ class SmartID_GUI:
         self.userinfo = UserInfo(master=self.rightFrame, row=3, column=0, sticky='w', padx=10, pady=0, width=self.window_width, height=self.window_height)
         self.controls = ControlsGUI(master=self.rightFrame, row=3, column=0, sticky='e', padx=10, pady=0, width=self.window_width, height=self.window_height)
         self.controls.logoutBtn.configure(command=self.logout)
+        self.controls.saveBtn.configure(command=self.save)
+        self.userinfo.photoButton.configure(command=self.upload_photo)
+        #self.emergencyContact.affiliationDropdown.configure(command=self.affdropdown)
         self.login = LoginGUI()
         self.login.app.grab_set()
-        self.id_reg = IDRegSettingsGUI()
-    
+        self.id_reg = None
+        
+        self.selected_photo = None
+
+    def upload_photo(self):
+        file_path = filedialog.askopenfilename(filetypes=[("Image files", "*.jpg;*.png;*.gif")])
+        
+        if file_path:
+            self.selected_photo = int(self.window_width * .11), int(self.window_height * .17)
+            photo_image = ctk.CTkImage(Image.open(file_path), size=self.selected_photo)
+            self.userinfo.headerLogoLabel.configure(image=photo_image)
+
+
+
+    def save(self):
+        mycursor = self.mydb.cursor()
+
+        insert_personalinfo = "INSERT INTO personalinformation(personal_fname, personal_mname, personal_lname, personal_suffix, personal_bdate, personal_bplace, personal_gender, personal_address, personal_age, personal_no, personal_email) VALUES (%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s)"
+        personalinfo_values = (self.personalInformation.fnameEntry.get(),self.personalInformation.midnameEntry.get(),self.personalInformation.lastNameEntry.get(),self.personalInformation.suffixEntry.get(),self.personalInformation.birthDateEntry.get(),self.personalInformation.birthPlaceEntry.get(),self.personalInformation.genderEntry.get(),self.personalInformation.addressEntry.get(),self.personalInformation.ageEntry.get(),self.personalInformation.mobileNoEntry.get(),self.personalInformation.emailEntry.get())
+        insert_emergencyinfo = "INSERT INTO emergencyinformation(emergency_fname, emergency_mname, emergency_lname, emergency_suffix, emergency_gender, emergency_address, emergency_no, emergency_email, emergency_affiliation) VALUES (%s,%s,%s,%s,%s,%s,%s,%s,%s)"
+        emergencyinfo_values = (self.emergencyContact.fnameEntry.get(),self.emergencyContact.mnameEntry.get(),self.emergencyContact.lnameEntry.get(),self.emergencyContact.suffixEntry.get(),self.emergencyContact.genderEntry.get(),self.emergencyContact.addressEntry.get(),self.emergencyContact.mobileNoEntry.get(),self.emergencyContact.emailEntry.get(),self.emergencyContact.affStringVar.get())
+        insert_userinfo = "INSERT INTO personalinformation(user_no, user_type, user_pos_gr_crs, user_dept_section, user_lrn_eno, user_card_id, user_photo) VALUES (%s,%s,%s,%s,%s,%s,%s)"
+        userinfo_values = (self.userinfo.userNoEntry.get(),self.userinfo.affStringVar.get(), self.userinfo.posStringVar.get(), self.userinfo.deptStringVar.get(), self.userinfo.lrnEntry.get(), self.userinfo.cardEntry.get(), "Example.jpg" )
+        mycursor.execute(insert_personalinfo, personalinfo_values)
+        mycursor.execute(insert_emergencyinfo, emergencyinfo_values)
+        mycursor.execute(insert_userinfo, userinfo_values)
+        self.mydb.commit()
+        
     def logout(self):
         self.login.authenticated = False
         self.login = LoginGUI()
-        self.login.app.grab_set()
-        
+        self.main()
+
+    def get_login_credentials(self):
+        mycursor = self.mydb.cursor()
+        login_credentials = "SELECT user_name, user_pass FROM user_login"
+        mycursor.execute(login_credentials)
+        result = mycursor.fetchall()
+        for i in result:
+            temp = list(i)
+            self.login.usernames.append(temp[0])
+            self.login.passwords.append(temp[1])
+
     def main(self):
-        self.id_reg.app.destroy()
+        self.login.app.lift()
+        self.login.app.grab_set()
+        config = sec.decrypt('db_config.txt', "!")
+        self.mydb = conn.connect(config[0], config[1], config[2], config[3], config[4])
         while True:
-            if bool(self.login.app.winfo_exists()) and self.login.authenticated:
-                self.login.app.destroy()
-            if not bool(self.login.app.winfo_exists()) and not self.login.authenticated:
-                break
-            if not bool(self.id_reg.app.winfo_exists()):
-                if bool(self.login.app.winfo_exists()) and self.login.noAccountDetected:
-                    self.id_reg = IDRegSettingsGUI()
-                    self.id_reg.app.grab_set()
-                    self.login.noAccountDetected = False
-                    while True:
-                        if not bool(self.id_reg.app.winfo_exists()) and self.id_reg.configured:
-                            self.id_reg.app.destroy()
-                            self.id_reg.configured = False
-                            break
-                        if not bool(self.id_reg.app.winfo_exists()) and not self.id_reg.configured:
-                            self.login.app.destroy()
-                            break
-                        self.app.update()
-            self.app.update()
-        exit()
+            if type(self.mydb) is conn.mysql.connector.connection_cext.CMySQLConnection:
+                self.get_login_credentials()
+                while True:
+                    if bool(self.login.app.winfo_exists()) and self.login.authenticated:
+                        self.login.app.destroy()
+                    if not bool(self.login.app.winfo_exists()) and not self.login.authenticated:
+                        break
+                    # if not bool(self.id_reg.app.winfo_exists()):
+                    if bool(self.login.app.winfo_exists()) and self.login.noAccountDetected and not hasattr(self.id_reg, 'app'):
+                        self.id_reg = IDRegSettingsGUI()
+                        self.id_reg.app.grab_set()
+                        self.login.noAccountDetected = False
+                        while True:
+                            if bool(self.id_reg.app.winfo_exists()) and self.id_reg.configured:
+                                self.id_reg.app.destroy()
+                                self.id_reg.configured = False
+                                self.id_reg = None
+                                self.main()
+                            if not bool(self.id_reg.app.winfo_exists()) and not self.id_reg.configured:
+                                self.login.app.destroy()
+                                break
+                            self.app.update()
+                    self.app.update()
+            else:
+                self.id_reg = IDRegSettingsGUI()
+                self.id_reg.app.grab_set()
+                while True:
+                    if bool(self.id_reg.app.winfo_exists()) and self.id_reg.configured:
+                        self.id_reg.app.destroy()
+                        self.id_reg.configured = False
+                        self.id_reg = None
+                        self.main()
+                    if not bool(self.login.app.winfo_exists()) and not self.login.authenticated:
+                        break
+                    if not bool(self.id_reg.app.winfo_exists()) and not self.id_reg.configured:
+                        self.id_reg.app.destroy()
+                        self.id_reg = None
+                        self.login.app.destroy()
+                        break
+                    self.app.update()
+            exit()
 
 if __name__ == "__main__":
     main = SmartID_GUI()

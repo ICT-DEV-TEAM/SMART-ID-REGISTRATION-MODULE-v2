@@ -53,9 +53,11 @@ class EmergencyContactGUI():
 
         self.textBoxWidth = int(self.frameWidth * .196)
         self.textBoxHeight = int(self.frameHeight * .192)
-
-        self.affStringVar = ctk.StringVar(value="Guardian")
-        self.affValuesList = ['']
+        
+        self.affStringVar = ctk.StringVar()
+        self.affValuesList = ['Guardian']
+        self.affStringVar.set(self.affValuesList[0])
+        
         self.affiliationDropdown = ctk.CTkOptionMenu(master=self.emergencyGUI, font=self.font, text_color="#FFFFFF", variable=self.affStringVar, corner_radius=5, fg_color="#0F1C5D", width=int(self.frameWidth * .2407), height=self.textBoxHeight, button_color="#0F1C5D", anchor="center", values=self.affValuesList)
         self.affiliationDropdown.grid(row=1, column=6, sticky='en', padx=self.paddingX, pady=self.paddingY)
 
@@ -83,7 +85,6 @@ class EmergencyContactGUI():
         self.emailEntry = ctk.CTkEntry(master=self.emergencyGUI, fg_color='#AEB9F1', width=self.textBoxWidth, height=self.textBoxHeight, border_width=0, corner_radius=5, font=self.font)
         self.emailEntry.grid(row=4, column=4, padx=self.paddingX, pady=self.paddingY)
         
-
     def clearAll(self):
         self.fnameEntry.delete(0, 'end')
         self.mnameEntry.delete(0, 'end')
