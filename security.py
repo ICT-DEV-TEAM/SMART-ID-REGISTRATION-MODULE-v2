@@ -26,3 +26,6 @@ def decrypt(filename, delimiter):
     to_decrypt = dec.decrypt(raw_string)
     actual_config = to_decrypt.split(delimiter)
     return actual_config
+
+# data = ['localhost','root','','smart_id','3306']
+# encrypt(data=data, filename='db_config.txt', delimiter='!')
