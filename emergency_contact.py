@@ -55,7 +55,7 @@ class EmergencyContactGUI():
         self.textBoxHeight = int(self.frameHeight * .192)
         
         self.affStringVar = ctk.StringVar()
-        self.affValuesList = ['Guardian','wow', 'wew', 'wwere']
+        self.affValuesList = ['Guardian']
         self.affStringVar.set(self.affValuesList[0])
         
         self.affiliationDropdown = ctk.CTkOptionMenu(master=self.emergencyGUI, font=self.font, text_color="#FFFFFF", variable=self.affStringVar, corner_radius=5, fg_color="#0F1C5D", width=int(self.frameWidth * .2407), height=self.textBoxHeight, button_color="#0F1C5D", anchor="center", values=self.affValuesList)

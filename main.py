@@ -7,12 +7,13 @@ from emergency_contact import EmergencyContactGUI
 from controls import ControlsGUI
 from user_info import UserInfo
 from calendar_gui import CalendarGUI
-from PIL import Image
+from PIL import Image, ImageTk
 import os
 from id_reg_settings import IDRegSettingsGUI
 from login import LoginGUI
 import connection as conn
 import security as sec
+from tkinter import filedialog
 
 class SmartID_GUI:
     def __init__(self):
@@ -56,10 +57,23 @@ class SmartID_GUI:
         self.controls = ControlsGUI(master=self.rightFrame, row=3, column=0, sticky='e', padx=10, pady=0, width=self.window_width, height=self.window_height)
         self.controls.logoutBtn.configure(command=self.logout)
         self.controls.saveBtn.configure(command=self.save)
+        self.userinfo.photoButton.configure(command=self.upload_photo)
         #self.emergencyContact.affiliationDropdown.configure(command=self.affdropdown)
         self.login = LoginGUI()
         self.login.app.grab_set()
         self.id_reg = None
+        
+        self.selected_photo = None
+
+    def upload_photo(self):
+        file_path = filedialog.askopenfilename(filetypes=[("Image files", "*.jpg;*.png;*.gif")])
+        
+        if file_path:
+            self.selected_photo = int(self.window_width * .11), int(self.window_height * .17)
+            photo_image = ctk.CTkImage(Image.open(file_path), size=self.selected_photo)
+            self.userinfo.headerLogoLabel.configure(image=photo_image)
+
+
 
     def save(self):
         mycursor = self.mydb.cursor()
@@ -68,11 +82,11 @@ class SmartID_GUI:
         personalinfo_values = (self.personalInformation.fnameEntry.get(),self.personalInformation.midnameEntry.get(),self.personalInformation.lastNameEntry.get(),self.personalInformation.suffixEntry.get(),self.personalInformation.birthDateEntry.get(),self.personalInformation.birthPlaceEntry.get(),self.personalInformation.genderEntry.get(),self.personalInformation.addressEntry.get(),self.personalInformation.ageEntry.get(),self.personalInformation.mobileNoEntry.get(),self.personalInformation.emailEntry.get())
         insert_emergencyinfo = "INSERT INTO emergencyinformation(emergency_fname, emergency_mname, emergency_lname, emergency_suffix, emergency_gender, emergency_address, emergency_no, emergency_email, emergency_affiliation) VALUES (%s,%s,%s,%s,%s,%s,%s,%s,%s)"
         emergencyinfo_values = (self.emergencyContact.fnameEntry.get(),self.emergencyContact.mnameEntry.get(),self.emergencyContact.lnameEntry.get(),self.emergencyContact.suffixEntry.get(),self.emergencyContact.genderEntry.get(),self.emergencyContact.addressEntry.get(),self.emergencyContact.mobileNoEntry.get(),self.emergencyContact.emailEntry.get(),self.emergencyContact.affStringVar.get())
-        #insert_userinfo = "INSERT INTO personalinformation(user_no, user_type, user_pos_gr_crs, user_dept_section, user_lrn_eno, user_card_id, user_photo) VALUES (%s,%s,%s,%s,%s,%s,%s)"
-        #userinfo_values = (self.userinfo.userNoEntry.get(),self.userinfo.affiliationDropdown.get(), self.userinfo.posDropdown.get(), self.userinfo.deptDropdown.get(), self.userinfo.lrnEntry.get(), self.userinfo.cardEntry.get(), self.userinfo.photoButton.get() )
+        insert_userinfo = "INSERT INTO personalinformation(user_no, user_type, user_pos_gr_crs, user_dept_section, user_lrn_eno, user_card_id, user_photo) VALUES (%s,%s,%s,%s,%s,%s,%s)"
+        userinfo_values = (self.userinfo.userNoEntry.get(),self.userinfo.affStringVar.get(), self.userinfo.posStringVar.get(), self.userinfo.deptStringVar.get(), self.userinfo.lrnEntry.get(), self.userinfo.cardEntry.get(), "Example.jpg" )
         mycursor.execute(insert_personalinfo, personalinfo_values)
         mycursor.execute(insert_emergencyinfo, emergencyinfo_values)
-        #mycursor.execute(insert_userinfo, userinfo_values)
+        mycursor.execute(insert_userinfo, userinfo_values)
         self.mydb.commit()
         
     def logout(self):

@@ -43,18 +43,21 @@ class UserInfo:
         self.copyButton = ctk.CTkButton(master=self.status1boxFrame, fg_color="#0F1C5D", width=self.frameWidth * .197, height=self.frameHeight * .135, text="Copy")
         self.copyButton.grid(row=0, column=3, sticky='w', pady=int(height * .0047619))
 
-        self.affStringVar = ctk.StringVar(value="User Type")
-        self.affValuesList = ['']
+        self.affStringVar = ctk.StringVar()
+        self.affValuesList = ['User Type']
+        self.affStringVar.set(self.affValuesList[0])
         self.affiliationDropdown = ctk.CTkOptionMenu(master=self.status1boxFrame, font=self.font, text_color="#FFFFFF", variable=self.affStringVar, corner_radius=5, fg_color="#0F1C5D", width=int(self.frameWidth * .589), height=int(self.frameHeight * .135), button_color="#0F1C5D", anchor="center", values=self.affValuesList)
         self.affiliationDropdown.grid(row=1, column=1, sticky='w', padx=self.paddingX, pady=self.paddingY, columnspan=3)
 
-        self.posStringVar = ctk.StringVar(value="Pos/Gr/Crs")
-        self.posValuesList = ['']
+        self.posStringVar = ctk.StringVar()
+        self.posValuesList = ['Pos/Gr/Crs']
+        self.posStringVar.set(self.posValuesList[0])
         self.posDropdown = ctk.CTkOptionMenu(master=self.status1boxFrame, font=self.font, text_color="#FFFFFF", variable=self.posStringVar, corner_radius=5, fg_color="#0F1C5D", width=int(self.frameWidth * .589), height=int(self.frameHeight * .135), button_color="#0F1C5D", anchor="center", values=self.posValuesList)
         self.posDropdown.grid(row=2, column=1, sticky='we', padx=self.paddingX, pady=self.paddingY, columnspan=3)
 
-        self.deptStringVar = ctk.StringVar(value="Dept/Section")
-        self.deptValuesList = ['']
+        self.deptStringVar = ctk.StringVar(value="")
+        self.deptValuesList = ['Dept/Section']
+        self.deptStringVar.set(self.deptValuesList[0])
         self.deptDropdown = ctk.CTkOptionMenu(master=self.status1boxFrame, font=self.font, text_color="#FFFFFF", variable=self.deptStringVar, corner_radius=5, fg_color="#0F1C5D", width=int(self.frameWidth * .589), height=int(self.frameHeight * .135), button_color="#0F1C5D", anchor="center", values=self.deptValuesList)
         self.deptDropdown.grid(row=3, column=1, sticky='we', padx=self.paddingX, pady=self.paddingY, columnspan=3)
 
@@ -78,10 +81,10 @@ class UserInfo:
         self.status3boxFrame.grid(row=0, column=2, sticky='we')
         self.status2boxFrame.grid_columnconfigure(0, weight=1)
 
-        self.current_path = os.path.dirname(os.path.realpath(__file__))
-        self.headerLogo = ctk.CTkImage(Image.open(self.current_path + "/img/LOGO.png"),
-                                               size=(int(self.frameWidth * .283), int(self.frameHeight * .69)))
-        self.headerLogoLabel = ctk.CTkLabel(master=self.status3boxFrame, width=self.frameWidth * .283, height=self.frameHeight * .69,image=self.headerLogo, text='', font=ctk.CTkFont(size=int(self.frameHeight * .075), family="Inter"), text_color="#FFFFFF",bg_color='#2F4BD2',corner_radius=5)
+        # self.current_path = os.path.dirname(os.path.realpath(__file__))
+        # self.headerLogo = ctk.CTkImage(Image.open(self.current_path + "/img/LOGO.png"),
+        #                                        size=(int(self.frameWidth * .283), int(self.frameHeight * .69)))
+        self.headerLogoLabel = ctk.CTkLabel(master=self.status3boxFrame, width=self.frameWidth * .283, height=self.frameHeight * .69, text='', font=ctk.CTkFont(size=int(self.frameHeight * .075), family="Inter"), text_color="#FFFFFF",bg_color='#FFFFFF',corner_radius=5)
         self.headerLogoLabel.grid(pady=8, padx=20, row=0,column=0)
         
 
