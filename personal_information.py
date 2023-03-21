@@ -3,6 +3,7 @@ from PIL import Image
 import os
 from calendar_gui import CalendarGUI
 from datetime import datetime
+from tkinter import messagebox
 
 class PersonalInformation():
     def __init__(self, master, row, column, sticky, padx, pady, width, height, ipadx=0, ipady=0):
@@ -26,15 +27,15 @@ class PersonalInformation():
 
         self.paddingY = int((self.frameHeight * .0355)/2)
         self.paddingX = int((self.frameWidth * .0135)/2)
-
+    
         self.font = ctk.CTkFont(size=int(height * .018), family="Inter")
-        self.firstNameLabel = ctk.CTkLabel(master=self.emergencyGUI, font=self.font, text="First Name", text_color="#000000")
+        self.firstNameLabel = ctk.CTkLabel(master=self.emergencyGUI, font=self.font, text="First Name*", text_color="#000000")
         self.firstNameLabel.grid(row=1, column=1, sticky='ws', padx=self.paddingX, pady=self.paddingY)
 
         self.midNameLabel = ctk.CTkLabel(master=self.emergencyGUI, font=self.font, text="Middle Name", text_color="#000000")
         self.midNameLabel.grid(row=2, column=1, sticky='ws', padx=self.paddingX, pady=self.paddingY)
 
-        self.lastNameLabel = ctk.CTkLabel(master=self.emergencyGUI, font=self.font, text="Last Name", text_color="#000000")
+        self.lastNameLabel = ctk.CTkLabel(master=self.emergencyGUI, font=self.font, text="Last Name*", text_color="#000000")
         self.lastNameLabel.grid(row=3, column=1, sticky='wn', padx=self.paddingX, pady=self.paddingY)
         
         self.suffixLabel = ctk.CTkLabel(master=self.emergencyGUI, font=self.font, text="Suffix", text_color="#000000")
@@ -43,16 +44,16 @@ class PersonalInformation():
         self.birthDateLabel = ctk.CTkLabel(master=self.emergencyGUI, font=self.font, text="Birthdate", text_color="#000000")
         self.birthDateLabel.grid(row=1, column=3, sticky='ws', padx=self.paddingX, pady=self.paddingY)
 
-        self.birthPlaceLabel = ctk.CTkLabel(master=self.emergencyGUI, font=self.font, text="Birth place", text_color="#000000")
+        self.birthPlaceLabel = ctk.CTkLabel(master=self.emergencyGUI, font=self.font, text="Birth place*", text_color="#000000")
         self.birthPlaceLabel.grid(row=2, column=3, sticky='ws', padx=self.paddingX, pady=self.paddingY)
 
-        self.genderLabel = ctk.CTkLabel(master=self.emergencyGUI, font=self.font, text="Gender", text_color="#000000")
+        self.genderLabel = ctk.CTkLabel(master=self.emergencyGUI, font=self.font, text="Gender*", text_color="#000000")
         self.genderLabel.grid(row=3, column=3, sticky='wn', padx=self.paddingX, pady=self.paddingY)
         
-        self.addressLabel = ctk.CTkLabel(master=self.emergencyGUI, font=self.font, text="Address", text_color="#000000")
+        self.addressLabel = ctk.CTkLabel(master=self.emergencyGUI, font=self.font, text="Address*", text_color="#000000")
         self.addressLabel.grid(row=4, column=3, sticky='wn', padx=self.paddingX, pady=self.paddingY)
 
-        self.ageLabel = ctk.CTkLabel(master=self.emergencyGUI, font=self.font, text="Age", text_color="#000000")
+        self.ageLabel = ctk.CTkLabel(master=self.emergencyGUI, font=self.font, text="Age*", text_color="#000000")
         self.ageLabel.grid(row=1, column=5, sticky='wn', padx=self.paddingX, pady=self.paddingY)
 
         self.mobileNoLabel = ctk.CTkLabel(master=self.emergencyGUI, font=self.font, text="Mobile Number", text_color="#000000")
@@ -134,8 +135,13 @@ class PersonalInformation():
         self.cal.cal.bind('<<CalendarSelected>>', lambda e: self.set_date())
         self.cal.app.grab_set()
     
+    def validate_required_field(self):
+            if  self.fnameEntry.get() == "" or self.lastNameEntry.get() == "" or self.birthPlaceEntry.get() == "" or self.genderEntry.get() == "" or self.addressEntry.get() == "" or self.ageEntry.get() == "":
+                messagebox.showerror("Error", "Fields with asterisk are required.")
+                return False           
+            else:
+                return True
     
-
 
 
         

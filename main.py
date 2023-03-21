@@ -13,7 +13,7 @@ from id_reg_settings import IDRegSettingsGUI
 from login import LoginGUI
 import connection as conn
 import security as sec
-
+from tkinter import messagebox
 
 class SmartID_GUI:
     def __init__(self):
@@ -93,6 +93,11 @@ class SmartID_GUI:
             self.userinfo.deptStringVar.set(self.userinfo.deptValuesList[0])
 
     def save(self):
+        personalInformation_validation = self.personalInformation.validate_required_field()
+        emergencyContact_validation = self.emergencyContact.validate_required_field()
+        if personalInformation_validation == False or emergencyContact_validation == False:
+            return
+        
         mycursor = self.mydb.cursor()
 
         insert_personalinfo = "INSERT INTO personalinformation(personal_fname, personal_mname, personal_lname, personal_suffix, personal_bdate, personal_bplace, personal_gender, personal_address, personal_age, personal_no, personal_email) VALUES (%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s)"
@@ -100,14 +105,18 @@ class SmartID_GUI:
         insert_emergencyinfo = "INSERT INTO emergencyinformation(emergency_fname, emergency_mname, emergency_lname, emergency_suffix, emergency_gender, emergency_address, emergency_no, emergency_email, emergency_affiliation) VALUES (%s,%s,%s,%s,%s,%s,%s,%s,%s)"
         emergencyinfo_values = (self.emergencyContact.fnameEntry.get(),self.emergencyContact.mnameEntry.get(),self.emergencyContact.lnameEntry.get(),self.emergencyContact.suffixEntry.get(),self.emergencyContact.genderEntry.get(),self.emergencyContact.addressEntry.get(),self.emergencyContact.mobileNoEntry.get(),self.emergencyContact.emailEntry.get(),self.emergencyContact.affStringVar.get())
         insert_userinfo = "INSERT INTO userinformation(user_no, user_type, user_pos_gr_crs, user_dept_section, user_lrn_eno, user_card_id, user_photo) VALUES (%s,%s,%s,%s,%s,%s,%s)"
-        userinfo_values = (self.userinfo.userNoEntry.get(),self.userinfo.affStringVar.get(), self.userinfo.userinfo.posStringVar.get(), self.userinfo.deptStringVar.get(), self.userinfo.lrnEntry.get(), self.userinfo.cardEntry.get(), self.userinfo.file_path )
+        userinfo_values = (self.userinfo.userNoEntry.get(),self.userinfo.affStringVar.get(), self.userinfo.posStringVar.get(), self.userinfo.deptStringVar.get(), self.userinfo.lrnEntry.get(), self.userinfo.cardEntry.get(), self.userinfo.file_path )
         mycursor.execute(insert_personalinfo, personalinfo_values)
         mycursor.execute(insert_emergencyinfo, emergencyinfo_values)
         mycursor.execute(insert_userinfo, userinfo_values)
         self.mydb.commit()
-
+        messagebox.showinfo("Success", "Saved successfully!")
         print("saved")
         
+
+
+        
+
     def logout(self):
         self.login.authenticated = False
         self.login = LoginGUI()
