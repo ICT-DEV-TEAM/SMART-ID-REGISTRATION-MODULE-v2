@@ -70,7 +70,7 @@ CREATE TABLE `personalinformation` (
   `personal_mname` varchar(100) NOT NULL,
   `personal_lname` varchar(100) NOT NULL,
   `personal_suffix` varchar(10) NOT NULL,
-  `personal_bdate` date NOT NULL,
+  `personal_bdate` varchar(100) NOT NULL,
   `personal_bplace` varchar(100) NOT NULL,
   `personal_gender` varchar(100) NOT NULL,
   `personal_address` varchar(255) NOT NULL,
@@ -83,8 +83,8 @@ CREATE TABLE `personalinformation` (
 /*Data for the table `personalinformation` */
 
 insert  into `personalinformation`(`personal_id`,`personal_fname`,`personal_mname`,`personal_lname`,`personal_suffix`,`personal_bdate`,`personal_bplace`,`personal_gender`,`personal_address`,`personal_age`,`personal_no`,`personal_email`) values 
-(1,'Raymark','Lacorte','Cruz','','0000-00-00','Bulacan','male','san jose',22,'09878542312','ray@yahoo.com'),
-(2,'albert','chan','gojo','','0000-00-00','tungko','male','san jose',21,'09789898543','albert@yahoo.com');
+(1,'Raymark','Lacorte','Cruz','','2000-01-05','Bulacan','male','san jose',23,'09878542312','ray@yahoo.com'),
+(2,'albert','chan','gojo','','2000-03-10','tungko','male','san jose',23,'09789898543','albert@yahoo.com');
 
 /*Table structure for table `user_login` */
 
@@ -109,7 +109,7 @@ DROP TABLE IF EXISTS `userinformation`;
 
 CREATE TABLE `userinformation` (
   `user_id` int(10) NOT NULL AUTO_INCREMENT,
-  `user_no` int(10) NOT NULL,
+  `user_no` varchar(15) NOT NULL,
   `user_type` varchar(100) NOT NULL,
   `user_pos_gr_crs` varchar(100) NOT NULL,
   `user_dept_section` varchar(100) NOT NULL,
@@ -122,8 +122,8 @@ CREATE TABLE `userinformation` (
 /*Data for the table `userinformation` */
 
 insert  into `userinformation`(`user_id`,`user_no`,`user_type`,`user_pos_gr_crs`,`user_dept_section`,`user_lrn_eno`,`user_card_id`,`user_photo`) values 
-(1,2023,'Student - Tertiary','crs1','clg1','','','C:/xampp/htdocs/SMART-ID-REGISTRATION-MODULE-v2/img/pug.jpg'),
-(2,2023,'Student - Tertiary','crs2','clg3','','','C:/xampp/htdocs/SMART-ID-REGISTRATION-MODULE-v2/img/Sad-pug.jpg');
+(1,'2023-02341','Student - Tertiary','crs1','clg1','','','C:/xampp/htdocs/SMART-ID-REGISTRATION-MODULE-v2/img/pug.jpg'),
+(2,'2023-40523','Student - Tertiary','crs2','clg3','','','C:/xampp/htdocs/SMART-ID-REGISTRATION-MODULE-v2/img/Sad-pug.jpg');
 
 /*!40101 SET SQL_MODE=@OLD_SQL_MODE */;
 /*!40014 SET FOREIGN_KEY_CHECKS=@OLD_FOREIGN_KEY_CHECKS */;

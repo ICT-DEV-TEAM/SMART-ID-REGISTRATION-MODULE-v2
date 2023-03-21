@@ -57,6 +57,7 @@ class SmartID_GUI:
         self.controls = ControlsGUI(master=self.rightFrame, row=3, column=0, sticky='e', padx=10, pady=0, width=self.window_width, height=self.window_height)
         self.controls.logoutBtn.configure(command=self.logout)
         self.controls.saveBtn.configure(command=self.save)
+        self.searchgui.searchBtn.configure(command=self.search)
         self.userinfo.affiliationDropdown.configure(command=self.user_info_dropdowns)
         self.login = LoginGUI()
         self.login.app.grab_set()
@@ -117,7 +118,17 @@ class SmartID_GUI:
         self.userinfo.clearAll()
         
 
-
+    def search(self):
+        self.personalInformation.fnameEntry.delete(0, 'end')
+        mycursor = self.mydb.cursor()
+        search_information = "SELECT * FROM personalinformation LEFT JOIN emergencyinformation ON personalinformation.personal_id = emergencyinformation.emergency_id LEFT JOIN userinformation ON personalinformation.personal_id = userinformation.user_id  WHERE personal_fname LIKE '"+self.searchgui.firstNameEntry.get()+"'"  
+        mycursor.execute(search_information)
+        search_result = mycursor.fetchall()
+        print(search_result)
+        
+        for i in search_result:
+            self.personalInformation.fnameEntry.insert(0, i[1])
+        print('search')
         
 
     def logout(self):
