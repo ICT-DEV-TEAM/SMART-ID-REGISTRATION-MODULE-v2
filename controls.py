@@ -7,7 +7,7 @@ class ControlsGUI():
 
         self.controlsFrame = ctk.CTkFrame(master=master, fg_color="#1F1F1F")
         self.controlsFrame.grid(padx=padx, pady=pady, row=row, column=column, sticky=sticky, ipadx=ipadx, ipady=ipady)
-
+        self.settings_clicked = False
         self.controlsLabel = ctk.CTkLabel(master=self.controlsFrame, font=ctk.CTkFont(size=int(height * .047619), family="Inter"), text="Controls", text_color="#FFFFFF")
         self.controlsLabel.grid(row=0, column=0, sticky='w')
 
@@ -23,8 +23,11 @@ class ControlsGUI():
         self.saveBtn = ctk.CTkButton(master=self.controlsGUI, fg_color="#0F1C5D", width=int(.53 * self.frameWidth), height=int(.3 * self.frameHeight), text="Save/Update", font=self.font)
         self.saveBtn.grid(row=1, column=1, pady=self.paddingY)
 
-        self.settingsBtn = ctk.CTkButton(master=self.controlsGUI, fg_color="#0F1C5D", width=int(.53 * self.frameWidth), height=int(.136 * self.frameHeight), text="Settings", font=self.font)
+        self.settingsBtn = ctk.CTkButton(master=self.controlsGUI, fg_color="#0F1C5D", width=int(.53 * self.frameWidth), height=int(.136 * self.frameHeight), text="Settings", font=self.font, command=self.settingsClicked)
         self.settingsBtn.grid(row=2, column=1, pady=self.paddingY)
 
         self.logoutBtn = ctk.CTkButton(master=self.controlsGUI, fg_color="#950000", width=int(.53 * self.frameWidth), height=int(.136 * self.frameHeight), text="Logout", font=self.font)
         self.logoutBtn.grid(row=3, column=1, pady=int((self.frameHeight * .0243)))
+
+    def settingsClicked(self):
+        self.settings_clicked = True
