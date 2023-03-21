@@ -112,6 +112,9 @@ class SmartID_GUI:
         self.mydb.commit()
         messagebox.showinfo("Success", "Saved successfully!")
         print("saved")
+        self.personalInformation.clearAll()
+        self.emergencyContact.clearAll()
+        self.userinfo.clearAll()
         
 
 
