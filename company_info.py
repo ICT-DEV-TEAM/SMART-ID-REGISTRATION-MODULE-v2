@@ -1,7 +1,7 @@
 import customtkinter as ctk
 import os
 from PIL import Image
-
+from tkinter import filedialog
 class CompanyInfoGUI:
     def __init__(self, master, row, column, sticky, padx, pady, width, height, ipadx=0, ipady=0, rowspan=1, columnspan=1):
         self.frameWidth = int(width * 0.4643)
@@ -38,11 +38,23 @@ class CompanyInfoGUI:
         self.companyNameAbbrevEntry = ctk.CTkEntry(master=self.compInfoFrame, fg_color='#AEB9F1', width=self.textBoxWidth, height=self.textBoxHeight, border_width=0, corner_radius=5, font=self.font)
         self.companyNameAbbrevEntry.grid(row=5, column=1, padx=int(0.0199 * self.frameWidth), pady=int(0.014 * self.frameHeight)/2, columnspan=2)
 
-        self.current_path = os.path.dirname(os.path.realpath(__file__))
-        self.companyLogo = ctk.CTkImage(Image.open(self.current_path + "/img/LOGO.png"),
-                                               size=(int(self.frameWidth * 0.3233), int(self.frameHeight * 0.393)))
-        self.companyLogoLabel = ctk.CTkLabel(master=self.compInfoFrame, image=self.companyLogo, text='', font=ctk.CTkFont(size=int(self.frameHeight * .075), family="Inter"), text_color="#FFFFFF")
+        # self.current_path = os.path.dirname(os.path.realpath(__file__))
+        # self.companyLogo = ctk.CTkImage(Image.open(self.current_path + "/img/LOGO.png"),
+        #                                        size=(int(self.frameWidth * 0.3233), int(self.frameHeight * 0.393)))
+        self.companyLogoLabel = ctk.CTkLabel(master=self.compInfoFrame, text='',width=self.frameWidth * 0.3233,height=self.frameHeight * 0.393, font=ctk.CTkFont(size=int(self.frameHeight * .075), family="Inter"), text_color="#1f2f3f")
         self.companyLogoLabel.grid(pady=8, padx=20, row=6, column=2, sticky='e')
 
-        self.selectPhotoButton = ctk.CTkButton(master=self.compInfoFrame, fg_color="#0F1C5D", width=int(self.frameWidth * 0.3233), height=int(self.frameHeight * 0.0771), text='Select Photo', font=ctk.CTkFont(size=int(0.0415 * self.frameHeight), family='Inter'), text_color="#FFFFFF")
+        self.selectPhotoButton = ctk.CTkButton(master=self.compInfoFrame,command=self.upload_photo, fg_color="#0F1C5D", width=int(self.frameWidth * 0.3233), height=int(self.frameHeight * 0.0771), text='Select Photo', font=ctk.CTkFont(size=int(0.0415 * self.frameHeight), family='Inter'), text_color="#FFFFFF")
         self.selectPhotoButton.grid(row=7, column=2, pady=int((0.0225 * self.frameHeight)/2), padx=int((0.0225 * self.frameWidth)/2))
+
+        self.file_path = ""
+        self.selected_photo = None
+
+    def upload_photo(self):
+        file_path = filedialog.askopenfilename(filetypes=[("Image files", "*.jpg;*.png;*.gif")])
+        print(file_path)
+        if file_path:
+            self.selected_photo = int(self.frameWidth * 0.31), int(self.frameHeight * 0.393)
+            photo_image = ctk.CTkImage(Image.open(file_path), size=self.selected_photo)
+            self.companyLogoLabel.configure(image=photo_image)
+            self.file_path = file_path

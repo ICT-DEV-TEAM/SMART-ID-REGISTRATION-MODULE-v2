@@ -1,7 +1,7 @@
 import customtkinter as ctk
 import os
 from PIL import Image
-
+from tkinter import filedialog
 class UserInfo:
     def __init__(self, master, row, column, sticky, padx, pady, width, height):
         self.frameWidth = int(width * .424)
@@ -44,7 +44,7 @@ class UserInfo:
         self.copyButton.grid(row=0, column=3, sticky='w', pady=int(height * .0047619))
 
         self.affStringVar = ctk.StringVar()
-        self.affValuesList = ['User Type']
+        self.affValuesList = ['User Type', 'Employee', 'Student - Basic Ed', 'Student - Tertiary', 'Visitor']
         self.affStringVar.set(self.affValuesList[0])
         self.affiliationDropdown = ctk.CTkOptionMenu(master=self.status1boxFrame, font=self.font, text_color="#FFFFFF", variable=self.affStringVar, corner_radius=5, fg_color="#0F1C5D", width=int(self.frameWidth * .589), height=int(self.frameHeight * .135), button_color="#0F1C5D", anchor="center", values=self.affValuesList)
         self.affiliationDropdown.grid(row=1, column=1, sticky='w', padx=self.paddingX, pady=self.paddingY, columnspan=3)
@@ -88,9 +88,20 @@ class UserInfo:
         self.headerLogoLabel.grid(pady=8, padx=20, row=0,column=0)
         
 
-        self.photoButton = ctk.CTkButton(master=self.status3boxFrame, fg_color="#0F1C5D", width=self.frameWidth * .283, height=self.frameHeight * .135, text="Select Photo")
+        self.photoButton = ctk.CTkButton(master=self.status3boxFrame, fg_color="#0F1C5D", width=self.frameWidth * .283, height=self.frameHeight * .135, text="Select Photo", command=self.upload_photo)
         self.photoButton.grid(row=1, column=0, pady=int(height * .0047619))
 
+        self.file_path = ""
+        self.selected_photo = None
+
+    def upload_photo(self):
+        file_path = filedialog.askopenfilename(filetypes=[("Image files", "*.jpg;*.png;*.gif")])
+        print(file_path)
+        if file_path:
+            self.selected_photo = int(self.frameWidth * .26), int(self.frameHeight * .69)
+            photo_image = ctk.CTkImage(Image.open(file_path), size=self.selected_photo)
+            self.headerLogoLabel.configure(image=photo_image)
+            self.file_path = file_path
 
 
     def clearAll(self):

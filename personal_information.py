@@ -95,7 +95,7 @@ class PersonalInformation():
         self.addressEntry = ctk.CTkEntry(master=self.emergencyGUI, fg_color='#AEB9F1', width=self.textBoxWidth, height=self.textBoxHeight, border_width=0, corner_radius=5, font=self.font)
         self.addressEntry.grid(row=4, column=4, padx=self.paddingX, pady=self.paddingY)
 
-        self.ageEntry = ctk.CTkEntry(master=self.emergencyGUI, fg_color='#AEB9F1', width=self.textBoxWidth, height=self.textBoxHeight, border_width=0, corner_radius=5, font=self.font)
+        self.ageEntry = ctk.CTkEntry(master=self.emergencyGUI,fg_color='#AEB9F1', state='disabled' , width=self.textBoxWidth, height=self.textBoxHeight, border_width=0, corner_radius=5, font=self.font)
         self.ageEntry.grid(row=1, column=6, padx=self.paddingX, pady=self.paddingY)
 
         self.mobileNoEntry = ctk.CTkEntry(master=self.emergencyGUI, fg_color='#AEB9F1', width=self.textBoxWidth, height=self.textBoxHeight, border_width=0, corner_radius=5, font=self.font)
@@ -120,6 +120,13 @@ class PersonalInformation():
         date = self.cal.cal.get_date()
         self.date = date
         self.birthDateEntry.configure(text="   " + date + "      ")
+        today = datetime.today()
+        age = today.year - int(self.date[-4:]) - ((today.month, today.day) < (int(self.date[3:5]), int(self.date[0:2])))
+        self.ageEntry.configure(state='normal')
+        self.ageEntry.delete(0,'end')
+        self.ageEntry.insert(0, age)
+        self.ageEntry.configure(state='disabled')
+
 
     def open_calendar(self):
         date = self.date.split('/')
