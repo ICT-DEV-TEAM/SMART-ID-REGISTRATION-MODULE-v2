@@ -102,15 +102,20 @@ class SmartID_GUI:
         
 
     def search(self):
-        self.personalInformation.fnameEntry.delete(0, 'end')
+        #self.personalInformation.fnameEntry.delete(0, 'end')
         mycursor = self.mydb.cursor()
-        search_information = "SELECT * FROM personalinformation LEFT JOIN emergencyinformation ON personalinformation.personal_id = emergencyinformation.emergency_id LEFT JOIN userinformation ON personalinformation.personal_id = userinformation.user_id  WHERE personal_fname LIKE '"+self.searchgui.firstNameEntry.get()+"'"  
+        search_information = "SELECT * FROM personalinformation LEFT JOIN emergencyinformation ON personalinformation.personal_id = emergencyinformation.emergency_id LEFT JOIN userinformation ON personalinformation.personal_id = userinformation.user_id  WHERE personal_fname LIKE '"+self.searchgui.firstNameEntry.get()+"%'"  
         mycursor.execute(search_information)
         search_result = mycursor.fetchall()
-        print(search_result)
-        
+        index = 1
+        def all_result(i):
+            return self.personalInformation.selectInfo(i)
+         
         for i in search_result:
-            self.personalInformation.fnameEntry.insert(0, i[1])
+            self.searchResultLabel1 = ctk.CTkButton(master=self.searchResult.searchResultFrame, text=i[23] + " " + i[1] +" "+ i[3], font=ctk.CTkFont(size=int(self.window_height * .0178), family="Inter"), fg_color="#FFFFFF", text_color='#000000', command=all_result(i))
+            self.searchResultLabel1.grid(column=0, row=index, padx=3, pady=1, sticky='nw')      
+            index += 1
+            
         print('search')
         
 
