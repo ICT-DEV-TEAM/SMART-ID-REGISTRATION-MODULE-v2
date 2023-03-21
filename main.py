@@ -65,33 +65,16 @@ class SmartID_GUI:
         
     def user_info_dropdowns(self, value):
         if self.userinfo.affStringVar.get() == 'Employee':
-            self.userinfo.posValuesList = ['pos1', 'pos2', 'pos3']
-            self.userinfo.posDropdown.configure(values=self.userinfo.posValuesList)
-            self.userinfo.posStringVar.set(self.userinfo.posValuesList[0])
-            self.userinfo.deptValuesList = ['dept1', 'dept2', 'dept3']
-            self.userinfo.deptDropdown.configure(values=self.userinfo.deptValuesList)
-            self.userinfo.deptStringVar.set(self.userinfo.deptValuesList[0])
+            self.userinfo.posUpdateList(['pos1', 'pos2', 'pos3'])
+            self.userinfo.deptUpdateList(['dept1', 'dept2', 'dept3'])
         elif self.userinfo.affStringVar.get() == 'Student - Basic Ed':
-            self.userinfo.posValuesList = ['grd1', 'grd2', 'grd3']
-            self.userinfo.posDropdown.configure(values=self.userinfo.posValuesList)
-            self.userinfo.posStringVar.set(self.userinfo.posValuesList[0])
-            self.userinfo.deptValuesList = ['sec1', 'sec2', 'sec3']
-            self.userinfo.deptDropdown.configure(values=self.userinfo.deptValuesList)
-            self.userinfo.deptStringVar.set(self.userinfo.deptValuesList[0])
+            self.userinfo.posUpdateList(['grd1', 'grd2', 'grd3'])
+            self.userinfo.deptUpdateList(['sec1', 'sec2', 'sec3'])
         elif self.userinfo.affStringVar.get() == 'Student - Tertiary':
-            self.userinfo.posValuesList = ['crs1', 'crs2', 'crs3']
-            self.userinfo.posDropdown.configure(values=self.userinfo.posValuesList)
-            self.userinfo.posStringVar.set(self.userinfo.posValuesList[0])
-            self.userinfo.deptValuesList = ['clg1', 'clg2', 'clg3']
-            self.userinfo.deptDropdown.configure(values=self.userinfo.deptValuesList)
-            self.userinfo.deptStringVar.set(self.userinfo.deptValuesList[0])
-        elif self.userinfo.affStringVar.get() == 'Visitor' or self.userinfo.affStringVar.get() == 'User Type':
-            self.userinfo.posValuesList = ['Pos/Gr/Crs']
-            self.userinfo.posDropdown.configure(values=self.userinfo.posValuesList)
-            self.userinfo.posStringVar.set(self.userinfo.posValuesList[0])
-            self.userinfo.deptValuesList = ['Dept/Section']
-            self.userinfo.deptDropdown.configure(values=self.userinfo.deptValuesList)
-            self.userinfo.deptStringVar.set(self.userinfo.deptValuesList[0])
+            self.userinfo.posUpdateList(['crs1', 'crs2', 'crs3'])
+            self.userinfo.deptUpdateList(['clg1', 'clg2', 'clg3'])
+        
+        self.userinfo.user_info_dropdowns()
 
     def save(self):
         personalInformation_validation = self.personalInformation.validate_required_field()
