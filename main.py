@@ -170,6 +170,9 @@ class SmartID_GUI:
                                 self.id_reg = None
                                 break
                             if not bool(self.id_reg.app.winfo_exists()):
+                                self.id_reg.app.destroy()
+                                self.id_reg.configured = False
+                                self.id_reg = None
                                 break
                             self.app.update()
                     # if not bool(self.id_reg.app.winfo_exists()):
