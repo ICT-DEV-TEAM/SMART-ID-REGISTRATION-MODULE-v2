@@ -124,9 +124,9 @@ CREATE TABLE `userinformation` (
 /*Data for the table `userinformation` */
 
 insert  into `userinformation`(`user_id`,`user_no`,`user_type`,`user_pos_gr_crs`,`user_dept_section`,`user_lrn_eno`,`user_card_id`,`user_photo`) values 
-(1,'2023-02341','Student - Tertiary','crs1','clg1','','','C:/xampp/htdocs/SMART-ID-REGISTRATION-MODULE-v2/img/pug.jpg'),
-(2,'2023-40523','Student - Tertiary','crs2','clg3','','','C:/xampp/htdocs/SMART-ID-REGISTRATION-MODULE-v2/img/Sad-pug.jpg'),
-(3,'2023-21455','User Type','Pos/Gr/Crs','Dept/Section','','','');
+(1,'2023-023412','Student - Tertiary','crs1','clg1','','','C:/xampp/htdocs/SMART-ID-REGISTRATION-MODULE-v2/img/pug.jpg'),
+(2,'2023-405233','Student - Tertiary','crs2','clg3','','','C:/xampp/htdocs/SMART-ID-REGISTRATION-MODULE-v2/img/Sad-pug.jpg'),
+(3,'2023-214551','User Type','Pos/Gr/Crs','Dept/Section','','','C:/xampp/htdocs/SMART-ID-REGISTRATION-MODULE-v2/img/Sad-pug.jpg');
 
 /*!40101 SET SQL_MODE=@OLD_SQL_MODE */;
 /*!40014 SET FOREIGN_KEY_CHECKS=@OLD_FOREIGN_KEY_CHECKS */;

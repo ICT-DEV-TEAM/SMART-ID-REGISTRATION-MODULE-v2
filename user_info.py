@@ -88,10 +88,10 @@ class UserInfo:
         self.status3boxFrame.grid(row=0, column=2, sticky='we')
         self.status2boxFrame.grid_columnconfigure(0, weight=1)
 
-        # self.current_path = os.path.dirname(os.path.realpath(__file__))
-        # self.headerLogo = ctk.CTkImage(Image.open(self.current_path + "/img/LOGO.png"),
-        #                                        size=(int(self.frameWidth * .283), int(self.frameHeight * .69)))
-        self.headerLogoLabel = ctk.CTkLabel(master=self.status3boxFrame, width=self.frameWidth * .283, height=self.frameHeight * .69, text='', font=ctk.CTkFont(size=int(self.frameHeight * .075), family="Inter"), text_color="#FFFFFF",bg_color='#FFFFFF',corner_radius=5)
+        self.current_path = os.path.dirname(os.path.realpath(__file__))
+        self.headerLogo = ctk.CTkImage(Image.open(self.current_path + "/img/profile.png"),
+                                               size=(int(self.frameWidth * .283), int(self.frameHeight * .69)))
+        self.headerLogoLabel = ctk.CTkLabel(master=self.status3boxFrame, image=self.headerLogo ,width=self.frameWidth * .283, height=self.frameHeight * .69, text='', font=ctk.CTkFont(size=int(self.frameHeight * .075), family="Inter"), text_color="#FFFFFF",bg_color='#FFFFFF',corner_radius=5)
         self.headerLogoLabel.grid(pady=8, padx=20, row=0,column=0)
         
 
@@ -112,11 +112,13 @@ class UserInfo:
 
     def clearAll(self):
         self.userNoEntry.configure(text='  0000-000000   ')
+        self.generateButton.configure(state='normal')
         self.affStringVar.set("User Type")
         self.posStringVar.set("Pos/Gr/Crs")
         self.deptStringVar.set("Dept/Section")
         self.lrnEntry.delete(0, 'end')
         self.cardEntry.delete(0, 'end')
+        self.headerLogoLabel.configure(image=self.headerLogo)
         self.resetLists()
     
     def user_info_dropdowns(self):
