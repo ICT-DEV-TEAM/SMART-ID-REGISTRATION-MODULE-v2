@@ -38,9 +38,9 @@ class CompanyInfoGUI:
         self.companyNameAbbrevEntry = ctk.CTkEntry(master=self.compInfoFrame, fg_color='#AEB9F1', width=self.textBoxWidth, height=self.textBoxHeight, border_width=0, corner_radius=5, font=self.font)
         self.companyNameAbbrevEntry.grid(row=5, column=1, padx=int(0.0199 * self.frameWidth), pady=int(0.014 * self.frameHeight)/2, columnspan=2)
 
-        # self.current_path = os.path.dirname(os.path.realpath(__file__))
-        # self.companyLogo = ctk.CTkImage(Image.open(self.current_path + "/img/LOGO.png"),
-        #                                        size=(int(self.frameWidth * 0.3233), int(self.frameHeight * 0.393)))
+        self.current_path = os.path.dirname(os.path.realpath(__file__))
+        self.companyLogo = ctk.CTkImage(Image.open(self.current_path + "/img/LOGO.png"),
+                                               size=(int(self.frameWidth * 0.3233), int(self.frameHeight * 0.393)))
         self.companyLogoLabel = ctk.CTkLabel(master=self.compInfoFrame, text='',width=self.frameWidth * 0.3233,height=self.frameHeight * 0.393, font=ctk.CTkFont(size=int(self.frameHeight * .075), family="Inter"), text_color="#1f2f3f")
         self.companyLogoLabel.grid(pady=8, padx=20, row=6, column=2, sticky='e')
 

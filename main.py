@@ -95,20 +95,26 @@ class SmartID_GUI:
         
         self.userinfo.user_info_dropdowns()
 
+    def validate_required_field(self):
+            if  self.emergencyContact.fnameEntry.get() == "" or self.emergencyContact.lnameEntry.get() == "" or self.emergencyContact.addressEntry.get() == "" or self.emergencyContact.mobileNoEntry.get() == "" or self.personalInformation.fnameEntry.get() == "" or self.personalInformation.lastNameEntry.get() == "" or self.personalInformation.birthPlaceEntry.get() == "" or self.personalInformation.addressEntry.get() == "" or self.personalInformation.ageEntry.get() == "":
+                messagebox.showerror("Error", "Fields with asterisk are required.")
+                return False           
+            else:
+                return True        
+
     def save(self):
-        personalInformation_validation = self.personalInformation.validate_required_field()
-        emergencyContact_validation = self.emergencyContact.validate_required_field()
-        if personalInformation_validation == False or emergencyContact_validation == False:
+        information_validation = self.validate_required_field()
+        if information_validation == False:
             return
         
         mycursor = self.mydb.cursor()
 
         insert_personalinfo = "INSERT INTO personalinformation(personal_fname, personal_mname, personal_lname, personal_suffix, personal_bdate, personal_bplace, personal_gender, personal_address, personal_age, personal_no, personal_email) VALUES (%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s)"
-        personalinfo_values = (self.personalInformation.fnameEntry.get(),self.personalInformation.midnameEntry.get(),self.personalInformation.lastNameEntry.get(),self.personalInformation.suffixEntry.get(),self.personalInformation.date ,self.personalInformation.birthPlaceEntry.get(),self.personalInformation.genderEntry.get(),self.personalInformation.addressEntry.get(),self.personalInformation.ageEntry.get(),self.personalInformation.mobileNoEntry.get(),self.personalInformation.emailEntry.get())
+        personalinfo_values = (self.personalInformation.fnameEntry.get(),self.personalInformation.midnameEntry.get(),self.personalInformation.lastNameEntry.get(),self.personalInformation.suffixEntry.get(),self.personalInformation.date ,self.personalInformation.birthPlaceEntry.get(),self.personalInformation.genderStringVar.get(),self.personalInformation.addressEntry.get(),self.personalInformation.ageEntry.get(),self.personalInformation.mobileNoEntry.get(),self.personalInformation.emailEntry.get())
         insert_emergencyinfo = "INSERT INTO emergencyinformation(emergency_fname, emergency_mname, emergency_lname, emergency_suffix, emergency_gender, emergency_address, emergency_no, emergency_email, emergency_affiliation) VALUES (%s,%s,%s,%s,%s,%s,%s,%s,%s)"
-        emergencyinfo_values = (self.emergencyContact.fnameEntry.get(),self.emergencyContact.mnameEntry.get(),self.emergencyContact.lnameEntry.get(),self.emergencyContact.suffixEntry.get(),self.emergencyContact.genderEntry.get(),self.emergencyContact.addressEntry.get(),self.emergencyContact.mobileNoEntry.get(),self.emergencyContact.emailEntry.get(),self.emergencyContact.affStringVar.get())
+        emergencyinfo_values = (self.emergencyContact.fnameEntry.get(),self.emergencyContact.mnameEntry.get(),self.emergencyContact.lnameEntry.get(),self.emergencyContact.suffixEntry.get(),self.emergencyContact.genderStringVar.get(),self.emergencyContact.addressEntry.get(),self.emergencyContact.mobileNoEntry.get(),self.emergencyContact.emailEntry.get(),self.emergencyContact.affStringVar.get())
         insert_userinfo = "INSERT INTO userinformation(user_no, user_type, user_pos_gr_crs, user_dept_section, user_lrn_eno, user_card_id, user_photo) VALUES (%s,%s,%s,%s,%s,%s,%s)"
-        userinfo_values = (str(self.userinfo.userNoEntry.cget('text')).strip(),self.userinfo.affStringVar.get(), self.userinfo.posStringVar.get(), self.userinfo.deptStringVar.get(), self.userinfo.lrnEntry.get(), self.userinfo.cardEntry.get(), self.userinfo.file_path )
+        userinfo_values = (self.userinfo.userNoEntry.cget("text"),self.userinfo.affStringVar.get(), self.userinfo.posStringVar.get(), self.userinfo.deptStringVar.get(), self.userinfo.lrnEntry.get(), self.userinfo.cardEntry.get(), self.userinfo.file_path )
         mycursor.execute(insert_personalinfo, personalinfo_values)
         mycursor.execute(insert_emergencyinfo, emergencyinfo_values)
         mycursor.execute(insert_userinfo, userinfo_values)
@@ -147,7 +153,7 @@ class SmartID_GUI:
                 self.personalInformation.date = i[5]
                 self.personalInformation.birthDateEntry.configure(text=i[5])
                 self.personalInformation.birthPlaceEntry.insert(0, i[6])
-                self.personalInformation.genderEntry.insert(0, i[7])
+                self.personalInformation.genderStringVar.set(i[7])
                 self.personalInformation.addressEntry.insert(0, i[8])
                 self.personalInformation.ageEntry.configure(state='normal')
                 self.personalInformation.ageEntry.delete(0,'end')
@@ -162,7 +168,7 @@ class SmartID_GUI:
                 self.emergencyContact.mnameEntry.insert(0, i[14])
                 self.emergencyContact.lnameEntry.insert(0, i[15])
                 self.emergencyContact.suffixEntry.insert(0, i[16])
-                self.emergencyContact.genderEntry.insert(0, i[17])
+                self.emergencyContact.genderStringVar.set(i[17])
                 self.emergencyContact.addressEntry.insert(0, i[18])
                 self.emergencyContact.mobileNoEntry.insert(0, i[19])
                 self.emergencyContact.emailEntry.insert(0, i[20])

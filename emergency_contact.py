@@ -74,8 +74,12 @@ class EmergencyContactGUI():
         self.suffixEntry = ctk.CTkEntry(master=self.emergencyGUI, fg_color='#AEB9F1', width=self.textBoxWidth, height=self.textBoxHeight, border_width=0, corner_radius=5, font=self.font)
         self.suffixEntry.grid(row=4, column=2, padx=self.paddingX, pady=self.paddingY)
 
-        self.genderEntry = ctk.CTkEntry(master=self.emergencyGUI, fg_color='#AEB9F1', width=self.textBoxWidth, height=self.textBoxHeight, border_width=0, corner_radius=5, font=self.font)
-        self.genderEntry.grid(row=1, column=4, padx=self.paddingX, pady=self.paddingY)
+        self.genderStringVar = ctk.StringVar()
+        self.genderValuesList = ['Male', 'Female', 'LGBTQ+']
+        self.genderStringVar.set(self.genderValuesList[0])
+        
+        self.genderDropdown = ctk.CTkOptionMenu(master=self.emergencyGUI, font=self.font, text_color="#FFFFFF", variable=self.genderStringVar, corner_radius=5, fg_color="#0F1C5D", width=self.textBoxWidth, height=self.textBoxHeight, button_color="#0F1C5D", anchor="center", values=self.genderValuesList)
+        self.genderDropdown.grid(row=1, column=4, padx=self.paddingX, pady=self.paddingY)
 
         self.addressEntry = ctk.CTkEntry(master=self.emergencyGUI, fg_color='#AEB9F1', width=self.textBoxWidth, height=self.textBoxHeight, border_width=0, corner_radius=5, font=self.font)
         self.addressEntry.grid(row=2, column=4, padx=self.paddingX, pady=self.paddingY)
@@ -93,7 +97,7 @@ class EmergencyContactGUI():
         self.mnameEntry.delete(0, 'end')
         self.lnameEntry.delete(0, 'end')
         self.suffixEntry.delete(0, 'end')
-        self.genderEntry.delete(0, 'end')
+        self.genderStringVar.set('Male')
         self.addressEntry.delete(0, 'end')
         self.mobileNoEntry.delete(0, 'end')
         self.emailEntry.delete(0, 'end')
@@ -110,26 +114,3 @@ class EmergencyContactGUI():
         for i in self.listeners:
             i(userid, "has cleared Emergency Contact Information section")
             
-    # def selectInfo(self,i):
-    #     def button_click():
-    #         self.fnameEntry.delete(0, 'end')
-    #         self.mnameEntry.delete(0, 'end')
-    #         self.lnameEntry.delete(0, 'end')
-    #         self.suffixEntry.delete(0, 'end')
-    #         self.genderEntry.delete(0, 'end')
-    #         self.addressEntry.delete(0, 'end')
-    #         self.mobileNoEntry.delete(0, 'end')
-    #         self.emailEntry.delete(0, 'end')
-    #         self.affStringVar.set('Guardian')  
-
-    #         self.fnameEntry.insert(0, i[13])
-    #         self.mnameEntry.insert(0, i[14])
-    #         self.lnameEntry.insert(0, i[15])
-    #         self.suffixEntry.insert(0, i[16])
-    #         self.genderEntry.insert(0, i[17])
-    #         self.addressEntry.insert(0, i[18])
-    #         self.mobileNoEntry.insert(0, i[19])
-    #         self.emailEntry.insert(0, i[20])
-    #         self.affStringVar.set(i[21]) 
-          
-    #     return button_click 
