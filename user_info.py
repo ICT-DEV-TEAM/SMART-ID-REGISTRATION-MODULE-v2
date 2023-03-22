@@ -168,6 +168,7 @@ class UserInfo:
         currentYear = str(datetime.date.today().strftime("%Y"))
         generated_userNo = currentYear + '-' + random_nums
         self.userNoEntry.configure(text='  ' + generated_userNo + '   ')
+        
 
 
 

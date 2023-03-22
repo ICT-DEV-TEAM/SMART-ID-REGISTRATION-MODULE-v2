@@ -62,6 +62,14 @@ class SmartID_GUI:
         self.login = LoginGUI()
         self.login.app.grab_set()
         self.id_reg = None
+        self.searchgui.clearBtn.configure(command=self.clearResults)
+    
+    def clearResults(self):
+        self.searchgui.clearAll()
+        self.searchResult.clearResults()
+        self.personalInformation.clearAll()
+        self.emergencyContact.clearAll()
+        self.userinfo.clearAll()
         
     def user_info_dropdowns(self, value):
         if self.userinfo.affStringVar.get() == 'Employee':
@@ -102,7 +110,7 @@ class SmartID_GUI:
         
 
     def search(self):
-        #self.personalInformation.fnameEntry.delete(0, 'end')
+        
         mycursor = self.mydb.cursor()
         search_information = "SELECT * FROM personalinformation LEFT JOIN emergencyinformation ON personalinformation.personal_id = emergencyinformation.emergency_id LEFT JOIN userinformation ON personalinformation.personal_id = userinformation.user_id  WHERE personal_fname LIKE '"+self.searchgui.firstNameEntry.get()+"%'"  
         mycursor.execute(search_information)
@@ -156,7 +164,7 @@ class SmartID_GUI:
                 self.userinfo.headerLogoLabel.configure(image=self.headerLogo)
             return button_click 
        
-         
+        self.clearResults()
         for i in search_result:
             self.searchResultLabel1 = ctk.CTkButton(master=self.searchResult.searchResultFrame, text=i[23] + " " + i[1] +" "+ i[3], font=ctk.CTkFont(size=int(self.window_height * .0178), family="Inter"), fg_color="#FFFFFF", text_color='#000000', command=selectInfo(i))
             self.searchResultLabel1.grid(column=0, row=index, padx=3, pady=1, sticky='nw')      
