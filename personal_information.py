@@ -146,34 +146,34 @@ class PersonalInformation():
             else:
                 return True
             
-    def selectInfo(self,i):
-        def button_click():
-            self.fnameEntry.delete(0, 'end')
-            self.midnameEntry.delete(0, 'end')
-            self.lastNameEntry.delete(0, 'end')
-            self.suffixEntry.delete(0, 'end')
-            self.birthPlaceEntry.delete(0, 'end')
-            self.genderEntry.delete(0, 'end')
-            self.addressEntry.delete(0, 'end')
-            self.ageEntry.delete(0, 'end')
-            self.mobileNoEntry.delete(0, 'end')
-            self.emailEntry.delete(0, 'end')
-            self.fnameEntry.insert(0, i[1])
-            self.midnameEntry.insert(0, i[2])
-            self.lastNameEntry.insert(0, i[3])
-            self.suffixEntry.insert(0, i[4])
-            self.date = i[5]
-            self.birthDateEntry.configure(text=i[5])
-            self.birthPlaceEntry.insert(0, i[6])
-            self.genderEntry.insert(0, i[7])
-            self.addressEntry.insert(0, i[8])
-            self.ageEntry.configure(state='normal')
-            self.ageEntry.delete(0,'end')
-            self.ageEntry.insert(0, i[9])
-            self.ageEntry.configure(state='disabled')
-            self.mobileNoEntry.insert(0, i[10])
-            self.emailEntry.insert(0, i[11])
-        return button_click 
+    # def selectInfo(self,i):
+    #     def button_click():
+    #         self.fnameEntry.delete(0, 'end')
+    #         self.midnameEntry.delete(0, 'end')
+    #         self.lastNameEntry.delete(0, 'end')
+    #         self.suffixEntry.delete(0, 'end')
+    #         self.birthPlaceEntry.delete(0, 'end')
+    #         self.genderEntry.delete(0, 'end')
+    #         self.addressEntry.delete(0, 'end')
+    #         self.ageEntry.delete(0, 'end')
+    #         self.mobileNoEntry.delete(0, 'end')
+    #         self.emailEntry.delete(0, 'end')
+    #         self.fnameEntry.insert(0, i[1])
+    #         self.midnameEntry.insert(0, i[2])
+    #         self.lastNameEntry.insert(0, i[3])
+    #         self.suffixEntry.insert(0, i[4])
+    #         self.date = i[5]
+    #         self.birthDateEntry.configure(text=i[5])
+    #         self.birthPlaceEntry.insert(0, i[6])
+    #         self.genderEntry.insert(0, i[7])
+    #         self.addressEntry.insert(0, i[8])
+    #         self.ageEntry.configure(state='normal')
+    #         self.ageEntry.delete(0,'end')
+    #         self.ageEntry.insert(0, i[9])
+    #         self.ageEntry.configure(state='disabled')
+    #         self.mobileNoEntry.insert(0, i[10])
+    #         self.emailEntry.insert(0, i[11])
+    #     return button_click 
 
 
 

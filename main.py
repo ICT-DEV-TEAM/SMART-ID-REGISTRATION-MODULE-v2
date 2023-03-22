@@ -108,11 +108,46 @@ class SmartID_GUI:
         mycursor.execute(search_information)
         search_result = mycursor.fetchall()
         index = 1
-        def all_result(i):
-            return self.personalInformation.selectInfo(i)
+        def selectInfo(i):
+            def button_click():
+                #PERSONAL INFORMATION
+                self.personalInformation.clearAll()
+                self.personalInformation.fnameEntry.insert(0, i[1])
+                self.personalInformation.midnameEntry.insert(0, i[2])
+                self.personalInformation.lastNameEntry.insert(0, i[3])
+                self.personalInformation.suffixEntry.insert(0, i[4])
+                self.personalInformation.date = i[5]
+                self.personalInformation.birthDateEntry.configure(text=i[5])
+                self.personalInformation.birthPlaceEntry.insert(0, i[6])
+                self.personalInformation.genderEntry.insert(0, i[7])
+                self.personalInformation.addressEntry.insert(0, i[8])
+                self.personalInformation.ageEntry.configure(state='normal')
+                self.personalInformation.ageEntry.delete(0,'end')
+                self.personalInformation.ageEntry.insert(0, i[9])
+                self.personalInformation.ageEntry.configure(state='disabled')
+                self.personalInformation.mobileNoEntry.insert(0, i[10])
+                self.personalInformation.emailEntry.insert(0, i[11])
+
+                #EMERGENCY CONTACT INFORMATION
+                self.emergencyContact.clearAll() 
+                self.emergencyContact.fnameEntry.insert(0, i[13])
+                self.emergencyContact.mnameEntry.insert(0, i[14])
+                self.emergencyContact.lnameEntry.insert(0, i[15])
+                self.emergencyContact.suffixEntry.insert(0, i[16])
+                self.emergencyContact.genderEntry.insert(0, i[17])
+                self.emergencyContact.addressEntry.insert(0, i[18])
+                self.emergencyContact.mobileNoEntry.insert(0, i[19])
+                self.emergencyContact.emailEntry.insert(0, i[20])
+                self.emergencyContact.affStringVar.set(i[21]) 
+
+                #USER INFO
+                self.userinfo.clearAll()
+                
+            return button_click 
+       
          
         for i in search_result:
-            self.searchResultLabel1 = ctk.CTkButton(master=self.searchResult.searchResultFrame, text=i[23] + " " + i[1] +" "+ i[3], font=ctk.CTkFont(size=int(self.window_height * .0178), family="Inter"), fg_color="#FFFFFF", text_color='#000000', command=all_result(i))
+            self.searchResultLabel1 = ctk.CTkButton(master=self.searchResult.searchResultFrame, text=i[23] + " " + i[1] +" "+ i[3], font=ctk.CTkFont(size=int(self.window_height * .0178), family="Inter"), fg_color="#FFFFFF", text_color='#000000', command=selectInfo(i))
             self.searchResultLabel1.grid(column=0, row=index, padx=3, pady=1, sticky='nw')      
             index += 1
             
