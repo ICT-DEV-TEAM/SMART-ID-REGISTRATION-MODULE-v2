@@ -58,3 +58,7 @@ class CompanyInfoGUI:
             photo_image = ctk.CTkImage(Image.open(file_path), size=self.selected_photo)
             self.companyLogoLabel.configure(image=photo_image)
             self.file_path = file_path
+    
+    def clearAll(self):
+        self.companyNameEntry.delete(0, 'end')
+        self.companyNameAbbrevEntry.delete(0, 'end')

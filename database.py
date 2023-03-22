@@ -47,6 +47,13 @@ class Database:
         self.portLabel.grid(row=4, column=1, sticky='w', padx=self.paddingX, pady=self.paddingY)
         self.portEntry = ctk.CTkEntry(master=self.databaseBoxFrame, fg_color='#AEB9F1', width=self.frameWidth * .677, height=self.frameHeight * .161, border_width=0, corner_radius=5, font=self.font)
         self.portEntry.grid(row=4, column=2, padx=self.paddingX, pady=self.paddingY)
+    
+    def clearAll(self):
+        self.hostnameEntry.delete(0, 'end')
+        self.usernameEntry.delete(0, 'end')
+        self.passwordEntry.delete(0, 'end')
+        self.databaseEntry.delete(0, 'end')
+        self.portEntry.delete(0, 'end')
 
 
     

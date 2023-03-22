@@ -29,5 +29,15 @@ class ControlsGUI():
         self.logoutBtn = ctk.CTkButton(master=self.controlsGUI, fg_color="#950000", width=int(.53 * self.frameWidth), height=int(.136 * self.frameHeight), text="Logout", font=self.font)
         self.logoutBtn.grid(row=3, column=1, pady=int((self.frameHeight * .0243)))
 
+        self.listeners = []
+
     def settingsClicked(self):
         self.settings_clicked = True
+    
+    def saveUpdate(self, userid):
+        for i in self.listeners:
+            i(userid, "has clicked Save/Update")
+    
+    def logoutUpdate(self, userid):
+        for i in self.listeners:
+            i(userid, "has logged out")

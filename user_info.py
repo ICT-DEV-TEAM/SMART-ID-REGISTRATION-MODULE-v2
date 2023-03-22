@@ -100,6 +100,7 @@ class UserInfo:
 
         self.file_path = ""
         self.selected_photo = None
+        self.listeners = []
 
     def upload_photo(self):
         file_path = filedialog.askopenfilename(filetypes=[("Image files", "*.jpg;*.png;*.gif")])
@@ -168,6 +169,10 @@ class UserInfo:
         currentYear = str(datetime.date.today().strftime("%Y"))
         generated_userNo = currentYear + '-' + random_nums
         self.userNoEntry.configure(text='  ' + generated_userNo + '   ')
+    
+    def clearUpdate(self, userid):
+        for i in self.listeners:
+            i(userid, "has cleared User Information section")
         
 
 

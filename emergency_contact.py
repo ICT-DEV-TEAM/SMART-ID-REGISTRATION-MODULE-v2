@@ -85,6 +85,8 @@ class EmergencyContactGUI():
 
         self.emailEntry = ctk.CTkEntry(master=self.emergencyGUI, fg_color='#AEB9F1', width=self.textBoxWidth, height=self.textBoxHeight, border_width=0, corner_radius=5, font=self.font)
         self.emailEntry.grid(row=4, column=4, padx=self.paddingX, pady=self.paddingY)
+
+        self.listeners = []
         
     def clearAll(self):
         self.fnameEntry.delete(0, 'end')
@@ -103,6 +105,10 @@ class EmergencyContactGUI():
                 return False           
             else:
                 return True
+    
+    def clearUpdate(self, userid):
+        for i in self.listeners:
+            i(userid, "has cleared Emergency Contact Information section")
             
     # def selectInfo(self,i):
     #     def button_click():

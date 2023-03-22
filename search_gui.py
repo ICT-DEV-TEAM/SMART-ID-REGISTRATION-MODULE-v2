@@ -33,8 +33,18 @@ class SearchGUI:
 
         self.clearBtn = ctk.CTkButton(master=self.searchGUIFrame, text="Clear", font=ctk.CTkFont(size=int(self.btnWidth * .16), family="Inter"), width=self.btnWidth, fg_color='#950000', command=self.clearAll)
         self.clearBtn.grid(column=3, row=3, padx=int((self.frameWidth * .025)/2), pady=int((self.frameHeight * .08)/2), sticky='nw')
+        self.listeners = []
 
-    def clearAll(self):
+    def clearAll(self, userid):
         self.userNoEntry.delete(0, 'end')
         self.surnameEntry.delete(0, 'end')
         self.firstNameEntry.delete(0, 'end')
+        self.clearUpdate(userid)
+    
+    def clearUpdate(self, userid):
+        for i in self.listeners:
+            i(userid, "has cleared all information")
+    
+    def searchUpdate(self, userid):
+        for i in self.listeners:
+            i(userid, "has queried for a search")
