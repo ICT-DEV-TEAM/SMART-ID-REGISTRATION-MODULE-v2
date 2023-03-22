@@ -41,7 +41,7 @@ class PersonalInformation():
         self.suffixLabel = ctk.CTkLabel(master=self.emergencyGUI, font=self.font, text="Suffix", text_color="#000000")
         self.suffixLabel.grid(row=4, column=1, sticky='wn', padx=self.paddingX, pady=self.paddingY)
 
-        self.birthDateLabel = ctk.CTkLabel(master=self.emergencyGUI, font=self.font, text="Birthdate", text_color="#000000")
+        self.birthDateLabel = ctk.CTkLabel(master=self.emergencyGUI, font=self.font, text="Birthdate*", text_color="#000000")
         self.birthDateLabel.grid(row=1, column=3, sticky='ws', padx=self.paddingX, pady=self.paddingY)
 
         self.birthPlaceLabel = ctk.CTkLabel(master=self.emergencyGUI, font=self.font, text="Birth place*", text_color="#000000")
@@ -113,9 +113,13 @@ class PersonalInformation():
         self.birthPlaceEntry.delete(0, 'end')
         self.genderEntry.delete(0, 'end')
         self.addressEntry.delete(0, 'end')
+        self.ageEntry.configure(state='normal')
         self.ageEntry.delete(0, 'end')
+        self.ageEntry.configure(state='disabled')
         self.mobileNoEntry.delete(0, 'end')
         self.emailEntry.delete(0, 'end')
+        self.date = datetime.today().strftime(r'%d/%m/%Y')
+        self.birthDateEntry.configure(text="   " + self.date + "      ")
     
     def set_date(self):
         date = self.cal.cal.get_date()
