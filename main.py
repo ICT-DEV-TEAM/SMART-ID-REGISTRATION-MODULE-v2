@@ -112,7 +112,7 @@ class SmartID_GUI:
     def search(self):
         
         mycursor = self.mydb.cursor()
-        search_information = "SELECT * FROM personalinformation LEFT JOIN emergencyinformation ON personalinformation.personal_id = emergencyinformation.emergency_id LEFT JOIN userinformation ON personalinformation.personal_id = userinformation.user_id  WHERE personal_fname LIKE '"+self.searchgui.firstNameEntry.get()+"%'"  
+        search_information = "SELECT * FROM personalinformation LEFT JOIN emergencyinformation ON personalinformation.personal_id = emergencyinformation.emergency_id LEFT JOIN userinformation ON personalinformation.personal_id = userinformation.user_id  WHERE personal_fname LIKE '"+self.searchgui.firstNameEntry.get()+"%' AND personal_lname LIKE '"+self.searchgui.surnameEntry.get()+"%' AND user_no LIKE '"+self.searchgui.userNoEntry.get()+"%'"  
         mycursor.execute(search_information)
         search_result = mycursor.fetchall()
         index = 1
@@ -165,11 +165,13 @@ class SmartID_GUI:
             return button_click 
        
         self.clearResults()
-        for i in search_result:
-            self.searchResultLabel1 = ctk.CTkButton(master=self.searchResult.searchResultFrame, text=i[23] + " " + i[1] +" "+ i[3], font=ctk.CTkFont(size=int(self.window_height * .0178), family="Inter"), fg_color="#FFFFFF", text_color='#000000', command=selectInfo(i))
-            self.searchResultLabel1.grid(column=0, row=index, padx=3, pady=1, sticky='nw')      
-            index += 1
-            
+        if len(search_result) > 1:
+            for i in search_result:
+                self.searchResultLabel1 = ctk.CTkButton(master=self.searchResult.searchResultFrame, text=i[23] + " " + i[1] +" "+ i[3], font=ctk.CTkFont(size=int(self.window_height * .0178), family="Inter"), fg_color="#FFFFFF", text_color='#000000', command=selectInfo(i))
+                self.searchResultLabel1.grid(column=0, row=index, padx=3, pady=1, sticky='nw')      
+                index += 1
+        else:
+            print('a')   
         print('search')
         
 
