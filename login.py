@@ -5,6 +5,8 @@ from PIL import Image
 class LoginGUI():
     usernames = []
     passwords = []
+    userid = []
+    currUser = None
     authenticated = False
     noAccountDetected = False
     def __init__(self):
@@ -56,7 +58,9 @@ class LoginGUI():
 
         self.clearButton = ctk.CTkButton(master=self.loginFrame, fg_color="#950000", width=int(self.loginFrame_width * 0.2545), height=int(self.loginFrame_height * 0.1325), text='CLEAR', font=self.font, text_color="#FFFFFF", command=self.clear)
         self.clearButton.grid(row=4, column=3, sticky='w', pady=int(self.loginFrame_height * .0047619), padx=int((0.0225 * self.loginFrame_width)/2))
-    
+
+        self.listeners = []
+        
     def login(self):
         username = self.userEntry.get()
         password = self.passEntry.get()
@@ -64,6 +68,7 @@ class LoginGUI():
             idx = self.usernames.index(username)
             if password == self.passwords[idx]:
                 print("Login")
+                self.currUser = self.userid[idx]
                 self.authenticated = True
             else:
                 print("Wrong credentials")
@@ -71,6 +76,9 @@ class LoginGUI():
             print("no account")
             self.noAccountDetected = True
 
+    def loginUpdate(self, userid):
+        for i in self.listeners:
+            i(userid, "has logged in")
     
     def clear(self):
         self.userEntry.delete(0, 'end')

@@ -13,7 +13,7 @@ from id_reg_settings import IDRegSettingsGUI
 from login import LoginGUI
 import connection as conn
 import security as sec
-
+from tkinter import messagebox
 
 class SmartID_GUI:
     def __init__(self):
@@ -57,71 +57,172 @@ class SmartID_GUI:
         self.controls = ControlsGUI(master=self.rightFrame, row=3, column=0, sticky='e', padx=10, pady=0, width=self.window_width, height=self.window_height)
         self.controls.logoutBtn.configure(command=self.logout)
         self.controls.saveBtn.configure(command=self.save)
+        self.searchgui.searchBtn.configure(command=self.search)
         self.userinfo.affiliationDropdown.configure(command=self.user_info_dropdowns)
         self.login = LoginGUI()
         self.login.app.grab_set()
         self.id_reg = None
+        self.searchgui.clearBtn.configure(command=self.clearResults)
+        self.searchgui.listeners.append(self.status.update)
+        self.userinfo.listeners.append(self.status.update)
+        self.personalInformation.listeners.append(self.status.update)
+        self.emergencyContact.listeners.append(self.status.update)
+        self.controls.listeners.append(self.status.update)
+        self.login.listeners.append(self.status.update)
+        self.userinfo.clearButton.configure(command=self.clearUserInfo)
+        self.emergencyContact.clearButton.configure(command=self.clearEmerCont)
+        self.personalInformation.clearButton.configure(command=self.clearPersonalInfo)
+        self.status.statusboxActivity.configure(wraplength=int(self.status.statusboxFrame.winfo_width()))
+        self.login.loginButton.configure(command=self.loginFunc)
+    
+    def clearResults(self):
+        self.searchgui.clearAll(self.login.currUser)
+        self.searchResult.clearResults()
+        self.personalInformation.clearAll()
+        self.emergencyContact.clearAll()
+        self.userinfo.clearAll()
         
     def user_info_dropdowns(self, value):
         if self.userinfo.affStringVar.get() == 'Employee':
-            self.userinfo.posValuesList = ['pos1', 'pos2', 'pos3']
-            self.userinfo.posDropdown.configure(values=self.userinfo.posValuesList)
-            self.userinfo.posStringVar.set(self.userinfo.posValuesList[0])
-            self.userinfo.deptValuesList = ['dept1', 'dept2', 'dept3']
-            self.userinfo.deptDropdown.configure(values=self.userinfo.deptValuesList)
-            self.userinfo.deptStringVar.set(self.userinfo.deptValuesList[0])
+            self.userinfo.posUpdateList(['pos1', 'pos2', 'pos3'])
+            self.userinfo.deptUpdateList(['dept1', 'dept2', 'dept3'])
         elif self.userinfo.affStringVar.get() == 'Student - Basic Ed':
-            self.userinfo.posValuesList = ['grd1', 'grd2', 'grd3']
-            self.userinfo.posDropdown.configure(values=self.userinfo.posValuesList)
-            self.userinfo.posStringVar.set(self.userinfo.posValuesList[0])
-            self.userinfo.deptValuesList = ['sec1', 'sec2', 'sec3']
-            self.userinfo.deptDropdown.configure(values=self.userinfo.deptValuesList)
-            self.userinfo.deptStringVar.set(self.userinfo.deptValuesList[0])
+            self.userinfo.posUpdateList(['grd1', 'grd2', 'grd3'])
+            self.userinfo.deptUpdateList(['sec1', 'sec2', 'sec3'])
         elif self.userinfo.affStringVar.get() == 'Student - Tertiary':
-            self.userinfo.posValuesList = ['crs1', 'crs2', 'crs3']
-            self.userinfo.posDropdown.configure(values=self.userinfo.posValuesList)
-            self.userinfo.posStringVar.set(self.userinfo.posValuesList[0])
-            self.userinfo.deptValuesList = ['clg1', 'clg2', 'clg3']
-            self.userinfo.deptDropdown.configure(values=self.userinfo.deptValuesList)
-            self.userinfo.deptStringVar.set(self.userinfo.deptValuesList[0])
-        elif self.userinfo.affStringVar.get() == 'Visitor' or self.userinfo.affStringVar.get() == 'User Type':
-            self.userinfo.posValuesList = ['Pos/Gr/Crs']
-            self.userinfo.posDropdown.configure(values=self.userinfo.posValuesList)
-            self.userinfo.posStringVar.set(self.userinfo.posValuesList[0])
-            self.userinfo.deptValuesList = ['Dept/Section']
-            self.userinfo.deptDropdown.configure(values=self.userinfo.deptValuesList)
-            self.userinfo.deptStringVar.set(self.userinfo.deptValuesList[0])
+            self.userinfo.posUpdateList(['crs1', 'crs2', 'crs3'])
+            self.userinfo.deptUpdateList(['clg1', 'clg2', 'clg3'])
+        
+        self.userinfo.user_info_dropdowns()
+
+    def validate_required_field(self):
+            if  self.emergencyContact.fnameEntry.get() == "" or self.emergencyContact.lnameEntry.get() == "" or self.emergencyContact.addressEntry.get() == "" or self.emergencyContact.mobileNoEntry.get() == "" or self.personalInformation.fnameEntry.get() == "" or self.personalInformation.lastNameEntry.get() == "" or self.personalInformation.birthPlaceEntry.get() == "" or self.personalInformation.addressEntry.get() == "" or self.personalInformation.ageEntry.get() == "":
+                messagebox.showerror("Error", "Fields with asterisk are required.")
+                return False           
+            else:
+                return True        
 
     def save(self):
+        information_validation = self.validate_required_field()
+        if information_validation == False:
+            return
+        
         mycursor = self.mydb.cursor()
 
         insert_personalinfo = "INSERT INTO personalinformation(personal_fname, personal_mname, personal_lname, personal_suffix, personal_bdate, personal_bplace, personal_gender, personal_address, personal_age, personal_no, personal_email) VALUES (%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s)"
-        personalinfo_values = (self.personalInformation.fnameEntry.get(),self.personalInformation.midnameEntry.get(),self.personalInformation.lastNameEntry.get(),self.personalInformation.suffixEntry.get(),self.personalInformation.date ,self.personalInformation.birthPlaceEntry.get(),self.personalInformation.genderEntry.get(),self.personalInformation.addressEntry.get(),self.personalInformation.ageEntry.get(),self.personalInformation.mobileNoEntry.get(),self.personalInformation.emailEntry.get())
+        personalinfo_values = (self.personalInformation.fnameEntry.get(),self.personalInformation.midnameEntry.get(),self.personalInformation.lastNameEntry.get(),self.personalInformation.suffixEntry.get(),self.personalInformation.date ,self.personalInformation.birthPlaceEntry.get(),self.personalInformation.genderStringVar.get(),self.personalInformation.addressEntry.get(),self.personalInformation.ageEntry.get(),self.personalInformation.mobileNoEntry.get(),self.personalInformation.emailEntry.get())
         insert_emergencyinfo = "INSERT INTO emergencyinformation(emergency_fname, emergency_mname, emergency_lname, emergency_suffix, emergency_gender, emergency_address, emergency_no, emergency_email, emergency_affiliation) VALUES (%s,%s,%s,%s,%s,%s,%s,%s,%s)"
-        emergencyinfo_values = (self.emergencyContact.fnameEntry.get(),self.emergencyContact.mnameEntry.get(),self.emergencyContact.lnameEntry.get(),self.emergencyContact.suffixEntry.get(),self.emergencyContact.genderEntry.get(),self.emergencyContact.addressEntry.get(),self.emergencyContact.mobileNoEntry.get(),self.emergencyContact.emailEntry.get(),self.emergencyContact.affStringVar.get())
+        emergencyinfo_values = (self.emergencyContact.fnameEntry.get(),self.emergencyContact.mnameEntry.get(),self.emergencyContact.lnameEntry.get(),self.emergencyContact.suffixEntry.get(),self.emergencyContact.genderStringVar.get(),self.emergencyContact.addressEntry.get(),self.emergencyContact.mobileNoEntry.get(),self.emergencyContact.emailEntry.get(),self.emergencyContact.affStringVar.get())
         insert_userinfo = "INSERT INTO userinformation(user_no, user_type, user_pos_gr_crs, user_dept_section, user_lrn_eno, user_card_id, user_photo) VALUES (%s,%s,%s,%s,%s,%s,%s)"
-        userinfo_values = (self.userinfo.userNoEntry.get(),self.userinfo.affStringVar.get(), self.userinfo.userinfo.posStringVar.get(), self.userinfo.deptStringVar.get(), self.userinfo.lrnEntry.get(), self.userinfo.cardEntry.get(), self.userinfo.file_path )
+        userinfo_values = (self.userinfo.userNoEntry.cget("text"),self.userinfo.affStringVar.get(), self.userinfo.posStringVar.get(), self.userinfo.deptStringVar.get(), self.userinfo.lrnEntry.get(), self.userinfo.cardEntry.get(), self.userinfo.file_path )
         mycursor.execute(insert_personalinfo, personalinfo_values)
         mycursor.execute(insert_emergencyinfo, emergencyinfo_values)
         mycursor.execute(insert_userinfo, userinfo_values)
         self.mydb.commit()
-
+        messagebox.showinfo("Success", "Saved successfully!")
         print("saved")
+        self.clearResults()
+        self.controls.saveUpdate(self.login.currUser)
+    
+    def clearEmerCont(self):
+        self.emergencyContact.clearUpdate(self.login.currUser)
+        self.emergencyContact.clearAll()
+    
+    def clearPersonalInfo(self):
+        self.personalInformation.clearUpdate(self.login.currUser)
+        self.personalInformation.clearAll()
+    
+    def clearUserInfo(self):
+        self.userinfo.clearUpdate(self.login.currUser)
+        self.userinfo.clearAll()
+
+    def search(self):
+        mycursor = self.mydb.cursor()
+        search_information = "SELECT * FROM personalinformation LEFT JOIN emergencyinformation ON personalinformation.personal_id = emergencyinformation.emergency_id LEFT JOIN userinformation ON personalinformation.personal_id = userinformation.user_id  WHERE personal_fname LIKE '"+self.searchgui.firstNameEntry.get()+"%' AND personal_lname LIKE '"+self.searchgui.surnameEntry.get()+"%' AND user_no LIKE '"+self.searchgui.userNoEntry.get()+"%'"  
+        mycursor.execute(search_information)
+        search_result = mycursor.fetchall()
+        index = 1
+        def selectInfo(i):
+            def button_click():
+                #PERSONAL INFORMATION
+                self.personalInformation.clearAll()
+                self.personalInformation.fnameEntry.insert(0, i[1])
+                self.personalInformation.midnameEntry.insert(0, i[2])
+                self.personalInformation.lastNameEntry.insert(0, i[3])
+                self.personalInformation.suffixEntry.insert(0, i[4])
+                self.personalInformation.date = i[5]
+                self.personalInformation.birthDateEntry.configure(text=i[5])
+                self.personalInformation.birthPlaceEntry.insert(0, i[6])
+                self.personalInformation.genderStringVar.set(i[7])
+                self.personalInformation.addressEntry.insert(0, i[8])
+                self.personalInformation.ageEntry.configure(state='normal')
+                self.personalInformation.ageEntry.delete(0,'end')
+                self.personalInformation.ageEntry.insert(0, i[9])
+                self.personalInformation.ageEntry.configure(state='disabled')
+                self.personalInformation.mobileNoEntry.insert(0, i[10])
+                self.personalInformation.emailEntry.insert(0, i[11])
+
+                #EMERGENCY CONTACT INFORMATION
+                self.emergencyContact.clearAll() 
+                self.emergencyContact.fnameEntry.insert(0, i[13])
+                self.emergencyContact.mnameEntry.insert(0, i[14])
+                self.emergencyContact.lnameEntry.insert(0, i[15])
+                self.emergencyContact.suffixEntry.insert(0, i[16])
+                self.emergencyContact.genderStringVar.set(i[17])
+                self.emergencyContact.addressEntry.insert(0, i[18])
+                self.emergencyContact.mobileNoEntry.insert(0, i[19])
+                self.emergencyContact.emailEntry.insert(0, i[20])
+                self.emergencyContact.affStringVar.set(i[21]) 
+
+                #USER INFO
+                self.userinfo.clearAll()
+                self.userinfo.userNoEntry.configure(text="  "+i[23]+"   ")
+                self.userinfo.affStringVar.set(i[24])
+                self.userinfo.posStringVar.set(i[25])
+                self.userinfo.deptStringVar.set(i[26])
+                self.userinfo.lrnEntry.insert(0, i[27])
+                self.userinfo.cardEntry.insert(0, i[28])
+                self.userinfo.generateButton.configure(state='disabled')
+                self.current_path = os.path.dirname(os.path.realpath(__file__))
+                self.userinfo.headerLogoLabel.configure(image=None)
+                self.headerLogo = ctk.CTkImage(Image.open(i[29]),
+                                               size=(int(self.userinfo.frameWidth * .283), int(self.userinfo.frameHeight * .69)))
+                self.userinfo.headerLogoLabel.configure(image=self.headerLogo)
+            return button_click 
+       
+        self.clearResults()
+        if len(search_result) > 1:
+            for i in search_result:
+                self.searchResultLabel1 = ctk.CTkButton(master=self.searchResult.searchResultFrame, text=i[23] + " " + i[1] +" "+ i[3], font=ctk.CTkFont(size=int(self.window_height * .0178), family="Inter"), fg_color="#FFFFFF", text_color='#000000', command=selectInfo(i))
+                self.searchResultLabel1.grid(column=0, row=index, padx=3, pady=1, sticky='nw')      
+                index += 1
+        else:
+            i = search_result[0]
+            self.searchResultLabel1 = ctk.CTkButton(master=self.searchResult.searchResultFrame, text=i[23] + " " + i[1] +" "+ i[3], font=ctk.CTkFont(size=int(self.window_height * .0178), family="Inter"), fg_color="#FFFFFF", text_color='#000000', command=selectInfo(i))
+            self.searchResultLabel1.invoke()
+        self.searchgui.searchUpdate(self.login.currUser)
         
+
     def logout(self):
+        self.controls.logoutUpdate(self.login.currUser)
         self.login.authenticated = False
-        self.login = LoginGUI()
+        self.login.app.deiconify()
         self.main()
 
     def get_login_credentials(self):
         mycursor = self.mydb.cursor()
-        login_credentials = "SELECT user_name, user_pass FROM user_login"
+        login_credentials = "SELECT * FROM user_login"
         mycursor.execute(login_credentials)
         result = mycursor.fetchall()
         for i in result:
             temp = list(i)
-            self.login.usernames.append(temp[0])
-            self.login.passwords.append(temp[1])
+            self.login.userid.append(temp[0])
+            self.login.usernames.append(temp[1])
+            self.login.passwords.append(temp[2])
+    
+    def loginFunc(self):
+        self.login.login()
+        self.login.loginUpdate(self.login.currUser)
 
     def main(self):
         self.login.app.lift()
@@ -133,9 +234,27 @@ class SmartID_GUI:
                 self.get_login_credentials()
                 while True:
                     if bool(self.login.app.winfo_exists()) and self.login.authenticated:
-                        self.login.app.destroy()
+                        self.login.app.grab_release()
+                        self.login.app.withdraw()
+                        self.login.clear()
                     if not bool(self.login.app.winfo_exists()) and not self.login.authenticated:
                         break
+                    if self.login.authenticated and self.controls.settings_clicked:
+                        self.controls.settings_clicked = False
+                        self.id_reg = IDRegSettingsGUI()
+                        self.id_reg.app.grab_set()
+                        while True:
+                            if bool(self.id_reg.app.winfo_exists()) and self.id_reg.configured:
+                                self.id_reg.app.destroy()
+                                self.id_reg.configured = False
+                                self.id_reg = None
+                                break
+                            if not bool(self.id_reg.app.winfo_exists()):
+                                self.id_reg.app.destroy()
+                                self.id_reg.configured = False
+                                self.id_reg = None
+                                break
+                            self.app.update()
                     # if not bool(self.id_reg.app.winfo_exists()):
                     if bool(self.login.app.winfo_exists()) and self.login.noAccountDetected and not hasattr(self.id_reg, 'app'):
                         self.id_reg = IDRegSettingsGUI()

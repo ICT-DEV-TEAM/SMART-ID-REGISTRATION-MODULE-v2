@@ -14,18 +14,19 @@ def read_file(filename):
         return file.read()
 
 def encrypt(data, filename, delimiter):
-    join_data = delimiter.join(data)
-    to_encrypt = enc.encrypt(join_data)
-    to_encrypt += insert_seed + enc.seed
-    try:
-        seed = to_encrypt.split(insert_seed)[-1]
-        dec.decrypt(to_encrypt, seed)
-        save_to_file(filename, to_encrypt)
-        print('encrypted')
-    except:
-        reencrypt = enc.encrypt(to_encrypt)
-        save_to_file(filename, reencrypt)
-        print('can not encrypt')
+    while True:
+        join_data = delimiter.join(data)
+        to_encrypt = enc.encrypt(join_data)
+        to_encrypt += insert_seed + enc.seed
+        try:
+            seed = to_encrypt.split(insert_seed)[-1]
+            dec.decrypt(to_encrypt, seed)
+            save_to_file(filename, to_encrypt)
+            print('encrypted')
+            break
+        except Exception as e:
+            print(e)
+            continue
 
 def decrypt(filename, delimiter):
     raw_string = read_file(filename)
