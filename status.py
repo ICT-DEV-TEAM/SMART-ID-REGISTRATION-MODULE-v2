@@ -1,5 +1,5 @@
 import customtkinter as ctk
-
+import connection as conn
 class Status:
     def __init__(self, master, row, column, sticky, padx, pady, width, height):
         self.frameWidth = int(width * .29)
@@ -14,6 +14,7 @@ class Status:
 
     def update(self, userid, string):
         self.statusboxActivity.configure(text="User " + str(userid) + " " + string)
+        
     
         
 

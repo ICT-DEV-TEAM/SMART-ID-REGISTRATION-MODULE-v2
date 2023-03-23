@@ -16,6 +16,20 @@ CREATE DATABASE /*!32312 IF NOT EXISTS*/`smart_id` /*!40100 DEFAULT CHARACTER SE
 
 USE `smart_id`;
 
+/*Table structure for table `button_error` */
+
+DROP TABLE IF EXISTS `button_error`;
+
+CREATE TABLE `button_error` (
+  `button_error_id` int(20) NOT NULL AUTO_INCREMENT,
+  `button_error_desc` varchar(1000) NOT NULL,
+  `button_error_date` varchar(50) NOT NULL,
+  `button_error_time` varchar(50) NOT NULL,
+  PRIMARY KEY (`button_error_id`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+
+/*Data for the table `button_error` */
+
 /*Table structure for table `emergencyinformation` */
 
 DROP TABLE IF EXISTS `emergencyinformation`;
@@ -104,6 +118,19 @@ CREATE TABLE `user_login` (
 insert  into `user_login`(`user_id`,`user_name`,`user_pass`) values 
 (1,'asd','qwe'),
 (2,'123','zxc');
+
+/*Table structure for table `user_status` */
+
+DROP TABLE IF EXISTS `user_status`;
+
+CREATE TABLE `user_status` (
+  `user_status_id` int(10) NOT NULL,
+  `user_status_action` varchar(255) NOT NULL,
+  `user_status_date` varchar(255) NOT NULL,
+  `user_status_time` varchar(255) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+
+/*Data for the table `user_status` */
 
 /*Table structure for table `userinformation` */
 
