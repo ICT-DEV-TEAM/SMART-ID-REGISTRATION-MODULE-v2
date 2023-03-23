@@ -76,6 +76,7 @@ class SmartID_GUI:
         # self.login.loginButton.configure(command=self.loginFunc)
     
     def clearResults(self):
+        self.userinfo.selectedUserId = 0
         self.searchgui.clearAll(self.login.currUser)
         self.searchResult.clearResults()
         self.personalInformation.clearAll()
@@ -108,22 +109,33 @@ class SmartID_GUI:
             return
         
         mycursor = self.mydb.cursor()
-
-        insert_personalinfo = "INSERT INTO personalinformation(personal_fname, personal_mname, personal_lname, personal_suffix, personal_bdate, personal_bplace, personal_gender, personal_address, personal_age, personal_no, personal_email) VALUES (%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s)"
-        personalinfo_values = (self.personalInformation.fnameEntry.get(),self.personalInformation.midnameEntry.get(),self.personalInformation.lastNameEntry.get(),self.personalInformation.suffixEntry.get(),self.personalInformation.date ,self.personalInformation.birthPlaceEntry.get(),self.personalInformation.genderStringVar.get(),self.personalInformation.addressEntry.get(),self.personalInformation.ageEntry.get(),self.personalInformation.mobileNoEntry.get(),self.personalInformation.emailEntry.get())
-        insert_emergencyinfo = "INSERT INTO emergencyinformation(emergency_fname, emergency_mname, emergency_lname, emergency_suffix, emergency_gender, emergency_address, emergency_no, emergency_email, emergency_affiliation) VALUES (%s,%s,%s,%s,%s,%s,%s,%s,%s)"
-        emergencyinfo_values = (self.emergencyContact.fnameEntry.get(),self.emergencyContact.mnameEntry.get(),self.emergencyContact.lnameEntry.get(),self.emergencyContact.suffixEntry.get(),self.emergencyContact.genderStringVar.get(),self.emergencyContact.addressEntry.get(),self.emergencyContact.mobileNoEntry.get(),self.emergencyContact.emailEntry.get(),self.emergencyContact.affStringVar.get())
-        insert_userinfo = "INSERT INTO userinformation(user_no, user_type, user_pos_gr_crs, user_dept_section, user_lrn_eno, user_card_id, user_photo) VALUES (%s,%s,%s,%s,%s,%s,%s)"
-        userinfo_values = (str(self.userinfo.userNoEntry.cget("text")).strip(),self.userinfo.affStringVar.get(), self.userinfo.posStringVar.get(), self.userinfo.deptStringVar.get(), self.userinfo.lrnEntry.get(), self.userinfo.cardEntry.get(), self.userinfo.file_path )
-        mycursor.execute(insert_personalinfo, personalinfo_values)
-        mycursor.execute(insert_emergencyinfo, emergencyinfo_values)
-        mycursor.execute(insert_userinfo, userinfo_values)
-        self.mydb.commit()
-        CTkMessagebox(title="Success", message="Saved successfully!", icon="check", bg_color="#1F1F1F", title_color="#FFFFFF", fg_color="#FFFFFF", border_width=0)
-        print("saved")
+        if self.userinfo.selectedUserId == 0:
+            insert_personalinfo = "INSERT INTO personalinformation(personal_fname, personal_mname, personal_lname, personal_suffix, personal_bdate, personal_bplace, personal_gender, personal_address, personal_age, personal_no, personal_email) VALUES (%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s)"
+            personalinfo_values = (self.personalInformation.fnameEntry.get(),self.personalInformation.midnameEntry.get(),self.personalInformation.lastNameEntry.get(),self.personalInformation.suffixEntry.get(),self.personalInformation.date ,self.personalInformation.birthPlaceEntry.get(),self.personalInformation.genderStringVar.get(),self.personalInformation.addressEntry.get(),self.personalInformation.ageEntry.get(),self.personalInformation.mobileNoEntry.get(),self.personalInformation.emailEntry.get())
+            insert_emergencyinfo = "INSERT INTO emergencyinformation(emergency_fname, emergency_mname, emergency_lname, emergency_suffix, emergency_gender, emergency_address, emergency_no, emergency_email, emergency_affiliation) VALUES (%s,%s,%s,%s,%s,%s,%s,%s,%s)"
+            emergencyinfo_values = (self.emergencyContact.fnameEntry.get(),self.emergencyContact.mnameEntry.get(),self.emergencyContact.lnameEntry.get(),self.emergencyContact.suffixEntry.get(),self.emergencyContact.genderStringVar.get(),self.emergencyContact.addressEntry.get(),self.emergencyContact.mobileNoEntry.get(),self.emergencyContact.emailEntry.get(),self.emergencyContact.affStringVar.get())
+            insert_userinfo = "INSERT INTO userinformation(user_no, user_type, user_pos_gr_crs, user_dept_section, user_lrn_eno, user_card_id, user_photo) VALUES (%s,%s,%s,%s,%s,%s,%s)"
+            userinfo_values = (str(self.userinfo.userNoEntry.cget("text")).strip(),self.userinfo.affStringVar.get(), self.userinfo.posStringVar.get(), self.userinfo.deptStringVar.get(), self.userinfo.lrnEntry.get(), self.userinfo.cardEntry.get(), self.userinfo.file_path )
+            mycursor.execute(insert_personalinfo, personalinfo_values)
+            mycursor.execute(insert_emergencyinfo, emergencyinfo_values)
+            mycursor.execute(insert_userinfo, userinfo_values)
+            self.mydb.commit()
+            CTkMessagebox(title="Success", message="Saved successfully!", icon="check", bg_color="#1F1F1F", title_color="#FFFFFF", fg_color="#FFFFFF", border_width=0)
+        else:
+            update_personalinfo = "UPDATE personalinformation SET personal_fname = %s, personal_mname = %s, personal_lname = %s, personal_suffix = %s, personal_bdate = %s, personal_bplace = %s, personal_gender = %s, personal_address = %s, personal_age = %s, personal_no = %s, personal_email = %s WHERE personal_id = %s"
+            personalinfo_values = (self.personalInformation.fnameEntry.get(),self.personalInformation.midnameEntry.get(),self.personalInformation.lastNameEntry.get(),self.personalInformation.suffixEntry.get(),self.personalInformation.date ,self.personalInformation.birthPlaceEntry.get(),self.personalInformation.genderStringVar.get(),self.personalInformation.addressEntry.get(),self.personalInformation.ageEntry.get(),self.personalInformation.mobileNoEntry.get(),self.personalInformation.emailEntry.get(), self.userinfo.selectedUserId)
+            update_emergencyinfo = "UPDATE emergencyinformation SET emergency_fname = %s, emergency_mname = %s, emergency_lname = %s, emergency_suffix = %s, emergency_gender = %s, emergency_address = %s, emergency_no = %s, emergency_email = %s, emergency_affiliation = %s WHERE emergency_id = %s"
+            emergencyinfo_values = (self.emergencyContact.fnameEntry.get(),self.emergencyContact.mnameEntry.get(),self.emergencyContact.lnameEntry.get(),self.emergencyContact.suffixEntry.get(),self.emergencyContact.genderStringVar.get(),self.emergencyContact.addressEntry.get(),self.emergencyContact.mobileNoEntry.get(),self.emergencyContact.emailEntry.get(),self.emergencyContact.affStringVar.get(), self.userinfo.selectedUserId)
+            update_userinfo = "UPDATE userinformation SET user_no = %s, user_type = %s, user_pos_gr_crs = %s, user_dept_section = %s, user_lrn_eno = %s, user_card_id = %s, user_photo = %s WHERE user_id = %s"
+            userinfo_values = (str(self.userinfo.userNoEntry.cget("text")).strip(),self.userinfo.affStringVar.get(), self.userinfo.posStringVar.get(), self.userinfo.deptStringVar.get(), self.userinfo.lrnEntry.get(), self.userinfo.cardEntry.get(), self.userinfo.file_path, self.userinfo.selectedUserId)
+            mycursor.execute(update_personalinfo, personalinfo_values)
+            mycursor.execute(update_emergencyinfo, emergencyinfo_values)
+            mycursor.execute(update_userinfo, userinfo_values)
+            self.mydb.commit()
+            CTkMessagebox(title="Success", message="Updated successfully!", icon="check", bg_color="#1F1F1F", title_color="#FFFFFF", fg_color="#FFFFFF", border_width=0)
         self.clearResults()
         self.controls.saveUpdate(self.login.currUser)
-    
+
     def clearEmerCont(self):
         self.emergencyContact.clearUpdate(self.login.currUser)
         self.emergencyContact.clearAll()
@@ -145,6 +157,7 @@ class SmartID_GUI:
         def selectInfo(i):
             def button_click():
                 #PERSONAL INFORMATION
+                self.userinfo.selectedUserId = int(i[0])
                 self.personalInformation.clearAll()
                 self.personalInformation.fnameEntry.insert(0, i[1])
                 self.personalInformation.midnameEntry.insert(0, i[2])

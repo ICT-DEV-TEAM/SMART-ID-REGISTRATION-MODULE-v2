@@ -102,6 +102,7 @@ class UserInfo:
         self.selected_photo = None
         self.listeners = []
         self.mydb = None
+        self.selectedUserId = 0
 
     def upload_photo(self):
         file_path = filedialog.askopenfilename(filetypes=[("Image files", "*.jpg;*.png;*.gif")])
@@ -113,8 +114,9 @@ class UserInfo:
             self.file_path = file_path
 
     def clearAll(self):
-        self.userNoEntry.configure(text='  0000-000000   ')
-        self.generateButton.configure(state='normal')
+        if self.selectedUserId == 0:
+            self.userNoEntry.configure(text='  0000-000000   ')
+            self.generateButton.configure(state='normal')
         self.affStringVar.set("User Type")
         self.posStringVar.set("Pos/Gr/Crs")
         self.deptStringVar.set("Dept/Section")
