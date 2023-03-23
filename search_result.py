@@ -4,7 +4,7 @@ import tkinter as tk
 class Search_Result:
     def __init__(self, master, row, column, sticky, padx, pady, width, height):
         self.frameWidth = int(width * .274)
-        self.frameHeight = int(height * .43)
+        self.frameHeight = int(height * .407)
         self.searchResultFrame = ctk.CTkScrollableFrame(master=master, fg_color="#FFFFFF", width=self.frameWidth, height=self.frameHeight)    
         self.searchResultFrame.grid(padx=padx, pady=pady, row=row, column=column, sticky=sticky)
 
