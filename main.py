@@ -14,6 +14,7 @@ from login import LoginGUI
 import connection as conn
 import security as sec
 from tkinter import messagebox
+from CTkMessagebox import CTkMessagebox
 
 class SmartID_GUI:
     def __init__(self):
@@ -97,7 +98,8 @@ class SmartID_GUI:
 
     def validate_required_field(self):
             if  self.emergencyContact.fnameEntry.get() == "" or self.emergencyContact.lnameEntry.get() == "" or self.emergencyContact.addressEntry.get() == "" or self.emergencyContact.mobileNoEntry.get() == "" or self.personalInformation.fnameEntry.get() == "" or self.personalInformation.lastNameEntry.get() == "" or self.personalInformation.birthPlaceEntry.get() == "" or self.personalInformation.addressEntry.get() == "" or self.personalInformation.ageEntry.get() == "":
-                messagebox.showerror("Error", "Fields with asterisk are required.")
+                CTkMessagebox(title="Error", message="Fields with asterisk are required.", icon="cancel", bg_color="#1F1F1F", title_color="#FFFFFF", fg_color="#FFFFFF", border_width=0)
+                # messagebox.showerror("Error", "Fields with asterisk are required.")
                 return False           
             else:
                 return True        
