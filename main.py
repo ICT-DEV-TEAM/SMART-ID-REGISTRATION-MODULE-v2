@@ -184,10 +184,10 @@ class SmartID_GUI:
                 self.userinfo.cardEntry.insert(0, i[28])
                 self.userinfo.generateButton.configure(state='disabled')
                 self.current_path = os.path.dirname(os.path.realpath(__file__))
-                self.userinfo.headerLogoLabel.configure(image=None)
-                self.headerLogo = ctk.CTkImage(Image.open(i[29]),
-                                               size=(int(self.userinfo.frameWidth * .283), int(self.userinfo.frameHeight * .69)))
-                self.userinfo.headerLogoLabel.configure(image=self.headerLogo)
+                if i[29] != "":
+                    self.headerLogo = ctk.CTkImage(Image.open(i[29]),
+                                                size=(int(self.userinfo.frameWidth * .26), int(self.userinfo.frameHeight * .69)))
+                    self.userinfo.headerLogoLabel.configure(image=self.headerLogo)
             return button_click 
        
         self.clearResults()

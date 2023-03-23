@@ -90,7 +90,7 @@ class UserInfo:
 
         self.current_path = os.path.dirname(os.path.realpath(__file__))
         self.headerLogo = ctk.CTkImage(Image.open(self.current_path + "/img/profile.png"),
-                                               size=(int(self.frameWidth * .283), int(self.frameHeight * .69)))
+                                               size=(int(self.frameWidth * .26), int(self.frameHeight * .69)))
         self.headerLogoLabel = ctk.CTkLabel(master=self.status3boxFrame, image=self.headerLogo ,width=self.frameWidth * .283, height=self.frameHeight * .69, text='', font=ctk.CTkFont(size=int(self.frameHeight * .075), family="Inter"), text_color="#FFFFFF",bg_color='#FFFFFF',corner_radius=5)
         self.headerLogoLabel.grid(pady=8, padx=20, row=0,column=0)
         
@@ -183,7 +183,7 @@ class UserInfo:
             i(userid, "has cleared User Information section")
     
     def validate_required_field(self):
-            if self.affStringVar.get() == 'User Type' or str(self.userNoEntry.cget('text')).strip() == "0000-000000":
+            if self.affStringVar.get() == 'User Type' or str(self.userNoEntry.cget('text')).strip() == "0000-000000" or (self.lrnEntry.get() == '' and self.affStringVar.get() == 'Student - Basic Ed'):
                 return True           
             else:
                 return False
