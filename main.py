@@ -24,8 +24,8 @@ class SmartID_GUI:
         self.screen_height = self.app.winfo_screenheight()
         # self.window_width = int(.8 * self.screen_width)
         # self.window_height = int(.7 * self.screen_height)
-        self.h = 840
-        self.w = 1363
+        self.h = 620
+        self.w = 1200
         self.window_width = self.w
         self.window_height = self.h
         self.mainGui = ctk.CTkFrame(master=self.app, fg_color="#1F1F1F")
@@ -73,7 +73,7 @@ class SmartID_GUI:
         self.emergencyContact.clearButton.configure(command=self.clearEmerCont)
         self.personalInformation.clearButton.configure(command=self.clearPersonalInfo)
         self.status.statusboxActivity.configure(wraplength=int(self.status.statusboxFrame.winfo_width()))
-        self.login.loginButton.configure(command=self.loginFunc)
+        # self.login.loginButton.configure(command=self.loginFunc)
     
     def clearResults(self):
         self.searchgui.clearAll(self.login.currUser)
@@ -114,7 +114,7 @@ class SmartID_GUI:
         insert_emergencyinfo = "INSERT INTO emergencyinformation(emergency_fname, emergency_mname, emergency_lname, emergency_suffix, emergency_gender, emergency_address, emergency_no, emergency_email, emergency_affiliation) VALUES (%s,%s,%s,%s,%s,%s,%s,%s,%s)"
         emergencyinfo_values = (self.emergencyContact.fnameEntry.get(),self.emergencyContact.mnameEntry.get(),self.emergencyContact.lnameEntry.get(),self.emergencyContact.suffixEntry.get(),self.emergencyContact.genderStringVar.get(),self.emergencyContact.addressEntry.get(),self.emergencyContact.mobileNoEntry.get(),self.emergencyContact.emailEntry.get(),self.emergencyContact.affStringVar.get())
         insert_userinfo = "INSERT INTO userinformation(user_no, user_type, user_pos_gr_crs, user_dept_section, user_lrn_eno, user_card_id, user_photo) VALUES (%s,%s,%s,%s,%s,%s,%s)"
-        userinfo_values = (self.userinfo.userNoEntry.cget("text"),self.userinfo.affStringVar.get(), self.userinfo.posStringVar.get(), self.userinfo.deptStringVar.get(), self.userinfo.lrnEntry.get(), self.userinfo.cardEntry.get(), self.userinfo.file_path )
+        userinfo_values = (str(self.userinfo.userNoEntry.cget("text")).strip(),self.userinfo.affStringVar.get(), self.userinfo.posStringVar.get(), self.userinfo.deptStringVar.get(), self.userinfo.lrnEntry.get(), self.userinfo.cardEntry.get(), self.userinfo.file_path )
         mycursor.execute(insert_personalinfo, personalinfo_values)
         mycursor.execute(insert_emergencyinfo, emergencyinfo_values)
         mycursor.execute(insert_userinfo, userinfo_values)
@@ -193,17 +193,18 @@ class SmartID_GUI:
         self.clearResults()
         if len(search_result) > 1:
             for i in search_result:
-                self.searchResultLabel1 = ctk.CTkButton(master=self.searchResult.searchResultFrame, text=i[23] + " " + i[1] +" "+ i[3], font=ctk.CTkFont(size=int(self.window_height * .0178), family="Inter"), fg_color="#FFFFFF", text_color='#000000', command=selectInfo(i))
+                self.searchResultLabel1 = ctk.CTkButton(master=self.searchResult.searchResultFrame, text=i[23] + " " + i[1] +" "+ i[3], font=ctk.CTkFont(size=int(self.window_height * .0178), family="Inter"), fg_color="#FFFFFF", text_color='#000000', command=selectInfo(i), anchor='w')
                 self.searchResultLabel1.grid(column=0, row=index, padx=3, pady=1, sticky='nw')      
                 index += 1
         else:
             i = search_result[0]
-            self.searchResultLabel1 = ctk.CTkButton(master=self.searchResult.searchResultFrame, text=i[23] + " " + i[1] +" "+ i[3], font=ctk.CTkFont(size=int(self.window_height * .0178), family="Inter"), fg_color="#FFFFFF", text_color='#000000', command=selectInfo(i))
+            self.searchResultLabel1 = ctk.CTkButton(master=self.searchResult.searchResultFrame, text=i[23] + " " + i[1] +" "+ i[3], font=ctk.CTkFont(size=int(self.window_height * .0178), family="Inter"), fg_color="#FFFFFF", text_color='#000000', command=selectInfo(i), anchor='w')
             self.searchResultLabel1.invoke()
         self.searchgui.searchUpdate(self.login.currUser)
         
 
     def logout(self):
+        self.clearResults()
         self.controls.logoutUpdate(self.login.currUser)
         self.login.authenticated = False
         self.login.app.deiconify()
@@ -220,9 +221,8 @@ class SmartID_GUI:
             self.login.usernames.append(temp[1])
             self.login.passwords.append(temp[2])
     
-    def loginFunc(self):
-        self.login.login()
-        self.login.loginUpdate(self.login.currUser)
+    # def loginFunc(self):
+    #     self.login.login()
 
     def main(self):
         self.login.app.lift()
@@ -232,6 +232,7 @@ class SmartID_GUI:
         while True:
             if type(self.mydb) is conn.mysql.connector.connection_cext.CMySQLConnection:
                 self.get_login_credentials()
+                self.status.mydb = self.mydb
                 while True:
                     if bool(self.login.app.winfo_exists()) and self.login.authenticated:
                         self.login.app.grab_release()

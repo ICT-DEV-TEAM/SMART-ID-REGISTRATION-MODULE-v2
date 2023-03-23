@@ -126,8 +126,7 @@ DROP TABLE IF EXISTS `user_status`;
 CREATE TABLE `user_status` (
   `user_status_id` int(10) NOT NULL,
   `user_status_action` varchar(255) NOT NULL,
-  `user_status_date` varchar(255) NOT NULL,
-  `user_status_time` varchar(255) NOT NULL
+  `user_action_timestamp` varchar(255) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 /*Data for the table `user_status` */
