@@ -26,7 +26,7 @@ class PhotoStorage:
              
     def select_folder(self):
         folder_path = filedialog.askdirectory()
-        self.photoStorageBoxLabel.configure(text="Path: "+folder_path)
+        self.photoStorageBoxLabel.configure(text="Path: "+folder_path,font=ctk.CTkFont(size=int(self.frameHeight * .20), family="Inter"),wraplength=int(self.photoStorageBoxFrame.winfo_width()))
     
         
 

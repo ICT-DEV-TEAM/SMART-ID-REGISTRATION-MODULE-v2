@@ -61,6 +61,8 @@ class IDRegSettingsGUI():
     def clearAll(self):
         self.database.clearAll()
         self.company_info.clearAll()
+        self.photo_storage.photoStorageBoxLabel.configure(text="Path:", font=ctk.CTkFont(size=int(self.photo_storage.frameHeight * .394)))
+        self.company_info.companyLogoLabel.configure(image=self.company_info.companyLogo)
         
 if __name__ == "__main__":
     main = IDRegSettingsGUI()   
