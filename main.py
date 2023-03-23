@@ -96,7 +96,7 @@ class SmartID_GUI:
         self.userinfo.user_info_dropdowns()
 
     def validate_required_field(self):
-            if  self.emergencyContact.fnameEntry.get() == "" or self.emergencyContact.lnameEntry.get() == "" or self.emergencyContact.addressEntry.get() == "" or self.emergencyContact.mobileNoEntry.get() == "" or self.personalInformation.fnameEntry.get() == "" or self.personalInformation.lastNameEntry.get() == "" or self.personalInformation.birthPlaceEntry.get() == "" or self.personalInformation.addressEntry.get() == "" or self.personalInformation.ageEntry.get() == "":
+            if  self.personalInformation.validate_required_field() or self.emergencyContact.validate_required_field() or self.userinfo.validate_required_field():
                 CTkMessagebox(title="Error", message="Fields with asterisk are required.", icon="cancel", bg_color="#1F1F1F", title_color="#FFFFFF", fg_color="#FFFFFF", border_width=0)
                 return False           
             else:
@@ -233,6 +233,7 @@ class SmartID_GUI:
             if type(self.mydb) is conn.mysql.connector.connection_cext.CMySQLConnection:
                 self.get_login_credentials()
                 self.status.mydb = self.mydb
+                self.userinfo.mydb = self.mydb
                 while True:
                     if bool(self.login.app.winfo_exists()) and self.login.authenticated:
                         self.login.app.grab_release()

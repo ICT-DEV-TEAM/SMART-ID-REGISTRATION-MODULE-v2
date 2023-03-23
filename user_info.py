@@ -46,8 +46,8 @@ class UserInfo:
         self.userNoEntry.grid_propagate(False)
         self.userNoEntry.grid(row=0, column=2, padx=self.paddingX, pady=self.paddingY)
         
-        self.copy = ctk.CTkButton(master=self.status1boxFrame, fg_color="#0F1C5D", width=self.frameWidth * .197, height=self.frameHeight * .135, text="", image=self.clipboard_icon)
-        self.generateButton = ctk.CTkButton(master=self.status1boxFrame, fg_color="#0F1C5D", width=self.frameWidth * .197, height=self.frameHeight * .135, text="Generate", command=self.generate)
+        # self.copy = ctk.CTkButton(master=self.status1boxFrame, fg_color="#0F1C5D", width=self.frameWidth * .197, height=self.frameHeight * .135, text="", image=self.clipboard_icon)
+        self.generateButton = ctk.CTkButton(master=self.status1boxFrame, fg_color="#0F1C5D", width=self.frameWidth * .197, height=self.frameHeight * .135, text="Generate", command=self.getUserNo)
         self.generateButton.grid(row=0, column=3, sticky='w', pady=int(height * .0047619))
 
         self.affStringVar = ctk.StringVar()
@@ -101,6 +101,7 @@ class UserInfo:
         self.file_path = ""
         self.selected_photo = None
         self.listeners = []
+        self.mydb = None
 
     def upload_photo(self):
         file_path = filedialog.askopenfilename(filetypes=[("Image files", "*.jpg;*.png;*.gif")])
@@ -151,7 +152,6 @@ class UserInfo:
         self.posDropdown.configure(values=self.posValuesList)
         self.posStringVar.set(self.posValuesList[0])
         
-    
     def deptUpdateList(self, values):
         self.deptValuesList = values
         self.deptDropdown.configure(values=self.deptValuesList)
@@ -160,6 +160,10 @@ class UserInfo:
     def copy(self):
         pyperclip.copy(str(self.userNoEntry.cget('text')).strip())
     
+    def getUserNo(self):
+        generated = self.generate()
+        self.userNoEntry.configure(text='  ' + generated + '   ')
+
     def generate(self):
         random.seed(str(datetime.datetime.now()))
         random_nums = ''
@@ -168,11 +172,29 @@ class UserInfo:
             random_nums += str(num)
         currentYear = str(datetime.date.today().strftime("%Y"))
         generated_userNo = currentYear + '-' + random_nums
-        self.userNoEntry.configure(text='  ' + generated_userNo + '   ')
-    
+        current_userNoList = self.fetchUserNoList()
+        if generated_userNo not in current_userNoList:
+            return generated_userNo
+        else:
+            self.generate()
+        
     def clearUpdate(self, userid):
         for i in self.listeners:
             i(userid, "has cleared User Information section")
+    
+    def validate_required_field(self):
+            if self.affStringVar.get() == 'User Type' or str(self.userNoEntry.cget('text')).strip() == "0000-000000":
+                return True           
+            else:
+                return False
+        
+    def fetchUserNoList(self):
+        mycursor = self.mydb.cursor()
+        get_userNo = "SELECT user_no FROM userinformation"
+        mycursor.execute(get_userNo)
+        search_result = mycursor.fetchall()
+        search_result = [item for t in search_result for item in t]
+        return search_result
         
 
 
