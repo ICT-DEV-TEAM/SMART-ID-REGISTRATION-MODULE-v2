@@ -91,7 +91,7 @@ class PersonalInformation():
         self.birthPlaceEntry.grid(row=2, column=4, padx=self.paddingX, pady=self.paddingY)
 
         self.genderStringVar = ctk.StringVar()
-        self.genderValuesList = ['Male', 'Female', 'LGBTQ+']
+        self.genderValuesList = ['-', 'Male', 'Female', 'LGBTQ+']
         self.genderStringVar.set(self.genderValuesList[0])
         
         self.genderDropdown = ctk.CTkOptionMenu(master=self.emergencyGUI, font=self.font, text_color="#FFFFFF", variable=self.genderStringVar, corner_radius=5, fg_color="#0F1C5D", width=self.textBoxWidth, height=self.textBoxHeight, button_color="#0F1C5D", anchor="center", values=self.genderValuesList)
@@ -117,7 +117,7 @@ class PersonalInformation():
         self.lastNameEntry.delete(0, 'end')
         self.suffixEntry.delete(0, 'end')
         self.birthPlaceEntry.delete(0, 'end')
-        self.genderStringVar.set('Male')
+        self.genderStringVar.set('-')
         self.addressEntry.delete(0, 'end')
         self.ageEntry.configure(state='normal')
         self.ageEntry.delete(0, 'end')
@@ -146,11 +146,10 @@ class PersonalInformation():
         self.cal.app.grab_set()
     
     def validate_required_field(self):
-            if  self.fnameEntry.get() == "" or self.lastNameEntry.get() == "" or self.birthPlaceEntry.get() == "" or self.genderEntry.get() == "" or self.addressEntry.get() == "" or self.ageEntry.get() == "":
-                messagebox.showerror("Error", "Fields with asterisk are required.")
-                return False           
+            if  self.fnameEntry.get() == "" or self.lastNameEntry.get() == "" or self.birthPlaceEntry.get() == "" or self.genderStringVar.get() == "-" or self.addressEntry.get() == "" or self.ageEntry.get() == "":
+                return True           
             else:
-                return True
+                return False
     
     def clearUpdate(self, userid):
         for i in self.listeners:

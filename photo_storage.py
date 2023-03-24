@@ -17,16 +17,19 @@ class PhotoStorage:
 
         self.photoStorageBoxFrame = ctk.CTkFrame(master=self.photoStorageFrame, fg_color="#FFFFFF", width=self.frameWidth, height=self.frameHeight, corner_radius=5)    
         self.photoStorageBoxFrame.grid_propagate(False)
-        self.photoStorageBoxFrame.grid_columnconfigure((0,3), weight=1)
+        self.photoStorageBoxFrame.grid_columnconfigure((0), weight=1)
+        self.photoStorageBoxFrame.grid_rowconfigure((0), weight=1)
         self.photoStorageBoxFrame.grid(row=1, column=1, sticky='w', columnspan=2)
 
+        self.scrollbox = ctk.CTkScrollableFrame(master=self.photoStorageBoxFrame, fg_color="#FFFFFF", bg_color="#1F1F1F")
+        self.scrollbox.grid(column=0, row=0, sticky='nsew')
 
-        self.photoStorageBoxLabel = ctk.CTkLabel(master=self.photoStorageBoxFrame, text="Path:", font=ctk.CTkFont(size=int(self.frameHeight * .394), family="Inter"))
+        self.photoStorageBoxLabel = ctk.CTkLabel(master=self.scrollbox, justify="left", text="Path: ", font=ctk.CTkFont(size=int(self.frameHeight * .394), family="Inter"), anchor='w')
         self.photoStorageBoxLabel.grid(column=0, row=0, padx=5, pady=2, sticky='w')
              
     def select_folder(self):
         folder_path = filedialog.askdirectory()
-        self.photoStorageBoxLabel.configure(text="Path: "+folder_path)
+        self.photoStorageBoxLabel.configure(text="Path: "+folder_path, wraplength=int(self.photoStorageBoxFrame.winfo_width())-20)
     
         
 

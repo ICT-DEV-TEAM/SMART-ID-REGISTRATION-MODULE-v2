@@ -41,7 +41,7 @@ class CompanyInfoGUI:
         self.current_path = os.path.dirname(os.path.realpath(__file__))
         self.companyLogo = ctk.CTkImage(Image.open(self.current_path + "/img/LOGO.png"),
                                                size=(int(self.frameWidth * 0.3233), int(self.frameHeight * 0.393)))
-        self.companyLogoLabel = ctk.CTkLabel(master=self.compInfoFrame, text='',width=self.frameWidth * 0.3233,height=self.frameHeight * 0.393, font=ctk.CTkFont(size=int(self.frameHeight * .075), family="Inter"), text_color="#1f2f3f")
+        self.companyLogoLabel = ctk.CTkLabel(master=self.compInfoFrame, text='',image=self.companyLogo, width=self.frameWidth * 0.3233,height=self.frameHeight * 0.393, font=ctk.CTkFont(size=int(self.frameHeight * .075), family="Inter"), text_color="#1f2f3f")
         self.companyLogoLabel.grid(pady=8, padx=20, row=6, column=2, sticky='e')
 
         self.selectPhotoButton = ctk.CTkButton(master=self.compInfoFrame,command=self.upload_photo, fg_color="#0F1C5D", width=int(self.frameWidth * 0.3233), height=int(self.frameHeight * 0.0771), text='Select Photo', font=ctk.CTkFont(size=int(0.0415 * self.frameHeight), family='Inter'), text_color="#FFFFFF")

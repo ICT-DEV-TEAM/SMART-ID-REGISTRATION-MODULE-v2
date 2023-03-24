@@ -70,6 +70,7 @@ class LoginGUI():
                 print("Login")
                 self.currUser = self.userid[idx]
                 self.authenticated = True
+                self.loginUpdate(self.currUser)
             else:
                 print("Wrong credentials")
         else:

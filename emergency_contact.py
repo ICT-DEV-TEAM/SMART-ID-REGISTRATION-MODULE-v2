@@ -49,14 +49,14 @@ class EmergencyContactGUI():
         self.emailLabel = ctk.CTkLabel(master=self.emergencyGUI, font=self.font, text="E-mail", text_color="#000000")
         self.emailLabel.grid(row=4, column=3, sticky='wn', padx=self.paddingX, pady=self.paddingY)
 
-        self.affiliationLabel = ctk.CTkLabel(master=self.emergencyGUI, font=self.font, text="Affiliation", text_color="#000000")
+        self.affiliationLabel = ctk.CTkLabel(master=self.emergencyGUI, font=self.font, text="Affiliation*", text_color="#000000")
         self.affiliationLabel.grid(row=1, column=5, sticky='wn', padx=self.paddingX, pady=self.paddingY)
 
         self.textBoxWidth = int(self.frameWidth * .196)
         self.textBoxHeight = int(self.frameHeight * .192)
         
         self.affStringVar = ctk.StringVar()
-        self.affValuesList = ['Guardian', 'Father', 'Mother']
+        self.affValuesList = ['-', 'Guardian', 'Father', 'Mother']
         self.affStringVar.set(self.affValuesList[0])
         
         self.affiliationDropdown = ctk.CTkOptionMenu(master=self.emergencyGUI, font=self.font, text_color="#FFFFFF", variable=self.affStringVar, corner_radius=5, fg_color="#0F1C5D", width=int(self.frameWidth * .2407), height=self.textBoxHeight, button_color="#0F1C5D", anchor="center", values=self.affValuesList)
@@ -75,7 +75,7 @@ class EmergencyContactGUI():
         self.suffixEntry.grid(row=4, column=2, padx=self.paddingX, pady=self.paddingY)
 
         self.genderStringVar = ctk.StringVar()
-        self.genderValuesList = ['Male', 'Female', 'LGBTQ+']
+        self.genderValuesList = ['-', 'Male', 'Female', 'LGBTQ+']
         self.genderStringVar.set(self.genderValuesList[0])
         
         self.genderDropdown = ctk.CTkOptionMenu(master=self.emergencyGUI, font=self.font, text_color="#FFFFFF", variable=self.genderStringVar, corner_radius=5, fg_color="#0F1C5D", width=self.textBoxWidth, height=self.textBoxHeight, button_color="#0F1C5D", anchor="center", values=self.genderValuesList)
@@ -97,18 +97,17 @@ class EmergencyContactGUI():
         self.mnameEntry.delete(0, 'end')
         self.lnameEntry.delete(0, 'end')
         self.suffixEntry.delete(0, 'end')
-        self.genderStringVar.set('Male')
+        self.genderStringVar.set('-')
         self.addressEntry.delete(0, 'end')
         self.mobileNoEntry.delete(0, 'end')
         self.emailEntry.delete(0, 'end')
-        self.affStringVar.set('Guardian')  
+        self.affStringVar.set('-')  
 
     def validate_required_field(self):
-            if  self.fnameEntry.get() == "" or self.lnameEntry.get() == "" or self.genderEntry.get() == "" or self.addressEntry.get() == "" or self.mobileNoEntry.get() == "":
-                messagebox.showerror("Error", "Fields with asterisk are required.")
-                return False           
+            if  self.fnameEntry.get() == "" or self.lnameEntry.get() == "" or self.genderStringVar.get() == "-" or self.addressEntry.get() == "" or self.mobileNoEntry.get() == "" or self.affStringVar.get() == '-':
+                return True           
             else:
-                return True
+                return False
     
     def clearUpdate(self, userid):
         for i in self.listeners:
