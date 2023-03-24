@@ -1,7 +1,9 @@
 Babel==2.12.1
+CTkMessagebox==1.5
 customtkinter==5.1.2
 darkdetect==0.8.0
 mysql-connector-python==8.0.32
 Pillow==9.4.0
 protobuf==3.20.3
+pyperclip==1.8.2
 tkcalendar==1.6.1

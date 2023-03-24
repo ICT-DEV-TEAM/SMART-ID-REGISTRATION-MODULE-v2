@@ -14,6 +14,8 @@ from login import LoginGUI
 import connection as conn
 import security as sec
 from CTkMessagebox import CTkMessagebox
+import sys
+from datetime import datetime
 
 class SmartID_GUI:
     def __init__(self):
@@ -24,8 +26,8 @@ class SmartID_GUI:
         self.screen_height = self.app.winfo_screenheight()
         # self.window_width = int(.8 * self.screen_width)
         # self.window_height = int(.7 * self.screen_height)
-        self.h = 620
-        self.w = 1200
+        self.h = 840
+        self.w = 1363
         self.window_width = self.w
         self.window_height = self.h
         self.mainGui = ctk.CTkFrame(master=self.app, fg_color="#1F1F1F")
@@ -305,6 +307,26 @@ class SmartID_GUI:
                     self.app.update()
             exit()
 
+old_f = sys.stdout
+class F:
+    def write(self, x):
+        if x != "\n":
+            dt_str =str(datetime.now().strftime("%Y-%m-%d %H:%M:%S"))
+            x = f"[{dt_str}] {x}"
+        old_f.write("qwe")
+        old_f.write(x)
+
+    def flush(self):
+        pass
+
 if __name__ == "__main__":
-    main = SmartID_GUI()
-    main.main()
+    sys.stdout = F()
+    current_date = str(datetime.now().strftime(r"%d-%m-%Y")) + "/"
+    current_timestamp = str(datetime.now().strftime("%d-%m-%Y h%H-m%M-s%S"))
+    if not os.path.isdir(current_date):
+        os.makedirs(os.path.dirname(current_date))
+        print('asd')
+    with open(current_date + "/" + current_timestamp + ".txt", 'w+') as sys.stdout:
+        sys.stderr = sys.stdout
+        main = SmartID_GUI()
+        main.main()
