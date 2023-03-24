@@ -56,6 +56,11 @@ class IDRegSettingsGUI():
         db_config.append(self.database.passwordEntry.get())
         db_config.append(self.database.databaseEntry.get())
         db_config.append(self.database.portEntry.get())
+        new_label = str(self.photo_storage.photoStorageBoxLabel.cget('text'))
+        db_config.append(new_label.replace("Path: ", ""))
+        db_config.append(self.company_info.companyNameEntry.get())
+        db_config.append(self.company_info.companyNameAbbrevEntry.get())
+        db_config.append(self.company_info.file_path)
         sec.encrypt(data=db_config, filename="db_config.txt", delimiter='!')
     
     def clearAll(self):
