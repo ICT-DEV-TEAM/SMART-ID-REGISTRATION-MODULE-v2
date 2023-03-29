@@ -3,11 +3,12 @@ from database import Database
 from photo_storage import PhotoStorage
 from company_info import CompanyInfoGUI
 import security as sec
-
+from color import Color
 class IDRegSettingsGUI():
     configured = False
     def __init__(self):
-        self.app = ctk.CTkToplevel(fg_color="#1F1F1F")
+        self.color = Color()
+        self.app = ctk.CTkToplevel(fg_color=self.color.very_dark_gray)
         self.app.title("ID REGISTRATION SETTINGS")
 
         self.screen_width = self.app.winfo_screenwidth()
@@ -22,27 +23,27 @@ class IDRegSettingsGUI():
         self.x_coordinate = int((self.screen_width/2) - (self.window_width/2))
         self.y_coordinate = int((self.screen_height/2) - (self.window_height/1.9))
         self.app.geometry(f"{self.window_width}x{self.window_height}+{self.x_coordinate}+{self.y_coordinate}")
-        self.mainGui = ctk.CTkFrame(master=self.app, fg_color="#1F1F1F", width=self.window_width, height=self.window_height)
+        self.mainGui = ctk.CTkFrame(master=self.app, fg_color=self.color.very_dark_gray, width=self.window_width, height=self.window_height)
         self.mainGui.grid()
         self.mainGui.grid_columnconfigure((0,3), weight=1)
         self.mainGui.grid_rowconfigure((0,6), weight=1)
         self.mainGui.grid_propagate(False)
-        self.headerLabel = ctk.CTkLabel(master=self.mainGui, text='ID REGISTRATION SETTINGS', font=ctk.CTkFont(size=int(self.window_height * .075), family="Inter"), text_color="#FFFFFF")
+        self.headerLabel = ctk.CTkLabel(master=self.mainGui, text='ID REGISTRATION SETTINGS', font=ctk.CTkFont(size=int(self.window_height * .075), family="Inter"), text_color=self.color.white)
         self.headerLabel.grid(pady=0, padx=20, row=1, columnspan=2, column=1, sticky='n')
 
-        self.databaseHeaderLabel = ctk.CTkLabel(master=self.mainGui, text=" Database", font=ctk.CTkFont(size=int(self.window_height * 0.0515), family="Inter" ), text_color="#FFFFFF")    
+        self.databaseHeaderLabel = ctk.CTkLabel(master=self.mainGui, text=" Database", font=ctk.CTkFont(size=int(self.window_height * 0.0515), family="Inter" ), text_color=self.color.white)    
         self.databaseHeaderLabel.grid(row=2, column=1, sticky='w', padx=int(0.00381 * self.screen_width))
         self.database = Database(master=self.mainGui, row=3, column=1, sticky='n', padx=int(0.00381 * self.screen_width), pady=0, width=self.window_width, height=self.window_height)
         self.photo_storage = PhotoStorage(master=self.mainGui, row=4, column=1, sticky='s', padx=int(0.00381 * self.screen_width), pady=0, width=self.window_width, height=self.window_height)
-        self.compInfoHeader = ctk.CTkLabel(master=self.mainGui, font=ctk.CTkFont(size=int(self.window_height * 0.0515), family="Inter"), text=" Company Information", text_color="#FFFFFF")
+        self.compInfoHeader = ctk.CTkLabel(master=self.mainGui, font=ctk.CTkFont(size=int(self.window_height * 0.0515), family="Inter"), text=" Company Information", text_color=self.color.white)
         self.compInfoHeader.grid(row=2, column=2, sticky='w', padx=int(0.00381 * self.screen_width))
         self.company_info = CompanyInfoGUI(master=self.mainGui, row=3, column=2, sticky='', padx=int(0.00381 * self.screen_width), pady=0, width=self.window_width, height=self.window_height, rowspan=2)
 
 
         self.font = ctk.CTkFont(size=int(self.window_height * 0.0344), family="Inter")
-        self.clearAllButton = ctk.CTkButton(master=self.mainGui, fg_color="#950000", width=int(self.window_width * 0.1429), height=int(self.window_height * 0.065), text='Clear All', font=self.font, text_color="#FFFFFF", command=self.clearAll)
+        self.clearAllButton = ctk.CTkButton(master=self.mainGui, fg_color=self.color.dark_red, width=int(self.window_width * 0.1429), height=int(self.window_height * 0.065), text='Clear All', font=self.font, text_color=self.color.white, command=self.clearAll)
         self.clearAllButton.grid(row=6, column=1, pady=int(0.0309 * self.window_height), padx=int((0.0294 * self.window_width)), sticky='e')
-        self.saveButton = ctk.CTkButton(master=self.mainGui, fg_color="#2F4BD2", width=int(self.window_width * 0.1429), height=int(self.window_height * 0.065), text='Save', font=self.font, text_color="#FFFFFF", command=self.configure)
+        self.saveButton = ctk.CTkButton(master=self.mainGui, fg_color=self.color.strong_blue, width=int(self.window_width * 0.1429), height=int(self.window_height * 0.065), text='Save', font=self.font, text_color=self.color.white, command=self.configure)
         self.saveButton.grid(row=6, column=2, pady=int(0.0309 * self.window_height), padx=int((0.0294 * self.window_width)), sticky='w')
 
     def main(self):
