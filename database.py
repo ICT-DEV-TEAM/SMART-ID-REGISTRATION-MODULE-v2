@@ -10,14 +10,10 @@ class Database:
         self.databaseFrame = ctk.CTkFrame(master=master, fg_color=self.color.very_dark_gray)
         self.databaseFrame.grid(padx=padx, pady=pady, row=row, column=column, sticky=sticky)
 
-        
-
-
         self.databaseBoxFrame = ctk.CTkFrame(master=self.databaseFrame, fg_color=self.color.white, width = self.frameWidth, height= self.frameHeight, corner_radius=5)
         self.databaseBoxFrame.grid_propagate(False)
         self.databaseBoxFrame.grid(row=1, column=0, sticky='w', columnspan=2)
         self.databaseBoxFrame.grid_columnconfigure((0,3), weight=1)
-  
 
         self.paddingY = int((self.frameHeight * .0355)/2)
         self.paddingX = int((self.frameWidth * .0135)/2)

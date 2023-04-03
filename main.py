@@ -322,12 +322,11 @@ class F:
 
 if __name__ == "__main__":
     sys.stdout = F()
-    current_date = str(datetime.now().strftime(r"%d-%m-%Y")) + "/"
+    # current_date = str(datetime.now().strftime(r"%d-%m-%Y")) + "/"
     current_timestamp = str(datetime.now().strftime("%d-%m-%Y h%H-m%M-s%S"))
-    if not os.path.isdir(current_date):
-        os.makedirs(os.path.dirname(current_date))
-        print('asd')
-    with open(current_date + "/" + current_timestamp + ".txt", 'w+') as sys.stdout:
+    if not os.path.isdir("Logs"):
+        os.makedirs("Logs")
+    with open("Logs/" + current_timestamp + ".txt", 'w+') as sys.stdout:
         sys.stderr = sys.stdout
         main = SmartID_GUI()
         main.main()
