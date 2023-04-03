@@ -1,0 +1,20 @@
+434
+Connected to MySQL Server:  5.5.5-10.4.27-MariaDB
+Login
+Exception in Tkinter callback
+Traceback (most recent call last):
+  File "C:\Users\FCPC OJT DEV\AppData\Local\Programs\Python\Python311\Lib\tkinter\__init__.py", line 1948, in __call__
+    return self.func(*args)
+           ^^^^^^^^^^^^^^^^
+  File "C:\Users\FCPC OJT DEV\AppData\Local\Programs\Python\Python311\Lib\tkinter\__init__.py", line 861, in callit
+    func(*args)
+  File "C:\Users\FCPC OJT DEV\AppData\Local\Programs\Python\Python311\Lib\site-packages\customtkinter\windows\widgets\appearance_mode\appearance_mode_tracker.py", line 96, in update
+    new_appearance_mode = cls.detect_appearance_mode()
+                          ^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\FCPC OJT DEV\AppData\Local\Programs\Python\Python311\Lib\site-packages\customtkinter\windows\widgets\appearance_mode\appearance_mode_tracker.py", line 61, in detect_appearance_mode
+    if darkdetect.theme() == "Dark":
+       ^^^^^^^^^^^^^^^^^^
+  File "C:\Users\FCPC OJT DEV\AppData\Local\Programs\Python\Python311\Lib\site-packages\darkdetect\_windows_detect.py", line 64, in theme
+    key = getKey(hkey, "Software\\Microsoft\\Windows\\CurrentVersion\\Themes\\Personalize")
+          ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+KeyboardInterrupt
