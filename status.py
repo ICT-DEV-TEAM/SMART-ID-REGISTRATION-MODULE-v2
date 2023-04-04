@@ -22,12 +22,14 @@ class Status:
         self.saveActionToDatabase(userid, action)
     
     def saveActionToDatabase(self, userid, action):
-        mycursor = self.mydb.cursor()
-        insert_action = "INSERT INTO user_status(user_status_id, user_status_action, user_action_timestamp) VALUES(%s,%s,%s)"
+        # mycursor = self.mydb.cursor()
+        
+        # insert_action = "INSERT INTO user_status(user_status_id, user_status_action, user_action_timestamp) VALUES(%s,%s,%s)"
         timestamp = datetime.datetime.now().strftime(r"%d/%m/%Y %H:%M:%S")
         action_values = (userid, action, timestamp)
-        mycursor.execute(insert_action, action_values)
-        self.mydb.commit()
+        # mycursor.execute(insert_action, action_values)
+        self.mydb.save("user_status", "user_status_id, user_status_action, user_action_timestamp", action_values)
+        # self.mydb.commit()
 
         
     

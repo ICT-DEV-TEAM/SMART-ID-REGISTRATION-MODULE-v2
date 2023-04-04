@@ -155,6 +155,9 @@ class PersonalInformation():
     def clearUpdate(self, userid):
         for i in self.listeners:
             i(userid, "has cleared Personal Information section")
+        
+    def getValues(self):
+        return (self.fnameEntry.get(),self.midnameEntry.get(),self.lastNameEntry.get(),self.suffixEntry.get(),self.date ,self.birthPlaceEntry.get(),self.genderStringVar.get(),self.addressEntry.get(),self.ageEntry.get(),self.mobileNoEntry.get(),self.emailEntry.get())
             
 
 

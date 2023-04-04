@@ -192,13 +192,15 @@ class UserInfo:
                 return False
         
     def fetchUserNoList(self):
-        mycursor = self.mydb.cursor()
-        get_userNo = "SELECT user_no FROM userinformation"
-        mycursor.execute(get_userNo)
-        search_result = mycursor.fetchall()
+        # mycursor = self.mydb.cursor()
+        # get_userNo = "SELECT user_no FROM userinformation"
+        # mycursor.execute(get_userNo)
+        search_result = self.mydb.retrieve("user_no", "userinformation")
         search_result = [item for t in search_result for item in t]
         return search_result
-        
+    
+    def getValues(self):
+        return (str(self.userNoEntry.cget("text")).strip(),self.affStringVar.get(), self.posStringVar.get(), self.deptStringVar.get(), self.lrnEntry.get(), self.cardEntry.get(), self.file_path)
 
 
 

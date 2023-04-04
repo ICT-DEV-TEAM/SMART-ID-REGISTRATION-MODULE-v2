@@ -17,6 +17,7 @@ from CTkMessagebox import CTkMessagebox
 import sys
 from datetime import datetime
 from color import Color
+from basic_queries import Query
 class SmartID_GUI:
     def __init__(self):
         self.color = Color()
@@ -114,11 +115,12 @@ class SmartID_GUI:
         mycursor = self.mydb.cursor()
         if self.userinfo.selectedUserId == 0:
             insert_personalinfo = "INSERT INTO personalinformation(personal_fname, personal_mname, personal_lname, personal_suffix, personal_bdate, personal_bplace, personal_gender, personal_address, personal_age, personal_no, personal_email) VALUES (%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s)"
-            personalinfo_values = (self.personalInformation.fnameEntry.get(),self.personalInformation.midnameEntry.get(),self.personalInformation.lastNameEntry.get(),self.personalInformation.suffixEntry.get(),self.personalInformation.date ,self.personalInformation.birthPlaceEntry.get(),self.personalInformation.genderStringVar.get(),self.personalInformation.addressEntry.get(),self.personalInformation.ageEntry.get(),self.personalInformation.mobileNoEntry.get(),self.personalInformation.emailEntry.get())
+            personalinfo_values = self.personalInformation.getValues()
             insert_emergencyinfo = "INSERT INTO emergencyinformation(emergency_fname, emergency_mname, emergency_lname, emergency_suffix, emergency_gender, emergency_address, emergency_no, emergency_email, emergency_affiliation) VALUES (%s,%s,%s,%s,%s,%s,%s,%s,%s)"
-            emergencyinfo_values = (self.emergencyContact.fnameEntry.get(),self.emergencyContact.mnameEntry.get(),self.emergencyContact.lnameEntry.get(),self.emergencyContact.suffixEntry.get(),self.emergencyContact.genderStringVar.get(),self.emergencyContact.addressEntry.get(),self.emergencyContact.mobileNoEntry.get(),self.emergencyContact.emailEntry.get(),self.emergencyContact.affStringVar.get())
+            emergencyinfo_values = self.emergencyContact.getValues()
             insert_userinfo = "INSERT INTO userinformation(user_no, user_type, user_pos_gr_crs, user_dept_section, user_lrn_eno, user_card_id, user_photo) VALUES (%s,%s,%s,%s,%s,%s,%s)"
-            userinfo_values = (str(self.userinfo.userNoEntry.cget("text")).strip(),self.userinfo.affStringVar.get(), self.userinfo.posStringVar.get(), self.userinfo.deptStringVar.get(), self.userinfo.lrnEntry.get(), self.userinfo.cardEntry.get(), self.userinfo.file_path )
+            userinfo_values = self.userinfo.getValues()
+
             mycursor.execute(insert_personalinfo, personalinfo_values)
             mycursor.execute(insert_emergencyinfo, emergencyinfo_values)
             mycursor.execute(insert_userinfo, userinfo_values)
@@ -152,10 +154,12 @@ class SmartID_GUI:
         self.userinfo.clearAll()
 
     def search(self):
-        mycursor = self.mydb.cursor()
-        search_information = "SELECT * FROM personalinformation LEFT JOIN emergencyinformation ON personalinformation.personal_id = emergencyinformation.emergency_id LEFT JOIN userinformation ON personalinformation.personal_id = userinformation.user_id  WHERE personal_fname LIKE '"+self.searchgui.firstNameEntry.get()+"%' AND personal_lname LIKE '"+self.searchgui.surnameEntry.get()+"%' AND user_no LIKE '"+self.searchgui.userNoEntry.get()+"%'"  
-        mycursor.execute(search_information)
-        search_result = mycursor.fetchall()
+        # mycursor = self.mydb.cursor()
+        left_join = "LEFT JOIN emergencyinformation ON personalinformation.personal_id = emergencyinformation.emergency_id LEFT JOIN userinformation ON personalinformation.personal_id = userinformation.user_id"
+        where = "WHERE personal_fname LIKE '"+self.searchgui.firstNameEntry.get()+"%' AND personal_lname LIKE '"+self.searchgui.surnameEntry.get()+"%' AND user_no LIKE '"+self.searchgui.userNoEntry.get()+"%'"
+        search_information = self.mydb.retrieve("*", "personalinformation", left_join, where)
+        # mycursor.execute(search_information)
+        # search_result = mycursor.fetchall()
         index = 1
         def selectInfo(i):
             def button_click():
@@ -207,13 +211,13 @@ class SmartID_GUI:
             return button_click 
        
         self.clearResults()
-        if len(search_result) > 1:
-            for i in search_result:
+        if len(search_information) > 1:
+            for i in search_information:
                 self.searchResultLabel1 = ctk.CTkButton(master=self.searchResult.searchResultFrame, text=i[23] + " " + i[1] +" "+ i[3], font=ctk.CTkFont(size=int(self.window_height * .0178), family="Inter"), fg_color=self.color.white, text_color=self.color.black, command=selectInfo(i), anchor='w')
                 self.searchResultLabel1.grid(column=0, row=index, padx=3, pady=1, sticky='nw')      
                 index += 1
         else:
-            i = search_result[0]
+            i = search_information[0]
             self.searchResultLabel1 = ctk.CTkButton(master=self.searchResult.searchResultFrame, text=i[23] + " " + i[1] +" "+ i[3], font=ctk.CTkFont(size=int(self.window_height * .0178), family="Inter"), fg_color=self.color.white, text_color=self.color.black, command=selectInfo(i), anchor='w')
             self.searchResultLabel1.invoke()
         self.searchgui.searchUpdate(self.login.currUser)
@@ -227,10 +231,10 @@ class SmartID_GUI:
         self.main()
 
     def get_login_credentials(self):
-        mycursor = self.mydb.cursor()
-        login_credentials = "SELECT * FROM user_login"
-        mycursor.execute(login_credentials)
-        result = mycursor.fetchall()
+        # mycursor = self.mydb.cursor()
+        # login_credentials = "SELECT * FROM user_login"
+        # mycursor.execute(login_credentials)
+        result = self.mydb.retrieve("*", "user_login")
         for i in result:
             temp = list(i)
             self.login.userid.append(temp[0])
@@ -244,9 +248,10 @@ class SmartID_GUI:
         self.login.app.lift()
         self.login.app.grab_set()
         config = sec.decrypt('db_config.txt', "!")
-        self.mydb = conn.connect(config[0], config[1], config[2], config[3], config[4])
+        
+        self.mydb = Query(config)
         while True:
-            if type(self.mydb) is conn.mysql.connector.connection_cext.CMySQLConnection:
+            if type(self.mydb.crud.mydb) is conn.mysql.connector.connection_cext.CMySQLConnection:
                 self.get_login_credentials()
                 self.status.mydb = self.mydb
                 self.userinfo.mydb = self.mydb
@@ -327,6 +332,6 @@ if __name__ == "__main__":
     if not os.path.isdir("Logs"):
         os.makedirs("Logs")
     with open("Logs/" + current_timestamp + ".txt", 'w+') as sys.stdout:
-        sys.stderr = sys.stdout
+        # sys.stderr = sys.stdout
         main = SmartID_GUI()
         main.main()

@@ -113,4 +113,7 @@ class EmergencyContactGUI():
     def clearUpdate(self, userid):
         for i in self.listeners:
             i(userid, "has cleared Emergency Contact Information section")
+        
+    def getValues(self):
+        return (self.fnameEntry.get(),self.mnameEntry.get(),self.lnameEntry.get(),self.suffixEntry.get(),self.genderStringVar.get(),self.addressEntry.get(),self.mobileNoEntry.get(),self.emailEntry.get(),self.affStringVar.get())
             
