@@ -30,18 +30,12 @@ class SearchGUI:
 
         self.btnWidth = int(self.frameWidth * .213)
 
-        self.searchBtn = ctk.CTkButton(master=self.searchGUIFrame, text="SEARCH", font=ctk.CTkFont(size=self.resize(), family="Inter"), width=self.frameWidth * .213, fg_color=self.color.very_dark_blue)
+        self.searchBtn = ctk.CTkButton(master=self.searchGUIFrame, text="SEARCH", font=ctk.CTkFont(size=int(self.frameWidth * .035), family="Inter"), width=self.frameWidth * .213, fg_color=self.color.very_dark_blue)
         self.searchBtn.grid(column=3, rowspan=2, row=1, sticky="nws", padx=(self.frameWidth * .02506,self.frameWidth * .0125), pady=(self.frameHeight * .0403, 0))
 
-        self.clearBtn = ctk.CTkButton(master=self.searchGUIFrame, text="Clear", font=ctk.CTkFont(size=int(self.frameHeight * .12096), family="Inter"),height=self.frameHeight * .2258, width=self.frameWidth * .213, fg_color=self.color.dark_red, command=self.clearAll)
+        self.clearBtn = ctk.CTkButton(master=self.searchGUIFrame, text="Clear", font=ctk.CTkFont(size=int(self.frameWidth * .03759), family="Inter"),height=self.frameHeight * .2258, width=self.frameWidth * .213, fg_color=self.color.dark_red, command=self.clearAll)
         self.clearBtn.grid(column=3, row=3, padx=(self.frameWidth * .02506,self.frameWidth * .0125), pady=(self.frameHeight * .00806,self.frameHeight * .07258), sticky='nws')
         self.listeners = []
-
-    def resize(self):
-        if(self.frameWidth <= 350):
-            return int(self.frameWidth * .03)
-        else:
-            return int(self.frameWidth * .05012)
 
     def clearAll(self, userid):
         self.userNoEntry.delete(0, 'end')

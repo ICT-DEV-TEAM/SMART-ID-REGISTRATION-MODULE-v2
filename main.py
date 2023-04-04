@@ -27,8 +27,8 @@ class SmartID_GUI:
         self.screen_height = self.app.winfo_screenheight()
         # self.window_width = int(.8 * self.screen_width)
         # self.window_height = int(.7 * self.screen_height)
-        self.h = 840
-        self.w = 1363
+        self.h = 600
+        self.w = 800
         self.window_width = self.w
         self.window_height = self.h
         self.mainGui = ctk.CTkFrame(master=self.app, fg_color=self.color.very_dark_gray)
@@ -167,7 +167,7 @@ class SmartID_GUI:
                 self.personalInformation.lastNameEntry.insert(0, i[3])
                 self.personalInformation.suffixEntry.insert(0, i[4])
                 self.personalInformation.date = i[5]
-                self.personalInformation.birthDateEntry.configure(text=i[5])
+                self.personalInformation.birthDateEntry.configure(text="   "+i[5]+"      ")
                 self.personalInformation.birthPlaceEntry.insert(0, i[6])
                 self.personalInformation.genderStringVar.set(i[7])
                 self.personalInformation.addressEntry.insert(0, i[8])
