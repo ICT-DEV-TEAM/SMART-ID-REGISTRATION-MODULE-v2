@@ -52,6 +52,9 @@ class Database:
         self.databaseEntry.delete(0, 'end')
         self.portEntry.delete(0, 'end')
 
+    def getValues(self):
+        return (self.hostnameEntry.get(),self.usernameEntry.get(),self.passwordEntry.get(),self.databaseEntry.get(),self.portEntry.get())
+
 
     
 

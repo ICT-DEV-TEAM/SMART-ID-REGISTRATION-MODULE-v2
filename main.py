@@ -26,12 +26,12 @@ class SmartID_GUI:
 
         self.screen_width = self.app.winfo_screenwidth()
         self.screen_height = self.app.winfo_screenheight()
-        # self.window_width = int(.8 * self.screen_width)
-        # self.window_height = int(.7 * self.screen_height)
-        self.h = 600
-        self.w = 800
-        self.window_width = self.w
-        self.window_height = self.h
+        self.window_width = int(.8 * self.screen_width)
+        self.window_height = int(.7 * self.screen_height)
+        # self.h = 600
+        # self.w = 800
+        # self.window_width = self.w
+        # self.window_height = self.h
         self.mainGui = ctk.CTkFrame(master=self.app, fg_color=self.color.very_dark_gray)
         self.mainGui.grid(padx=10, pady=int(self.window_width * .00953))
         self.mainGui.grid_columnconfigure((0,3), weight=1)

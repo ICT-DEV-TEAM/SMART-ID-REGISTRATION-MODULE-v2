@@ -14,6 +14,7 @@ def read_file(filename):
         return file.read()
 
 def encrypt(data, filename, delimiter):
+    print(data)
     while True:
         join_data = delimiter.join(data)
         to_encrypt = enc.encrypt(join_data)

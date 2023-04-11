@@ -54,7 +54,6 @@ class CompanyInfoGUI:
 
     def upload_photo(self):
         file_path = filedialog.askopenfilename(filetypes=[("Image files", "*.jpg;*.png;*.gif")])
-        print(file_path)
         if file_path:
             self.selected_photo = int(self.frameWidth * 0.31), int(self.frameHeight * 0.393)
             photo_image = ctk.CTkImage(Image.open(file_path), size=self.selected_photo)
@@ -64,3 +63,6 @@ class CompanyInfoGUI:
     def clearAll(self):
         self.companyNameEntry.delete(0, 'end')
         self.companyNameAbbrevEntry.delete(0, 'end')
+    
+    def getValues(self):
+        return (self.companyNameEntry.get(),self.companyNameAbbrevEntry.get(),self.file_path)

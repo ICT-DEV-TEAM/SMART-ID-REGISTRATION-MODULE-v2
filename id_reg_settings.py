@@ -3,7 +3,14 @@ from database import Database
 from photo_storage import PhotoStorage
 from company_info import CompanyInfoGUI
 import security as sec
+from CTkMessagebox import CTkMessagebox
 from color import Color
+import connection as conn
+import  mysql.connector
+#establishing connection
+# conn = mysql.connector.connect(
+#    user='root', password='', host='localhost', database='pythondata')
+
 class IDRegSettingsGUI():
     configured = False
     def __init__(self):
@@ -63,6 +70,20 @@ class IDRegSettingsGUI():
         db_config.append(self.company_info.companyNameAbbrevEntry.get())
         db_config.append(self.company_info.file_path)
         sec.encrypt(data=db_config, filename="db_config.txt", delimiter='!')
+
+        # mycursor = mydb.cursor()
+        # insert_database = "INSERT INTO id_reg_settings(id_reg_hname, id_reg_uname, id_reg_password, id_reg_database, id_reg_port) VALUES (%s,%s,%s,%s,%s)"
+        # database_values = self.database.getValues()
+        # insert_photo_storage = "INSERT INTO id_reg_settings(id_reg_path) VALUES (%s)"
+        # photo_storage_values = self.photo_storage.getValues()
+        # insert_company_info = "INSERT INTO id_reg_settings(id_reg_cname, id_reg_abbreviation, id_reg_photo) VALUES (%s,%s,%s)"
+        # company_info_values = self.company_info.getValues()
+        # mycursor.execute(insert_database, database_values)
+        # mycursor.execute(insert_photo_storage, photo_storage_values)
+        # mycursor.execute(insert_company_info, company_info_values)
+        # mydb.commit()
+        # CTkMessagebox(title="Success", message="Saved successfully!", icon="check", bg_color=self.color.very_dark_gray, title_color=self.color.white, fg_color=self.color.white, border_width=0)
+
     
     def clearAll(self):
         self.database.clearAll()
