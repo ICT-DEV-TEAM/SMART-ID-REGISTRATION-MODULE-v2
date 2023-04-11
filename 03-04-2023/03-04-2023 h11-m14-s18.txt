@@ -1,0 +1,340 @@
+Connected to MySQL Server:  5.5.5-10.4.27-MariaDB
+Login
+Exception in Tkinter callback
+Traceback (most recent call last):
+  File "C:\Users\FCPC OJT DEV\AppData\Local\Programs\Python\Python311\Lib\tkinter\__init__.py", line 1948, in __call__
+    return self.func(*args)
+           ^^^^^^^^^^^^^^^^
+  File "C:\Users\FCPC OJT DEV\Documents\smart_id\SMART-ID-REGISTRATION-MODULE-v2\venv\Lib\site-packages\customtkinter\windows\widgets\ctk_button.py", line 553, in _clicked
+    self._command()
+  File "C:\Users\FCPC OJT DEV\Documents\smart_id\SMART-ID-REGISTRATION-MODULE-v2\main.py", line 204, in button_click
+    self.headerLogo = ctk.CTkImage(Image.open(i[29]),
+                                   ^^^^^^^^^^^^^^^^^
+  File "C:\Users\FCPC OJT DEV\Documents\smart_id\SMART-ID-REGISTRATION-MODULE-v2\venv\Lib\site-packages\PIL\Image.py", line 3227, in open
+    fp = builtins.open(filename, "rb")
+         ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+FileNotFoundError: [Errno 2] No such file or directory: 'C:/xampp/htdocs/SMART-ID-REGISTRATION-MODULE-v2/img/pug.jpg'
+Exception in Tkinter callback
+Traceback (most recent call last):
+  File "C:\Users\FCPC OJT DEV\AppData\Local\Programs\Python\Python311\Lib\tkinter\__init__.py", line 1948, in __call__
+    return self.func(*args)
+           ^^^^^^^^^^^^^^^^
+  File "C:\Users\FCPC OJT DEV\Documents\smart_id\SMART-ID-REGISTRATION-MODULE-v2\venv\Lib\site-packages\customtkinter\windows\widgets\ctk_button.py", line 553, in _clicked
+    self._command()
+  File "C:\Users\FCPC OJT DEV\Documents\smart_id\SMART-ID-REGISTRATION-MODULE-v2\main.py", line 204, in button_click
+    self.headerLogo = ctk.CTkImage(Image.open(i[29]),
+                                   ^^^^^^^^^^^^^^^^^
+  File "C:\Users\FCPC OJT DEV\Documents\smart_id\SMART-ID-REGISTRATION-MODULE-v2\venv\Lib\site-packages\PIL\Image.py", line 3227, in open
+    fp = builtins.open(filename, "rb")
+         ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+FileNotFoundError: [Errno 2] No such file or directory: 'C:/xampp/htdocs/SMART-ID-REGISTRATION-MODULE-v2/img/Sad-pug.jpg'
+Exception in Tkinter callback
+Traceback (most recent call last):
+  File "C:\Users\FCPC OJT DEV\AppData\Local\Programs\Python\Python311\Lib\tkinter\__init__.py", line 1948, in __call__
+    return self.func(*args)
+           ^^^^^^^^^^^^^^^^
+  File "C:\Users\FCPC OJT DEV\Documents\smart_id\SMART-ID-REGISTRATION-MODULE-v2\venv\Lib\site-packages\customtkinter\windows\widgets\ctk_button.py", line 553, in _clicked
+    self._command()
+  File "C:\Users\FCPC OJT DEV\Documents\smart_id\SMART-ID-REGISTRATION-MODULE-v2\main.py", line 204, in button_click
+    self.headerLogo = ctk.CTkImage(Image.open(i[29]),
+                                   ^^^^^^^^^^^^^^^^^
+  File "C:\Users\FCPC OJT DEV\Documents\smart_id\SMART-ID-REGISTRATION-MODULE-v2\venv\Lib\site-packages\PIL\Image.py", line 3227, in open
+    fp = builtins.open(filename, "rb")
+         ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+FileNotFoundError: [Errno 2] No such file or directory: 'C:/xampp/htdocs/SMART-ID-REGISTRATION-MODULE-v2/img/Sad-pug.jpg'
+Exception in Tkinter callback
+Traceback (most recent call last):
+  File "C:\Users\FCPC OJT DEV\AppData\Local\Programs\Python\Python311\Lib\tkinter\__init__.py", line 1948, in __call__
+    return self.func(*args)
+           ^^^^^^^^^^^^^^^^
+  File "C:\Users\FCPC OJT DEV\Documents\smart_id\SMART-ID-REGISTRATION-MODULE-v2\venv\Lib\site-packages\customtkinter\windows\widgets\ctk_button.py", line 553, in _clicked
+    self._command()
+  File "C:\Users\FCPC OJT DEV\Documents\smart_id\SMART-ID-REGISTRATION-MODULE-v2\main.py", line 204, in button_click
+    self.headerLogo = ctk.CTkImage(Image.open(i[29]),
+                                   ^^^^^^^^^^^^^^^^^
+  File "C:\Users\FCPC OJT DEV\Documents\smart_id\SMART-ID-REGISTRATION-MODULE-v2\venv\Lib\site-packages\PIL\Image.py", line 3227, in open
+    fp = builtins.open(filename, "rb")
+         ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+FileNotFoundError: [Errno 2] No such file or directory: 'C:/xampp/htdocs/SMART-ID-REGISTRATION-MODULE-v2/img/Sad-pug.jpg'
+Exception in Tkinter callback
+Traceback (most recent call last):
+  File "C:\Users\FCPC OJT DEV\AppData\Local\Programs\Python\Python311\Lib\tkinter\__init__.py", line 1948, in __call__
+    return self.func(*args)
+           ^^^^^^^^^^^^^^^^
+  File "C:\Users\FCPC OJT DEV\Documents\smart_id\SMART-ID-REGISTRATION-MODULE-v2\venv\Lib\site-packages\customtkinter\windows\widgets\ctk_button.py", line 553, in _clicked
+    self._command()
+  File "C:\Users\FCPC OJT DEV\Documents\smart_id\SMART-ID-REGISTRATION-MODULE-v2\main.py", line 204, in button_click
+    self.headerLogo = ctk.CTkImage(Image.open(i[29]),
+                                   ^^^^^^^^^^^^^^^^^
+  File "C:\Users\FCPC OJT DEV\Documents\smart_id\SMART-ID-REGISTRATION-MODULE-v2\venv\Lib\site-packages\PIL\Image.py", line 3227, in open
+    fp = builtins.open(filename, "rb")
+         ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+FileNotFoundError: [Errno 2] No such file or directory: 'C:/xampp/htdocs/SMART-ID-REGISTRATION-MODULE-v2/img/Sad-pug.jpg'
+Exception in Tkinter callback
+Traceback (most recent call last):
+  File "C:\Users\FCPC OJT DEV\AppData\Local\Programs\Python\Python311\Lib\tkinter\__init__.py", line 1948, in __call__
+    return self.func(*args)
+           ^^^^^^^^^^^^^^^^
+  File "C:\Users\FCPC OJT DEV\Documents\smart_id\SMART-ID-REGISTRATION-MODULE-v2\venv\Lib\site-packages\customtkinter\windows\widgets\ctk_button.py", line 553, in _clicked
+    self._command()
+  File "C:\Users\FCPC OJT DEV\Documents\smart_id\SMART-ID-REGISTRATION-MODULE-v2\main.py", line 204, in button_click
+    self.headerLogo = ctk.CTkImage(Image.open(i[29]),
+                                   ^^^^^^^^^^^^^^^^^
+  File "C:\Users\FCPC OJT DEV\Documents\smart_id\SMART-ID-REGISTRATION-MODULE-v2\venv\Lib\site-packages\PIL\Image.py", line 3227, in open
+    fp = builtins.open(filename, "rb")
+         ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+FileNotFoundError: [Errno 2] No such file or directory: 'C:/xampp/htdocs/SMART-ID-REGISTRATION-MODULE-v2/img/pug.jpg'
+Exception in Tkinter callback
+Traceback (most recent call last):
+  File "C:\Users\FCPC OJT DEV\AppData\Local\Programs\Python\Python311\Lib\tkinter\__init__.py", line 1948, in __call__
+    return self.func(*args)
+           ^^^^^^^^^^^^^^^^
+  File "C:\Users\FCPC OJT DEV\Documents\smart_id\SMART-ID-REGISTRATION-MODULE-v2\venv\Lib\site-packages\customtkinter\windows\widgets\ctk_button.py", line 553, in _clicked
+    self._command()
+  File "C:\Users\FCPC OJT DEV\Documents\smart_id\SMART-ID-REGISTRATION-MODULE-v2\main.py", line 204, in button_click
+    self.headerLogo = ctk.CTkImage(Image.open(i[29]),
+                                   ^^^^^^^^^^^^^^^^^
+  File "C:\Users\FCPC OJT DEV\Documents\smart_id\SMART-ID-REGISTRATION-MODULE-v2\venv\Lib\site-packages\PIL\Image.py", line 3227, in open
+    fp = builtins.open(filename, "rb")
+         ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+FileNotFoundError: [Errno 2] No such file or directory: 'C:/xampp/htdocs/SMART-ID-REGISTRATION-MODULE-v2/img/Sad-pug.jpg'
+Exception in Tkinter callback
+Traceback (most recent call last):
+  File "C:\Users\FCPC OJT DEV\AppData\Local\Programs\Python\Python311\Lib\tkinter\__init__.py", line 1948, in __call__
+    return self.func(*args)
+           ^^^^^^^^^^^^^^^^
+  File "C:\Users\FCPC OJT DEV\Documents\smart_id\SMART-ID-REGISTRATION-MODULE-v2\venv\Lib\site-packages\customtkinter\windows\widgets\ctk_button.py", line 553, in _clicked
+    self._command()
+  File "C:\Users\FCPC OJT DEV\Documents\smart_id\SMART-ID-REGISTRATION-MODULE-v2\main.py", line 204, in button_click
+    self.headerLogo = ctk.CTkImage(Image.open(i[29]),
+                                   ^^^^^^^^^^^^^^^^^
+  File "C:\Users\FCPC OJT DEV\Documents\smart_id\SMART-ID-REGISTRATION-MODULE-v2\venv\Lib\site-packages\PIL\Image.py", line 3227, in open
+    fp = builtins.open(filename, "rb")
+         ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+FileNotFoundError: [Errno 2] No such file or directory: 'C:/xampp/htdocs/SMART-ID-REGISTRATION-MODULE-v2/img/Sad-pug.jpg'
+Exception in Tkinter callback
+Traceback (most recent call last):
+  File "C:\Users\FCPC OJT DEV\AppData\Local\Programs\Python\Python311\Lib\tkinter\__init__.py", line 1948, in __call__
+    return self.func(*args)
+           ^^^^^^^^^^^^^^^^
+  File "C:\Users\FCPC OJT DEV\Documents\smart_id\SMART-ID-REGISTRATION-MODULE-v2\venv\Lib\site-packages\customtkinter\windows\widgets\ctk_button.py", line 553, in _clicked
+    self._command()
+  File "C:\Users\FCPC OJT DEV\Documents\smart_id\SMART-ID-REGISTRATION-MODULE-v2\main.py", line 204, in button_click
+    self.headerLogo = ctk.CTkImage(Image.open(i[29]),
+                                   ^^^^^^^^^^^^^^^^^
+  File "C:\Users\FCPC OJT DEV\Documents\smart_id\SMART-ID-REGISTRATION-MODULE-v2\venv\Lib\site-packages\PIL\Image.py", line 3227, in open
+    fp = builtins.open(filename, "rb")
+         ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+FileNotFoundError: [Errno 2] No such file or directory: 'C:/xampp/htdocs/SMART-ID-REGISTRATION-MODULE-v2/img/Sad-pug.jpg'
+Exception in Tkinter callback
+Traceback (most recent call last):
+  File "C:\Users\FCPC OJT DEV\AppData\Local\Programs\Python\Python311\Lib\tkinter\__init__.py", line 1948, in __call__
+    return self.func(*args)
+           ^^^^^^^^^^^^^^^^
+  File "C:\Users\FCPC OJT DEV\Documents\smart_id\SMART-ID-REGISTRATION-MODULE-v2\venv\Lib\site-packages\customtkinter\windows\widgets\ctk_button.py", line 553, in _clicked
+    self._command()
+  File "C:\Users\FCPC OJT DEV\Documents\smart_id\SMART-ID-REGISTRATION-MODULE-v2\main.py", line 204, in button_click
+    self.headerLogo = ctk.CTkImage(Image.open(i[29]),
+                                   ^^^^^^^^^^^^^^^^^
+  File "C:\Users\FCPC OJT DEV\Documents\smart_id\SMART-ID-REGISTRATION-MODULE-v2\venv\Lib\site-packages\PIL\Image.py", line 3227, in open
+    fp = builtins.open(filename, "rb")
+         ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+FileNotFoundError: [Errno 2] No such file or directory: 'C:/xampp/htdocs/SMART-ID-REGISTRATION-MODULE-v2/img/pug.jpg'
+Exception in Tkinter callback
+Traceback (most recent call last):
+  File "C:\Users\FCPC OJT DEV\AppData\Local\Programs\Python\Python311\Lib\tkinter\__init__.py", line 1948, in __call__
+    return self.func(*args)
+           ^^^^^^^^^^^^^^^^
+  File "C:\Users\FCPC OJT DEV\Documents\smart_id\SMART-ID-REGISTRATION-MODULE-v2\venv\Lib\site-packages\customtkinter\windows\widgets\ctk_button.py", line 553, in _clicked
+    self._command()
+  File "C:\Users\FCPC OJT DEV\Documents\smart_id\SMART-ID-REGISTRATION-MODULE-v2\main.py", line 204, in button_click
+    self.headerLogo = ctk.CTkImage(Image.open(i[29]),
+                                   ^^^^^^^^^^^^^^^^^
+  File "C:\Users\FCPC OJT DEV\Documents\smart_id\SMART-ID-REGISTRATION-MODULE-v2\venv\Lib\site-packages\PIL\Image.py", line 3227, in open
+    fp = builtins.open(filename, "rb")
+         ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+FileNotFoundError: [Errno 2] No such file or directory: 'C:/xampp/htdocs/SMART-ID-REGISTRATION-MODULE-v2/img/pug.jpg'
+Exception in Tkinter callback
+Traceback (most recent call last):
+  File "C:\Users\FCPC OJT DEV\AppData\Local\Programs\Python\Python311\Lib\tkinter\__init__.py", line 1948, in __call__
+    return self.func(*args)
+           ^^^^^^^^^^^^^^^^
+  File "C:\Users\FCPC OJT DEV\Documents\smart_id\SMART-ID-REGISTRATION-MODULE-v2\venv\Lib\site-packages\customtkinter\windows\widgets\ctk_button.py", line 553, in _clicked
+    self._command()
+  File "C:\Users\FCPC OJT DEV\Documents\smart_id\SMART-ID-REGISTRATION-MODULE-v2\main.py", line 204, in button_click
+    self.headerLogo = ctk.CTkImage(Image.open(i[29]),
+                                   ^^^^^^^^^^^^^^^^^
+  File "C:\Users\FCPC OJT DEV\Documents\smart_id\SMART-ID-REGISTRATION-MODULE-v2\venv\Lib\site-packages\PIL\Image.py", line 3227, in open
+    fp = builtins.open(filename, "rb")
+         ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+FileNotFoundError: [Errno 2] No such file or directory: 'C:/xampp/htdocs/SMART-ID-REGISTRATION-MODULE-v2/img/pug.jpg'
+Exception in Tkinter callback
+Traceback (most recent call last):
+  File "C:\Users\FCPC OJT DEV\AppData\Local\Programs\Python\Python311\Lib\tkinter\__init__.py", line 1948, in __call__
+    return self.func(*args)
+           ^^^^^^^^^^^^^^^^
+  File "C:\Users\FCPC OJT DEV\Documents\smart_id\SMART-ID-REGISTRATION-MODULE-v2\venv\Lib\site-packages\customtkinter\windows\widgets\ctk_button.py", line 553, in _clicked
+    self._command()
+  File "C:\Users\FCPC OJT DEV\Documents\smart_id\SMART-ID-REGISTRATION-MODULE-v2\main.py", line 204, in button_click
+    self.headerLogo = ctk.CTkImage(Image.open(i[29]),
+                                   ^^^^^^^^^^^^^^^^^
+  File "C:\Users\FCPC OJT DEV\Documents\smart_id\SMART-ID-REGISTRATION-MODULE-v2\venv\Lib\site-packages\PIL\Image.py", line 3227, in open
+    fp = builtins.open(filename, "rb")
+         ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+FileNotFoundError: [Errno 2] No such file or directory: 'C:/xampp/htdocs/SMART-ID-REGISTRATION-MODULE-v2/img/Sad-pug.jpg'
+Exception in Tkinter callback
+Traceback (most recent call last):
+  File "C:\Users\FCPC OJT DEV\AppData\Local\Programs\Python\Python311\Lib\tkinter\__init__.py", line 1948, in __call__
+    return self.func(*args)
+           ^^^^^^^^^^^^^^^^
+  File "C:\Users\FCPC OJT DEV\Documents\smart_id\SMART-ID-REGISTRATION-MODULE-v2\venv\Lib\site-packages\customtkinter\windows\widgets\ctk_button.py", line 553, in _clicked
+    self._command()
+  File "C:\Users\FCPC OJT DEV\Documents\smart_id\SMART-ID-REGISTRATION-MODULE-v2\main.py", line 204, in button_click
+    self.headerLogo = ctk.CTkImage(Image.open(i[29]),
+                                   ^^^^^^^^^^^^^^^^^
+  File "C:\Users\FCPC OJT DEV\Documents\smart_id\SMART-ID-REGISTRATION-MODULE-v2\venv\Lib\site-packages\PIL\Image.py", line 3227, in open
+    fp = builtins.open(filename, "rb")
+         ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+FileNotFoundError: [Errno 2] No such file or directory: 'C:/xampp/htdocs/SMART-ID-REGISTRATION-MODULE-v2/img/Sad-pug.jpg'
+Exception in Tkinter callback
+Traceback (most recent call last):
+  File "C:\Users\FCPC OJT DEV\AppData\Local\Programs\Python\Python311\Lib\tkinter\__init__.py", line 1948, in __call__
+    return self.func(*args)
+           ^^^^^^^^^^^^^^^^
+  File "C:\Users\FCPC OJT DEV\Documents\smart_id\SMART-ID-REGISTRATION-MODULE-v2\venv\Lib\site-packages\customtkinter\windows\widgets\ctk_button.py", line 553, in _clicked
+    self._command()
+  File "C:\Users\FCPC OJT DEV\Documents\smart_id\SMART-ID-REGISTRATION-MODULE-v2\main.py", line 204, in button_click
+    self.headerLogo = ctk.CTkImage(Image.open(i[29]),
+                                   ^^^^^^^^^^^^^^^^^
+  File "C:\Users\FCPC OJT DEV\Documents\smart_id\SMART-ID-REGISTRATION-MODULE-v2\venv\Lib\site-packages\PIL\Image.py", line 3227, in open
+    fp = builtins.open(filename, "rb")
+         ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+FileNotFoundError: [Errno 2] No such file or directory: 'C:/xampp/htdocs/SMART-ID-REGISTRATION-MODULE-v2/img/Sad-pug.jpg'
+Exception in Tkinter callback
+Traceback (most recent call last):
+  File "C:\Users\FCPC OJT DEV\AppData\Local\Programs\Python\Python311\Lib\tkinter\__init__.py", line 1948, in __call__
+    return self.func(*args)
+           ^^^^^^^^^^^^^^^^
+  File "C:\Users\FCPC OJT DEV\Documents\smart_id\SMART-ID-REGISTRATION-MODULE-v2\venv\Lib\site-packages\customtkinter\windows\widgets\ctk_button.py", line 553, in _clicked
+    self._command()
+  File "C:\Users\FCPC OJT DEV\Documents\smart_id\SMART-ID-REGISTRATION-MODULE-v2\main.py", line 204, in button_click
+    self.headerLogo = ctk.CTkImage(Image.open(i[29]),
+                                   ^^^^^^^^^^^^^^^^^
+  File "C:\Users\FCPC OJT DEV\Documents\smart_id\SMART-ID-REGISTRATION-MODULE-v2\venv\Lib\site-packages\PIL\Image.py", line 3227, in open
+    fp = builtins.open(filename, "rb")
+         ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+FileNotFoundError: [Errno 2] No such file or directory: 'C:/xampp/htdocs/SMART-ID-REGISTRATION-MODULE-v2/img/Sad-pug.jpg'
+Exception in Tkinter callback
+Traceback (most recent call last):
+  File "C:\Users\FCPC OJT DEV\AppData\Local\Programs\Python\Python311\Lib\tkinter\__init__.py", line 1948, in __call__
+    return self.func(*args)
+           ^^^^^^^^^^^^^^^^
+  File "C:\Users\FCPC OJT DEV\Documents\smart_id\SMART-ID-REGISTRATION-MODULE-v2\venv\Lib\site-packages\customtkinter\windows\widgets\ctk_button.py", line 553, in _clicked
+    self._command()
+  File "C:\Users\FCPC OJT DEV\Documents\smart_id\SMART-ID-REGISTRATION-MODULE-v2\main.py", line 204, in button_click
+    self.headerLogo = ctk.CTkImage(Image.open(i[29]),
+                                   ^^^^^^^^^^^^^^^^^
+  File "C:\Users\FCPC OJT DEV\Documents\smart_id\SMART-ID-REGISTRATION-MODULE-v2\venv\Lib\site-packages\PIL\Image.py", line 3227, in open
+    fp = builtins.open(filename, "rb")
+         ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+FileNotFoundError: [Errno 2] No such file or directory: 'C:/xampp/htdocs/SMART-ID-REGISTRATION-MODULE-v2/img/Sad-pug.jpg'
+Exception in Tkinter callback
+Traceback (most recent call last):
+  File "C:\Users\FCPC OJT DEV\AppData\Local\Programs\Python\Python311\Lib\tkinter\__init__.py", line 1948, in __call__
+    return self.func(*args)
+           ^^^^^^^^^^^^^^^^
+  File "C:\Users\FCPC OJT DEV\Documents\smart_id\SMART-ID-REGISTRATION-MODULE-v2\venv\Lib\site-packages\customtkinter\windows\widgets\ctk_button.py", line 553, in _clicked
+    self._command()
+  File "C:\Users\FCPC OJT DEV\Documents\smart_id\SMART-ID-REGISTRATION-MODULE-v2\main.py", line 204, in button_click
+    self.headerLogo = ctk.CTkImage(Image.open(i[29]),
+                                   ^^^^^^^^^^^^^^^^^
+  File "C:\Users\FCPC OJT DEV\Documents\smart_id\SMART-ID-REGISTRATION-MODULE-v2\venv\Lib\site-packages\PIL\Image.py", line 3227, in open
+    fp = builtins.open(filename, "rb")
+         ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+FileNotFoundError: [Errno 2] No such file or directory: 'C:/xampp/htdocs/SMART-ID-REGISTRATION-MODULE-v2/img/pug.jpg'
+Exception in Tkinter callback
+Traceback (most recent call last):
+  File "C:\Users\FCPC OJT DEV\AppData\Local\Programs\Python\Python311\Lib\tkinter\__init__.py", line 1948, in __call__
+    return self.func(*args)
+           ^^^^^^^^^^^^^^^^
+  File "C:\Users\FCPC OJT DEV\Documents\smart_id\SMART-ID-REGISTRATION-MODULE-v2\venv\Lib\site-packages\customtkinter\windows\widgets\ctk_button.py", line 553, in _clicked
+    self._command()
+  File "C:\Users\FCPC OJT DEV\Documents\smart_id\SMART-ID-REGISTRATION-MODULE-v2\main.py", line 204, in button_click
+    self.headerLogo = ctk.CTkImage(Image.open(i[29]),
+                                   ^^^^^^^^^^^^^^^^^
+  File "C:\Users\FCPC OJT DEV\Documents\smart_id\SMART-ID-REGISTRATION-MODULE-v2\venv\Lib\site-packages\PIL\Image.py", line 3227, in open
+    fp = builtins.open(filename, "rb")
+         ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+FileNotFoundError: [Errno 2] No such file or directory: 'C:/xampp/htdocs/SMART-ID-REGISTRATION-MODULE-v2/img/Sad-pug.jpg'
+Exception in Tkinter callback
+Traceback (most recent call last):
+  File "C:\Users\FCPC OJT DEV\AppData\Local\Programs\Python\Python311\Lib\tkinter\__init__.py", line 1948, in __call__
+    return self.func(*args)
+           ^^^^^^^^^^^^^^^^
+  File "C:\Users\FCPC OJT DEV\Documents\smart_id\SMART-ID-REGISTRATION-MODULE-v2\venv\Lib\site-packages\customtkinter\windows\widgets\ctk_button.py", line 553, in _clicked
+    self._command()
+  File "C:\Users\FCPC OJT DEV\Documents\smart_id\SMART-ID-REGISTRATION-MODULE-v2\main.py", line 204, in button_click
+    self.headerLogo = ctk.CTkImage(Image.open(i[29]),
+                                   ^^^^^^^^^^^^^^^^^
+  File "C:\Users\FCPC OJT DEV\Documents\smart_id\SMART-ID-REGISTRATION-MODULE-v2\venv\Lib\site-packages\PIL\Image.py", line 3227, in open
+    fp = builtins.open(filename, "rb")
+         ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+FileNotFoundError: [Errno 2] No such file or directory: 'C:/xampp/htdocs/SMART-ID-REGISTRATION-MODULE-v2/img/Sad-pug.jpg'
+Exception in Tkinter callback
+Traceback (most recent call last):
+  File "C:\Users\FCPC OJT DEV\AppData\Local\Programs\Python\Python311\Lib\tkinter\__init__.py", line 1948, in __call__
+    return self.func(*args)
+           ^^^^^^^^^^^^^^^^
+  File "C:\Users\FCPC OJT DEV\Documents\smart_id\SMART-ID-REGISTRATION-MODULE-v2\venv\Lib\site-packages\customtkinter\windows\widgets\ctk_button.py", line 553, in _clicked
+    self._command()
+  File "C:\Users\FCPC OJT DEV\Documents\smart_id\SMART-ID-REGISTRATION-MODULE-v2\main.py", line 204, in button_click
+    self.headerLogo = ctk.CTkImage(Image.open(i[29]),
+                                   ^^^^^^^^^^^^^^^^^
+  File "C:\Users\FCPC OJT DEV\Documents\smart_id\SMART-ID-REGISTRATION-MODULE-v2\venv\Lib\site-packages\PIL\Image.py", line 3227, in open
+    fp = builtins.open(filename, "rb")
+         ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+FileNotFoundError: [Errno 2] No such file or directory: 'C:/xampp/htdocs/SMART-ID-REGISTRATION-MODULE-v2/img/Sad-pug.jpg'
+Exception in Tkinter callback
+Traceback (most recent call last):
+  File "C:\Users\FCPC OJT DEV\AppData\Local\Programs\Python\Python311\Lib\tkinter\__init__.py", line 1948, in __call__
+    return self.func(*args)
+           ^^^^^^^^^^^^^^^^
+  File "C:\Users\FCPC OJT DEV\Documents\smart_id\SMART-ID-REGISTRATION-MODULE-v2\venv\Lib\site-packages\customtkinter\windows\widgets\ctk_button.py", line 553, in _clicked
+    self._command()
+  File "C:\Users\FCPC OJT DEV\Documents\smart_id\SMART-ID-REGISTRATION-MODULE-v2\main.py", line 204, in button_click
+    self.headerLogo = ctk.CTkImage(Image.open(i[29]),
+                                   ^^^^^^^^^^^^^^^^^
+  File "C:\Users\FCPC OJT DEV\Documents\smart_id\SMART-ID-REGISTRATION-MODULE-v2\venv\Lib\site-packages\PIL\Image.py", line 3227, in open
+    fp = builtins.open(filename, "rb")
+         ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+FileNotFoundError: [Errno 2] No such file or directory: 'C:/xampp/htdocs/SMART-ID-REGISTRATION-MODULE-v2/img/pug.jpg'
+Exception in Tkinter callback
+Traceback (most recent call last):
+  File "C:\Users\FCPC OJT DEV\AppData\Local\Programs\Python\Python311\Lib\tkinter\__init__.py", line 1948, in __call__
+    return self.func(*args)
+           ^^^^^^^^^^^^^^^^
+  File "C:\Users\FCPC OJT DEV\Documents\smart_id\SMART-ID-REGISTRATION-MODULE-v2\venv\Lib\site-packages\customtkinter\windows\widgets\ctk_button.py", line 553, in _clicked
+    self._command()
+  File "C:\Users\FCPC OJT DEV\Documents\smart_id\SMART-ID-REGISTRATION-MODULE-v2\main.py", line 204, in button_click
+    self.headerLogo = ctk.CTkImage(Image.open(i[29]),
+                                   ^^^^^^^^^^^^^^^^^
+  File "C:\Users\FCPC OJT DEV\Documents\smart_id\SMART-ID-REGISTRATION-MODULE-v2\venv\Lib\site-packages\PIL\Image.py", line 3227, in open
+    fp = builtins.open(filename, "rb")
+         ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+FileNotFoundError: [Errno 2] No such file or directory: 'C:/xampp/htdocs/SMART-ID-REGISTRATION-MODULE-v2/img/pug.jpg'
+Exception in Tkinter callback
+Traceback (most recent call last):
+  File "C:\Users\FCPC OJT DEV\AppData\Local\Programs\Python\Python311\Lib\tkinter\__init__.py", line 1948, in __call__
+    return self.func(*args)
+           ^^^^^^^^^^^^^^^^
+  File "C:\Users\FCPC OJT DEV\Documents\smart_id\SMART-ID-REGISTRATION-MODULE-v2\venv\Lib\site-packages\customtkinter\windows\widgets\ctk_button.py", line 553, in _clicked
+    self._command()
+  File "C:\Users\FCPC OJT DEV\Documents\smart_id\SMART-ID-REGISTRATION-MODULE-v2\main.py", line 204, in button_click
+    self.headerLogo = ctk.CTkImage(Image.open(i[29]),
+                                   ^^^^^^^^^^^^^^^^^
+  File "C:\Users\FCPC OJT DEV\Documents\smart_id\SMART-ID-REGISTRATION-MODULE-v2\venv\Lib\site-packages\PIL\Image.py", line 3227, in open
+    fp = builtins.open(filename, "rb")
+         ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+FileNotFoundError: [Errno 2] No such file or directory: 'C:/xampp/htdocs/SMART-ID-REGISTRATION-MODULE-v2/img/Sad-pug.jpg'
+Exception in Tkinter callback
+Traceback (most recent call last):
