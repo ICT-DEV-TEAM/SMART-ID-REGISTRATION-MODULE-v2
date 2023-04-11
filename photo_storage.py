@@ -25,8 +25,8 @@ class PhotoStorage:
         self.scrollbox = ctk.CTkScrollableFrame(master=self.photoStorageBoxFrame, fg_color=self.color.white, bg_color=self.color.very_dark_gray)
         self.scrollbox.grid(column=0, row=0, sticky='nsew')
 
-        self.photoStorageBoxLabel = ctk.CTkLabel(master=self.scrollbox, justify="left", text="Path: ", font=ctk.CTkFont(size=int(self.frameHeight * .394), family="Inter"), anchor='w')
-        self.photoStorageBoxLabel.grid(column=0, row=0, padx=5, pady=2, sticky='w')
+        self.photoStorageBoxLabel = ctk.CTkLabel(master=self.scrollbox, justify="left", text="Path: ", font=ctk.CTkFont(size=int(self.frameWidth * .04629), family="Inter"), anchor='w')
+        self.photoStorageBoxLabel.grid(column=0, row=0, padx=7, pady=2, sticky='w')
              
     def select_folder(self):
         folder_path = filedialog.askdirectory()

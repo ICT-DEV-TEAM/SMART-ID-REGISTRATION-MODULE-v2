@@ -19,8 +19,8 @@ class UserInfo:
         self.statusFrame = ctk.CTkLabel(master=self.userInfoFrame, text="User Information", font=ctk.CTkFont(size=int(height * .0475), family="Inter" ), text_color=self.color.white)    
         self.statusFrame.grid(row=0, column=0, sticky='w')
 
-        self.clearButton = ctk.CTkButton(master=self.userInfoFrame, fg_color=self.color.dark_red, width=int(width * .121056), text="Clear", command=self.clearAll)
-        self.clearButton.grid(row=0, column=1, sticky='e', pady=int(height * .0047619))
+        self.clearButton = ctk.CTkButton(master=self.userInfoFrame, fg_color=self.color.dark_red,font=ctk.CTkFont(size=int(self.frameWidth * .02577), family="Inter"),height=self.frameHeight * .13526, width=self.frameWidth * .2835, text="Clear", command=self.clearAll)
+        self.clearButton.grid(row=0, column=1, sticky='es', pady=int(height * .0047619))
 
         self.statusboxFrame = ctk.CTkFrame(master=self.userInfoFrame, fg_color=self.color.white, width = self.frameWidth, height= self.frameHeight)
         self.statusboxFrame.grid_propagate(False)
@@ -37,13 +37,13 @@ class UserInfo:
         self.paddingX = int((self.frameWidth * .0135)/2)
         
         self.font = ctk.CTkFont(size=int(height * .018), family="Inter")
-        self.userNoLabel = ctk.CTkLabel(master=self.status1boxFrame, font=self.font, text="User No.", text_color=self.color.black)
-        self.userNoLabel.grid(row=0, column=1, sticky='w', padx=self.paddingX, pady=self.paddingY)
+        self.userNoLabel = ctk.CTkLabel(master=self.status1boxFrame, font=self.font,height=self.frameHeight * .07246, width=self.frameWidth * .02577, text="User No.", text_color=self.color.black)
+        self.userNoLabel.grid(row=0, column=1, sticky='w', padx=(self.frameWidth * .01718,0), pady=self.paddingY)
         self.boxWidth = self.frameWidth * .277
         self.boxHeight = self.frameHeight * .135
         self.clipboard_icon = ctk.CTkImage(Image.open(r"./img/copy.png"),
                                                size=(int(self.boxWidth * .162), int(self.boxHeight * .864)))
-        self.userNoEntry = ctk.CTkButton(master=self.status1boxFrame, fg_color=self.color.very_soft_blue, width=self.boxWidth, height=self.boxHeight, border_width=0, corner_radius=5, font=self.font, image=self.clipboard_icon, compound='right', text_color=self.color.black, text='  0000-000000   ', hover_color=self.color.slightly_desaturated_blue, anchor='w', command=self.copy)
+        self.userNoEntry = ctk.CTkButton(master=self.status1boxFrame, fg_color=self.color.very_soft_blue, width=self.boxWidth, height=self.boxHeight, border_width=0, corner_radius=5, font=ctk.CTkFont(size=int(self.frameWidth * .02577), family="Inter"), image=self.clipboard_icon, compound='right', text_color=self.color.black, text='  0000-000000   ', hover_color=self.color.slightly_desaturated_blue, anchor='w', command=self.copy)
         self.userNoEntry.grid_propagate(False)
         self.userNoEntry.grid(row=0, column=2, padx=self.paddingX, pady=self.paddingY)
         
@@ -55,32 +55,32 @@ class UserInfo:
         self.affValuesList = ['User Type', 'Employee', 'Student - Basic Ed', 'Student - Tertiary', 'Visitor']
         self.affStringVar.set(self.affValuesList[0])
         self.affiliationDropdown = ctk.CTkOptionMenu(master=self.status1boxFrame, font=self.font, text_color=self.color.white, variable=self.affStringVar, corner_radius=5, fg_color=self.color.very_dark_blue, width=int(self.frameWidth * .589), height=int(self.frameHeight * .135), button_color=self.color.very_dark_blue, anchor="center", values=self.affValuesList)
-        self.affiliationDropdown.grid(row=1, column=1, sticky='we', padx=self.paddingX, pady=self.paddingY, columnspan=3)
+        self.affiliationDropdown.grid(row=1, column=1, sticky='we', padx=(self.frameWidth * .01718,0), pady=self.paddingY, columnspan=3)
 
         self.posStringVar = ctk.StringVar()
         self.posValuesList = ['Pos/Gr/Crs']
         self.posStringVar.set(self.posValuesList[0])
         self.posDropdown = ctk.CTkOptionMenu(master=self.status1boxFrame, font=self.font, text_color=self.color.white, variable=self.posStringVar, corner_radius=5, fg_color=self.color.very_dark_blue, width=int(self.frameWidth * .589), height=int(self.frameHeight * .135), button_color=self.color.very_dark_blue, anchor="center", values=self.posValuesList)
-        self.posDropdown.grid(row=2, column=1, sticky='we', padx=self.paddingX, pady=self.paddingY, columnspan=3)
+        self.posDropdown.grid(row=2, column=1, sticky='we', padx=(self.frameWidth * .01718,0), pady=self.paddingY, columnspan=3)
 
         self.deptStringVar = ctk.StringVar(value="")
         self.deptValuesList = ['Dept/Section']
         self.deptStringVar.set(self.deptValuesList[0])
         self.deptDropdown = ctk.CTkOptionMenu(master=self.status1boxFrame, font=self.font, text_color=self.color.white, variable=self.deptStringVar, corner_radius=5, fg_color=self.color.very_dark_blue, width=int(self.frameWidth * .589), height=int(self.frameHeight * .135), button_color=self.color.very_dark_blue, anchor="center", values=self.deptValuesList)
-        self.deptDropdown.grid(row=3, column=1, sticky='we', padx=self.paddingX, pady=self.paddingY, columnspan=3)
+        self.deptDropdown.grid(row=3, column=1, sticky='we', padx=(self.frameWidth * .01718,0), pady=self.paddingY, columnspan=3)
 
         self.status2boxFrame = ctk.CTkFrame(master=self.status1boxFrame, fg_color=self.color.white, width = self.frameWidth, height= self.frameHeight)
         self.status2boxFrame.grid(row=4, column=1, sticky='we', columnspan=3)
         self.status2boxFrame.grid_columnconfigure((0,1), weight=1)
 
         self.font = ctk.CTkFont(size=int(height * .018), family="Inter")
-        self.lrnLabel = ctk.CTkLabel(master=self.status2boxFrame, font=self.font, text="LRN/Employee No.", text_color=self.color.black)
-        self.lrnLabel.grid(row=0, column=0, sticky='w',pady=self.paddingY)
+        self.lrnLabel = ctk.CTkLabel(master=self.status2boxFrame, font=self.font,height=self.frameHeight * .07246, width=self.frameWidth * .02577, text="LRN/Employee No.", text_color=self.color.black)
+        self.lrnLabel.grid(row=0, column=0, sticky='w',pady=self.paddingY, padx=(self.frameWidth * .01718,0))
         self.lrnEntry = ctk.CTkEntry(master=self.status2boxFrame, fg_color=self.color.very_soft_blue, width=self.frameWidth * .335, height=self.frameHeight * .135, border_width=0, corner_radius=5, font=self.font)
         self.lrnEntry.grid(row=0, column=1,sticky='e', padx=self.paddingX,pady=self.paddingY)
 
         self.cardButton = ctk.CTkButton(master=self.status2boxFrame, fg_color=self.color.very_dark_blue, width=self.frameWidth * .2268, height=self.frameHeight * .135, text="Get Card ID")
-        self.cardButton.grid(row=1, column=0, sticky='w', pady=int(height * .0047619))
+        self.cardButton.grid(row=1, column=0, sticky='w', pady=int(height * .0047619), padx=(self.frameWidth * .01718,0))
         self.cardEntry = ctk.CTkEntry(master=self.status2boxFrame, fg_color=self.color.very_soft_blue, width=self.frameWidth * .335, height=self.frameHeight * .135, border_width=0, corner_radius=5, font=self.font)
         self.cardEntry.grid(row=1, column=1,sticky='e', padx=self.paddingX,pady=self.paddingY)
 

@@ -23,7 +23,7 @@ class CompanyInfoGUI:
         
         
         
-        self.font = ctk.CTkFont(size=int(self.frameHeight * 0.069), family="Inter")
+        self.font = ctk.CTkFont(size=int(self.frameWidth * .0489), family="Inter")
         self.companyNameLabel = ctk.CTkLabel(master=self.compInfoFrame, font=self.font, text="Company Name", text_color=self.color.black)
         self.companyNameLabel.grid(row=2, column=1, sticky='ws', padx=int(0.0199 * self.frameWidth), pady=int((0.0199 * self.frameWidth)/2), columnspan=2)
 
