@@ -34,7 +34,7 @@ class PhotoStorage:
     
     def getValues(self):
         photoStoragePath = self.photoStorageBoxLabel.cget("text")[6:]
-        return (str(photoStoragePath))
+        return (str(photoStoragePath),)
     
         
 
