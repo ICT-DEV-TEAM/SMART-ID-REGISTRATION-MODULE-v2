@@ -8,6 +8,7 @@ from color import Color
 import connection as conn
 import  mysql.connector
 from basic_queries import Query
+from PIL import Image
 #establishing connection
 # conn = mysql.connector.connect(
 #    user='root', password='', host='localhost', database='pythondata')
@@ -18,7 +19,8 @@ class IDRegSettingsGUI():
         self.color = Color()
         self.app = ctk.CTkToplevel(fg_color=self.color.very_dark_gray)
         self.app.title("ID REGISTRATION SETTINGS")
-
+        self.main_headerLogo = None
+        self.main_headerLogoLabel = None
         self.screen_width = self.app.winfo_screenwidth()
         self.screen_height = self.app.winfo_screenheight()
         # self.window_width = int(.8 * self.screen_width)
@@ -47,15 +49,18 @@ class IDRegSettingsGUI():
         self.compInfoHeader.grid(row=2, column=2, sticky='w', padx=int(0.00381 * self.screen_width))
         self.company_info = CompanyInfoGUI(master=self.mainGui, row=3, column=2, sticky='', padx=int(0.00381 * self.screen_width), pady=0, width=self.window_width, height=self.window_height, rowspan=2)
 
-
         self.font = ctk.CTkFont(size=int(self.window_height * 0.0344), family="Inter")
         self.clearAllButton = ctk.CTkButton(master=self.mainGui, fg_color=self.color.dark_red, width=int(self.window_width * 0.1429), height=int(self.window_height * 0.065), text='Clear All', font=self.font, text_color=self.color.white, command=self.clearAll)
         self.clearAllButton.grid(row=6, column=1, pady=int(0.0309 * self.window_height), padx=int((0.0294 * self.window_width)), sticky='e')
         self.saveButton = ctk.CTkButton(master=self.mainGui, fg_color=self.color.strong_blue, width=int(self.window_width * 0.1429), height=int(self.window_height * 0.065), text='Save', font=self.font, text_color=self.color.white, command=self.configure)
         self.saveButton.grid(row=6, column=2, pady=int(0.0309 * self.window_height), padx=int((0.0294 * self.window_width)), sticky='w')
         self.mydb = None
-    def main(self):
-        self.app.mainloop()
+
+    def validate_required_field(self):
+        if self.database.hostnameEntry.get() == "" or self.database.usernameEntry.get() == "" or self.database.passwordEntry.get() == "" or str(self.database.databaseEntry.get()) == "" or self.database.portEntry.get() == "" or self.photo_storage.photoStorageBoxLabel.cget('text') == "Path: " or self.company_info.companyNameEntry.get() == "" or self.company_info.companyNameAbbrevEntry.get() == "" or self.company_info.file_path == "":
+            self.configure()
+        else:
+            CTkMessagebox(title="Error", message="Some fields are missing!", icon="cancel", bg_color=self.color.very_dark_gray, title_color=self.color.white, fg_color=self.color.white, border_width=0)
 
     def configure(self):
         self.configured = True
@@ -65,28 +70,30 @@ class IDRegSettingsGUI():
         db_config.append(self.database.passwordEntry.get())
         db_config.append(self.database.databaseEntry.get())
         db_config.append(self.database.portEntry.get())
-        new_label = str(self.photo_storage.photoStorageBoxLabel.cget('text'))
-        db_config.append(new_label.replace("Path: ", ""))
         db_config.append(self.company_info.companyNameEntry.get())
         db_config.append(self.company_info.companyNameAbbrevEntry.get())
-        db_config.append(self.company_info.file_path)
+        photo_path = f'{self.company_info.storage_path}/{self.company_info.file_path}'
+        db_config.append(photo_path)
         sec.encrypt(data=db_config, filename="db_config.txt", delimiter='!')
-        
-        # ID REG SETTINGS INFO TO DATABASE
-        insert_all = "id_reg_hname, id_reg_uname, id_reg_password, id_reg_database, id_reg_port, id_reg_path, id_reg_cname, id_reg_abbreviation, id_reg_photo"
-        database_values = self.database.getValues()
-        photo_storage_values = self.photo_storage.getValues()
-        company_info_values = self.company_info.getValues()
-        values_all = database_values + photo_storage_values + company_info_values
-        self.mydb.save(table='id_reg_settings',columns=insert_all,values=values_all)
-        CTkMessagebox(master=self.app,title="Success", message="Saved successfully!", icon="check", bg_color=self.color.very_dark_gray, title_color=self.color.white, fg_color=self.color.white, border_width=0)
 
+        if self.company_info.companyNameAbbrevEntry.get() == '':
+            self.updateHeaders(company_name=self.company_info.companyNameEntry.get(), img_path=photo_path)
+        else:
+            self.updateHeaders(company_name=self.company_info.companyNameAbbrevEntry.get(), img_path=photo_path)
     
     def clearAll(self):
         self.database.clearAll()
         self.company_info.clearAll()
         self.photo_storage.photoStorageBoxLabel.configure(text="Path: ")
         self.company_info.companyLogoLabel.configure(image=self.company_info.companyLogo)
+    
+    def updateHeaders(self, company_name, img_path):
+        if self.main_headerLogoLabel is not None:
+            self.main_headerLogoLabel.configure(text='  ' + company_name + '’s ID REGISTRATION')
+        if self.main_headerLogo is not None:
+            self.main_headerLogo.configure(Image.open(img_path))
+            self.main_headerLogoLabel.configure(image=self.main_headerLogo)
+        
         
 if __name__ == "__main__":
     main = IDRegSettingsGUI()   

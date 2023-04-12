@@ -7,7 +7,7 @@ from emergency_contact import EmergencyContactGUI
 from controls import ControlsGUI
 from user_info import UserInfo
 from calendar_gui import CalendarGUI
-from PIL import Image, ImageTk
+from PIL import Image
 import os
 from id_reg_settings import IDRegSettingsGUI
 from login import LoginGUI
@@ -41,7 +41,8 @@ class SmartID_GUI:
         self.current_path = os.path.dirname(os.path.realpath(__file__))
         self.headerLogo = ctk.CTkImage(Image.open(self.current_path + "/img/LOGO.png"),
                                                size=(int(self.window_width * .105), int(self.window_height * .16)))
-        self.headerLogoLabel = ctk.CTkLabel(master=self.mainGui, image=self.headerLogo, text='  FCPC’s ID REGISTRATION', font=ctk.CTkFont(size=int(self.window_height * .075), family="Inter"), text_color=self.color.white, compound="left")
+        self.company_name = "FCPC"
+        self.headerLogoLabel = ctk.CTkLabel(master=self.mainGui, image=self.headerLogo, text='  ' + self.company_name + '’s ID REGISTRATION', font=ctk.CTkFont(size=int(self.window_height * .075), family="Inter"), text_color=self.color.white, compound="left")
         self.headerLogoLabel.grid(pady=8, padx=20, row=0, sticky='w', columnspan=4)
 
         self.leftFrame = ctk.CTkFrame(master=self.mainGui, fg_color=self.color.very_dark_gray)
@@ -271,6 +272,8 @@ class SmartID_GUI:
                     if self.login.authenticated and self.controls.settings_clicked:
                         self.controls.settings_clicked = False
                         self.id_reg = IDRegSettingsGUI()
+                        self.id_reg.main_headerLogoLabel = self.headerLogoLabel
+                        self.id_reg.main_headerLogo = self.headerLogo
                         self.id_reg.mydb = self.mydb
                         self.id_reg.app.grab_set()
                         while True:
@@ -288,6 +291,8 @@ class SmartID_GUI:
                     # if not bool(self.id_reg.app.winfo_exists()):
                     if bool(self.login.app.winfo_exists()) and self.login.noAccountDetected and not hasattr(self.id_reg, 'app'):
                         self.id_reg = IDRegSettingsGUI()
+                        self.id_reg.main_headerLogoLabel = self.headerLogoLabel
+                        self.id_reg.main_headerLogo = self.headerLogo
                         self.id_reg.mydb = self.mydb
                         self.id_reg.app.grab_set()
                         self.login.noAccountDetected = False
@@ -304,6 +309,8 @@ class SmartID_GUI:
                     self.app.update()
             else:
                 self.id_reg = IDRegSettingsGUI()
+                self.id_reg.main_headerLogoLabel = self.headerLogoLabel
+                self.id_reg.main_headerLogo = self.headerLogo
                 self.id_reg.mydb = self.mydb
                 self.id_reg.app.grab_set()
                 while True:
