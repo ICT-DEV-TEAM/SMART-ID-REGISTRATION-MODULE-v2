@@ -3,6 +3,7 @@ import os
 from PIL import Image
 from tkinter import filedialog
 from color import Color
+from pathlib import Path
 class CompanyInfoGUI:
     def __init__(self, master, row, column, sticky, padx, pady, width, height, ipadx=0, ipady=0, rowspan=1, columnspan=1):
         self.color = Color()
@@ -50,17 +51,24 @@ class CompanyInfoGUI:
         self.selectPhotoButton.grid(row=7, column=2, pady=int((0.0225 * self.frameHeight)/2), padx=int((0.0225 * self.frameWidth)/2))
 
         self.file_path = ""
+        self.storage_path = ""
         self.selected_photo = None
+        self.mydb = None
 
     def upload_photo(self):
         file_path = filedialog.askopenfilename(filetypes=[("Image files", "*.jpg;*.png;*.gif")])
-        print(file_path)
         if file_path:
             self.selected_photo = int(self.frameWidth * 0.31), int(self.frameHeight * 0.393)
             photo_image = ctk.CTkImage(Image.open(file_path), size=self.selected_photo)
             self.companyLogoLabel.configure(image=photo_image)
-            self.file_path = file_path
-    
+            self.storage_path = file_path
+            self.full_file_path = Path(file_path)
+            self.file_path = self.full_file_path.name
+            
+
+
     def clearAll(self):
         self.companyNameEntry.delete(0, 'end')
         self.companyNameAbbrevEntry.delete(0, 'end')
+    
+   

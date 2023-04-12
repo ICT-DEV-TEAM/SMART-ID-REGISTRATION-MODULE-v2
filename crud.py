@@ -11,8 +11,8 @@ class CRUD():
         query = f"INSERT INTO {table}({columns}) VALUES {values}"
         if condition is not None:
             query += " " + condition
-        mycursor.execute(query)
-        # self.mydb.commit()
+        mycursor.execute(str(query))
+        self.mydb.commit()
         self.mydb.close()
 
     def Select(self, values, table, joins = None, condition = None):
@@ -23,7 +23,6 @@ class CRUD():
             query += " " + joins
         if condition is not None:
             query += " " + condition
-        print(query)
         mycursor.execute(str(query))
         # self.mydb.commit()
         search_result = mycursor.fetchall()
@@ -33,16 +32,16 @@ class CRUD():
     def Update(self, table, set_columns, set_values, condition = None):
         self.Connect(self.config)
         mycursor = self.mydb.cursor()
-        query = f"UPDATE {table}"
+        query = f"UPDATE {table} SET"
         set_query = []
         for i in range(len(set_columns)):
-            set_query.append(f"SET {set_columns[i]} = {set_values[i]}")
+            set_query.append(f"{set_columns[i]} = '{set_values[i]}'")
         set_query_str = ", ".join(set_query)
-        query += set_query_str
+        query += " " + set_query_str
         if condition is not None:
             query += " " + condition
-        mycursor.execute(query)
-        # self.mydb.commit()
+        mycursor.execute(str(query))
+        self.mydb.commit()
         self.mydb.close()
 
     def Delete(self, table, condition):
@@ -51,7 +50,7 @@ class CRUD():
         query = f"DELETE FROM {table}"
         if condition is not None:
             query += " " + condition
-        mycursor.execute(query)
+        mycursor.execute(str(query))
         # self.mydb.commit()
         self.mydb.close()
     

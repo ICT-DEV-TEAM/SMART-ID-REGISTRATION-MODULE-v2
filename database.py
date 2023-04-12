@@ -52,6 +52,8 @@ class Database:
         self.databaseEntry.delete(0, 'end')
         self.portEntry.delete(0, 'end')
 
+    
+
 
     
 

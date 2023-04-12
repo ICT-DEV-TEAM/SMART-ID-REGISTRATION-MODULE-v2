@@ -3,7 +3,15 @@ from database import Database
 from photo_storage import PhotoStorage
 from company_info import CompanyInfoGUI
 import security as sec
+from CTkMessagebox import CTkMessagebox
 from color import Color
+import connection as conn
+import  mysql.connector
+from basic_queries import Query
+#establishing connection
+# conn = mysql.connector.connect(
+#    user='root', password='', host='localhost', database='pythondata')
+
 class IDRegSettingsGUI():
     configured = False
     def __init__(self):
@@ -45,7 +53,7 @@ class IDRegSettingsGUI():
         self.clearAllButton.grid(row=6, column=1, pady=int(0.0309 * self.window_height), padx=int((0.0294 * self.window_width)), sticky='e')
         self.saveButton = ctk.CTkButton(master=self.mainGui, fg_color=self.color.strong_blue, width=int(self.window_width * 0.1429), height=int(self.window_height * 0.065), text='Save', font=self.font, text_color=self.color.white, command=self.configure)
         self.saveButton.grid(row=6, column=2, pady=int(0.0309 * self.window_height), padx=int((0.0294 * self.window_width)), sticky='w')
-
+        self.mydb = None
     def main(self):
         self.app.mainloop()
 
@@ -63,6 +71,16 @@ class IDRegSettingsGUI():
         db_config.append(self.company_info.companyNameAbbrevEntry.get())
         db_config.append(self.company_info.file_path)
         sec.encrypt(data=db_config, filename="db_config.txt", delimiter='!')
+        
+        # ID REG SETTINGS INFO TO DATABASE
+        insert_all = "id_reg_hname, id_reg_uname, id_reg_password, id_reg_database, id_reg_port, id_reg_path, id_reg_cname, id_reg_abbreviation, id_reg_photo"
+        database_values = self.database.getValues()
+        photo_storage_values = self.photo_storage.getValues()
+        company_info_values = self.company_info.getValues()
+        values_all = database_values + photo_storage_values + company_info_values
+        self.mydb.save(table='id_reg_settings',columns=insert_all,values=values_all)
+        CTkMessagebox(master=self.app,title="Success", message="Saved successfully!", icon="check", bg_color=self.color.very_dark_gray, title_color=self.color.white, fg_color=self.color.white, border_width=0)
+
     
     def clearAll(self):
         self.database.clearAll()
