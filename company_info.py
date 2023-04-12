@@ -50,22 +50,19 @@ class CompanyInfoGUI:
         self.selectPhotoButton = ctk.CTkButton(master=self.compInfoFrame,command=self.upload_photo, fg_color=self.color.very_dark_blue, width=int(self.frameWidth * 0.3233), height=int(self.frameHeight * 0.0771), text='Select Photo', font=ctk.CTkFont(size=int(0.0415 * self.frameHeight), family='Inter'), text_color=self.color.white)
         self.selectPhotoButton.grid(row=7, column=2, pady=int((0.0225 * self.frameHeight)/2), padx=int((0.0225 * self.frameWidth)/2))
 
-        self.file_path = ""
-        self.storage_path = ""
+        self.full_file_path = ""
+        self.file_name = ""
         self.selected_photo = None
         self.mydb = None
 
     def upload_photo(self):
-        file_path = filedialog.askopenfilename(filetypes=[("Image files", "*.jpg;*.png;*.gif")])
-        if file_path:
+        file_name = filedialog.askopenfilename(filetypes=[("Image files", "*.jpg;*.png;*.gif")])
+        if file_name:
             self.selected_photo = int(self.frameWidth * 0.31), int(self.frameHeight * 0.393)
-            photo_image = ctk.CTkImage(Image.open(file_path), size=self.selected_photo)
+            photo_image = ctk.CTkImage(Image.open(file_name), size=self.selected_photo)
             self.companyLogoLabel.configure(image=photo_image)
-            self.storage_path = file_path
-            self.full_file_path = Path(file_path)
-            self.file_path = self.full_file_path.name
-            
-
+            self.full_file_path = file_name
+            self.file_name = file_name.split('/')[-1]
 
     def clearAll(self):
         self.companyNameEntry.delete(0, 'end')

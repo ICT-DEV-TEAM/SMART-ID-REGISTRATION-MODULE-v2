@@ -9,6 +9,7 @@ import connection as conn
 import  mysql.connector
 from basic_queries import Query
 from PIL import Image
+import shutil
 #establishing connection
 # conn = mysql.connector.connect(
 #    user='root', password='', host='localhost', database='pythondata')
@@ -52,15 +53,16 @@ class IDRegSettingsGUI():
         self.font = ctk.CTkFont(size=int(self.window_height * 0.0344), family="Inter")
         self.clearAllButton = ctk.CTkButton(master=self.mainGui, fg_color=self.color.dark_red, width=int(self.window_width * 0.1429), height=int(self.window_height * 0.065), text='Clear All', font=self.font, text_color=self.color.white, command=self.clearAll)
         self.clearAllButton.grid(row=6, column=1, pady=int(0.0309 * self.window_height), padx=int((0.0294 * self.window_width)), sticky='e')
-        self.saveButton = ctk.CTkButton(master=self.mainGui, fg_color=self.color.strong_blue, width=int(self.window_width * 0.1429), height=int(self.window_height * 0.065), text='Save', font=self.font, text_color=self.color.white, command=self.configure)
+        self.saveButton = ctk.CTkButton(master=self.mainGui, fg_color=self.color.strong_blue, width=int(self.window_width * 0.1429), height=int(self.window_height * 0.065), text='Save', font=self.font, text_color=self.color.white, command=self.validate_required_field)
         self.saveButton.grid(row=6, column=2, pady=int(0.0309 * self.window_height), padx=int((0.0294 * self.window_width)), sticky='w')
         self.mydb = None
 
     def validate_required_field(self):
-        if self.database.hostnameEntry.get() == "" or self.database.usernameEntry.get() == "" or self.database.passwordEntry.get() == "" or str(self.database.databaseEntry.get()) == "" or self.database.portEntry.get() == "" or self.photo_storage.photoStorageBoxLabel.cget('text') == "Path: " or self.company_info.companyNameEntry.get() == "" or self.company_info.companyNameAbbrevEntry.get() == "" or self.company_info.file_path == "":
-            self.configure()
-        else:
+        if self.database.hostnameEntry.get() == "" or self.database.usernameEntry.get() == "" or str(self.database.databaseEntry.get()) == "" or self.database.portEntry.get() == "" or self.photo_storage.storage_path == "" or self.company_info.companyNameEntry.get() == "" or self.company_info.full_file_path == "":
             CTkMessagebox(title="Error", message="Some fields are missing!", icon="cancel", bg_color=self.color.very_dark_gray, title_color=self.color.white, fg_color=self.color.white, border_width=0)
+            return
+        else:
+            self.configure()
 
     def configure(self):
         self.configured = True
@@ -72,9 +74,11 @@ class IDRegSettingsGUI():
         db_config.append(self.database.portEntry.get())
         db_config.append(self.company_info.companyNameEntry.get())
         db_config.append(self.company_info.companyNameAbbrevEntry.get())
-        photo_path = f'{self.company_info.storage_path}/{self.company_info.file_path}'
+        photo_path = f'{self.photo_storage.storage_path}/{self.company_info.file_name}'
         db_config.append(photo_path)
         sec.encrypt(data=db_config, filename="db_config.txt", delimiter='!')
+
+        shutil.copy(self.company_info.full_file_path, f'{self.photo_storage.storage_path}')
 
         if self.company_info.companyNameAbbrevEntry.get() == '':
             self.updateHeaders(company_name=self.company_info.companyNameEntry.get(), img_path=photo_path)
@@ -91,9 +95,8 @@ class IDRegSettingsGUI():
         if self.main_headerLogoLabel is not None:
             self.main_headerLogoLabel.configure(text='  ' + company_name + '’s ID REGISTRATION')
         if self.main_headerLogo is not None:
-            self.main_headerLogo.configure(Image.open(img_path))
+            self.main_headerLogo.configure(light_image=Image.open(img_path))
             self.main_headerLogoLabel.configure(image=self.main_headerLogo)
-        
         
 if __name__ == "__main__":
     main = IDRegSettingsGUI()   

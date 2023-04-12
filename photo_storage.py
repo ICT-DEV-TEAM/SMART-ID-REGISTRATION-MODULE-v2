@@ -27,9 +27,11 @@ class PhotoStorage:
 
         self.photoStorageBoxLabel = ctk.CTkLabel(master=self.scrollbox, justify="left", text="Path: ", font=ctk.CTkFont(size=int(self.frameWidth * .04629), family="Inter"), anchor='w')
         self.photoStorageBoxLabel.grid(column=0, row=0, padx=7, pady=2, sticky='w')
+        self.storage_path = ""
              
     def select_folder(self):
         folder_path = filedialog.askdirectory()
+        self.storage_path = folder_path
         self.photoStorageBoxLabel.configure(text="Path: "+folder_path, wraplength=int(self.photoStorageBoxFrame.winfo_width())-20)
     
    
