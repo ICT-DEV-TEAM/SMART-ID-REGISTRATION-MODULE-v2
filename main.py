@@ -293,17 +293,17 @@ class SmartID_GUI:
                 self.get_login_credentials()
                 self.status.mydb = self.mydb
                 self.userinfo.mydb = self.mydb
+                if config[6] != "":
+                    self.headerLogoLabel.configure(text='  ' + config[6] + '’s ID REGISTRATION')
+                else:
+                    self.headerLogoLabel.configure(text='  ' + config[5] + '’s ID REGISTRATION')
+                self.headerLogo.configure(light_image=Image.open(config[7]))
+                self.headerLogoLabel.configure(image=self.headerLogo)
                 while True:
                     if bool(self.login.app.winfo_exists()) and self.login.authenticated:
                         self.login.app.grab_release()
                         self.login.app.withdraw()
                         self.login.clear()
-                        if config[6] != "":
-                            self.headerLogoLabel.configure(text='  ' + config[6] + '’s ID REGISTRATION')
-                        else:
-                            self.headerLogoLabel.configure(text='  ' + config[5] + '’s ID REGISTRATION')
-                        self.headerLogo.configure(light_image=Image.open(config[7]))
-                        self.headerLogoLabel.configure(image=self.headerLogo)
                     if not bool(self.login.app.winfo_exists()) and not self.login.authenticated:
                         break
                     if self.login.authenticated and self.controls.settings_clicked:
