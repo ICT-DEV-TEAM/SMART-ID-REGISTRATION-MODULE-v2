@@ -1,8 +1,10 @@
+
 import customtkinter as ctk
 import os
 from PIL import Image
 from tkinter import filedialog
 import pyperclip
+from CTkMessagebox import CTkMessagebox
 import datetime
 import random
 from color import Color
@@ -106,13 +108,17 @@ class UserInfo:
         self.selectedUserId = 0
 
     def upload_photo(self):
-        file_path = filedialog.askopenfilename(filetypes=[("Image files", "*.jpg;*.png;*.gif")])
-        print(file_path)
-        if file_path:
-            self.selected_photo = int(self.frameWidth * .26), int(self.frameHeight * .69)
-            photo_image = ctk.CTkImage(Image.open(file_path), size=self.selected_photo)
-            self.headerLogoLabel.configure(image=photo_image)
-            self.file_path = file_path
+        try:
+            file_path = filedialog.askopenfilename(filetypes=[("Image files", "*.jpg;*.png;*.gif")])
+            print(file_path)
+            if file_path:
+                self.selected_photo = int(self.frameWidth * .26), int(self.frameHeight * .69)
+                photo_image = ctk.CTkImage(Image.open(file_path), size=self.selected_photo)
+                self.headerLogoLabel.configure(image=photo_image)
+                self.file_path = file_path
+        except:
+            CTkMessagebox(title="Error", message="Button error", icon="cancel", bg_color=self.color.very_dark_gray, title_color=self.color.white, fg_color=self.color.white, border_width=0)
+            print('main select photo button error')
 
     def clearAll(self):
         if self.selectedUserId == 0:
@@ -168,19 +174,23 @@ class UserInfo:
         self.userNoEntry.configure(text='  ' + generated + '   ')
 
     def generate(self):
-        random.seed(str(datetime.datetime.now()))
-        random_nums = ''
-        for i in range(0,6):
-            num = random.randint(0, 9)
-            random_nums += str(num)
-        currentYear = str(datetime.date.today().strftime("%Y"))
-        generated_userNo = currentYear + '-' + random_nums
-        current_userNoList = self.fetchUserNoList()
-        if generated_userNo not in current_userNoList:
-            return generated_userNo
-        else:
-            self.generate()
-        
+        try:
+            random.seed(str(datetime.datetime.now()))
+            random_nums = ''
+            for i in range(0,6):
+                num = random.randint(0, 9)
+                random_nums += str(num)
+            currentYear = str(datetime.date.today().strftime("%Y"))
+            generated_userNo = currentYear + '-' + random_nums
+            current_userNoList = self.fetchUserNoList()
+            if generated_userNo not in current_userNoList:
+                return generated_userNo
+            else:
+                self.generate()
+        except:
+            CTkMessagebox(title="Error", message="Button error", icon="cancel", bg_color=self.color.very_dark_gray, title_color=self.color.white, fg_color=self.color.white, border_width=0)
+            print('generate button error')
+            
     def clearUpdate(self, userid):
         for i in self.listeners:
             i(userid, "has cleared User Information section")

@@ -1,6 +1,7 @@
 import customtkinter as ctk
 from tkinter import filedialog
 from color import Color
+from CTkMessagebox import CTkMessagebox
 class PhotoStorage:
     def __init__(self, master, row, column, sticky, padx, pady, width, height):
         self.color = Color()
@@ -30,9 +31,13 @@ class PhotoStorage:
         self.storage_path = ""
              
     def select_folder(self):
-        folder_path = filedialog.askdirectory()
-        self.storage_path = folder_path
-        self.photoStorageBoxLabel.configure(text="Path: "+folder_path, wraplength=int(self.photoStorageBoxFrame.winfo_width())-20)
+        try:
+            folder_path = filedialog.askdirectory()
+            self.storage_path = folder_path
+            self.photoStorageBoxLabel.configure(text="Path: "+folder_path, wraplength=int(self.photoStorageBoxFrame.winfo_width())-20)
+        except:
+            CTkMessagebox(title="Error", message="Button error", icon="cancel", bg_color=self.color.very_dark_gray, title_color=self.color.white, fg_color=self.color.white, border_width=0)
+            print('photo storage button error')
     
    
     

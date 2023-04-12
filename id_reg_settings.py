@@ -5,9 +5,6 @@ from company_info import CompanyInfoGUI
 import security as sec
 from CTkMessagebox import CTkMessagebox
 from color import Color
-import connection as conn
-import  mysql.connector
-from basic_queries import Query
 from PIL import Image
 import shutil
 #establishing connection
@@ -65,32 +62,40 @@ class IDRegSettingsGUI():
             self.configure()
 
     def configure(self):
-        self.configured = True
-        db_config = []
-        db_config.append(self.database.hostnameEntry.get())
-        db_config.append(self.database.usernameEntry.get())
-        db_config.append(self.database.passwordEntry.get())
-        db_config.append(self.database.databaseEntry.get())
-        db_config.append(self.database.portEntry.get())
-        db_config.append(self.company_info.companyNameEntry.get())
-        db_config.append(self.company_info.companyNameAbbrevEntry.get())
-        photo_path = f'{self.photo_storage.storage_path}/{self.company_info.file_name}'
-        db_config.append(photo_path)
-        sec.encrypt(data=db_config, filename="db_config.txt", delimiter='!')
+        try:
+            self.configured = True
+            db_config = []
+            db_config.append(self.database.hostnameEntry.get())
+            db_config.append(self.database.usernameEntry.get())
+            db_config.append(self.database.passwordEntry.get())
+            db_config.append(self.database.databaseEntry.get())
+            db_config.append(self.database.portEntry.get())
+            db_config.append(self.company_info.companyNameEntry.get())
+            db_config.append(self.company_info.companyNameAbbrevEntry.get())
+            photo_path = f'{self.photo_storage.storage_path}/{self.company_info.file_name}'
+            db_config.append(photo_path)
+            sec.encrypt(data=db_config, filename="db_config.txt", delimiter='!')
 
-        shutil.copy(self.company_info.full_file_path, f'{self.photo_storage.storage_path}')
+            shutil.copy(self.company_info.full_file_path, f'{self.photo_storage.storage_path}')
 
-        if self.company_info.companyNameAbbrevEntry.get() == '':
-            self.updateHeaders(company_name=self.company_info.companyNameEntry.get(), img_path=photo_path)
-        else:
-            self.updateHeaders(company_name=self.company_info.companyNameAbbrevEntry.get(), img_path=photo_path)
-    
+            if self.company_info.companyNameAbbrevEntry.get() == '':
+                self.updateHeaders(company_name=self.company_info.companyNameEntry.get(), img_path=photo_path)
+            else:
+                self.updateHeaders(company_name=self.company_info.companyNameAbbrevEntry.get(), img_path=photo_path)
+        except:
+            CTkMessagebox(title="Error", message="Button error", icon="cancel", bg_color=self.color.very_dark_gray, title_color=self.color.white, fg_color=self.color.white, border_width=0)
+            print('id reg settings save button error')
+
     def clearAll(self):
-        self.database.clearAll()
-        self.company_info.clearAll()
-        self.photo_storage.photoStorageBoxLabel.configure(text="Path: ")
-        self.company_info.companyLogoLabel.configure(image=self.company_info.companyLogo)
-    
+        try:
+            self.database.clearAll()
+            self.company_info.clearAll()
+            self.photo_storage.photoStorageBoxLabel.configure(text="Path: ")
+            self.company_info.companyLogoLabel.configure(image=self.company_info.companyLogo)
+        except:
+            CTkMessagebox(title="Error", message="Button error", icon="cancel", bg_color=self.color.very_dark_gray, title_color=self.color.white, fg_color=self.color.white, border_width=0)
+            print('id reg settings clear button error')
+        
     def updateHeaders(self, company_name, img_path):
         if self.main_headerLogoLabel is not None:
             self.main_headerLogoLabel.configure(text='  ' + company_name + '’s ID REGISTRATION')

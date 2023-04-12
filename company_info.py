@@ -3,7 +3,7 @@ import os
 from PIL import Image
 from tkinter import filedialog
 from color import Color
-from pathlib import Path
+from CTkMessagebox import CTkMessagebox
 class CompanyInfoGUI:
     def __init__(self, master, row, column, sticky, padx, pady, width, height, ipadx=0, ipady=0, rowspan=1, columnspan=1):
         self.color = Color()
@@ -56,14 +56,18 @@ class CompanyInfoGUI:
         self.mydb = None
 
     def upload_photo(self):
-        file_name = filedialog.askopenfilename(filetypes=[("Image files", "*.jpg;*.png;*.gif")])
-        if file_name:
-            self.selected_photo = int(self.frameWidth * 0.31), int(self.frameHeight * 0.393)
-            photo_image = ctk.CTkImage(Image.open(file_name), size=self.selected_photo)
-            self.companyLogoLabel.configure(image=photo_image)
-            self.full_file_path = file_name
-            self.file_name = file_name.split('/')[-1]
-
+        try:
+            file_name = filedialog.askopenfilename(filetypes=[("Image files", "*.jpg;*.png;*.gif")])
+            if file_name:
+                self.selected_photo = int(self.frameWidth * 0.31), int(self.frameHeight * 0.393)
+                photo_image = ctk.CTkImage(Image.open(file_name), size=self.selected_photo)
+                self.companyLogoLabel.configure(image=photo_image)
+                self.full_file_path = file_name
+                self.file_name = file_name.split('/')[-1]
+        except:
+            CTkMessagebox(title="Error", message="Button error", icon="cancel", bg_color=self.color.very_dark_gray, title_color=self.color.white, fg_color=self.color.white, border_width=0)
+            print('select photo button error')
+            
     def clearAll(self):
         self.companyNameEntry.delete(0, 'end')
         self.companyNameAbbrevEntry.delete(0, 'end')
