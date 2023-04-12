@@ -32,9 +32,7 @@ class PhotoStorage:
         folder_path = filedialog.askdirectory()
         self.photoStorageBoxLabel.configure(text="Path: "+folder_path, wraplength=int(self.photoStorageBoxFrame.winfo_width())-20)
     
-    def getValues(self):
-        photoStoragePath = self.photoStorageBoxLabel.cget("text")[6:]
-        return (str(photoStoragePath),)
+   
     
         
 
