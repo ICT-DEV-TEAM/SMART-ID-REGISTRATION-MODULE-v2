@@ -14,7 +14,7 @@ def connect(host, user, passwd, database, port):
       db_Info = mydb.get_server_info()
       print("Connected to MySQL Server: ", db_Info)
       return mydb
-  except Error as e:
+  except BaseException as e:
       print("Error while connecting to MySQL", e)
       return False
       

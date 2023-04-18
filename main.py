@@ -7,7 +7,7 @@ from emergency_contact import EmergencyContactGUI
 from controls import ControlsGUI
 from user_info import UserInfo
 from calendar_gui import CalendarGUI
-from PIL import Image, ImageTk
+from PIL import Image
 import os
 from id_reg_settings import IDRegSettingsGUI
 from login import LoginGUI
@@ -41,7 +41,8 @@ class SmartID_GUI:
         self.current_path = os.path.dirname(os.path.realpath(__file__))
         self.headerLogo = ctk.CTkImage(Image.open(self.current_path + "/img/LOGO.png"),
                                                size=(int(self.window_width * .105), int(self.window_height * .16)))
-        self.headerLogoLabel = ctk.CTkLabel(master=self.mainGui, image=self.headerLogo, text='  FCPC’s ID REGISTRATION', font=ctk.CTkFont(size=int(self.window_height * .075), family="Inter"), text_color=self.color.white, compound="left")
+        self.company_name = "FCPC"
+        self.headerLogoLabel = ctk.CTkLabel(master=self.mainGui, image=self.headerLogo, text='  ' + self.company_name + '’s ID REGISTRATION', font=ctk.CTkFont(size=int(self.window_height * .075), family="Inter"), text_color=self.color.white, compound="left")
         self.headerLogoLabel.grid(pady=8, padx=20, row=0, sticky='w', columnspan=4)
 
         self.leftFrame = ctk.CTkFrame(master=self.mainGui, fg_color=self.color.very_dark_gray)
@@ -80,12 +81,17 @@ class SmartID_GUI:
         # self.login.loginButton.configure(command=self.loginFunc)
     
     def clearResults(self):
-        self.userinfo.selectedUserId = 0
-        self.searchgui.clearAll(self.login.currUser)
-        self.searchResult.clearResults()
-        self.personalInformation.clearAll()
-        self.emergencyContact.clearAll()
-        self.userinfo.clearAll()
+        try:
+            self.userinfo.selectedUserId = 0
+            self.searchgui.clearAll(self.login.currUser)
+            self.searchResult.clearResults()
+            self.personalInformation.clearAll()
+            self.emergencyContact.clearAll()
+            self.userinfo.clearAll()
+        except:
+            CTkMessagebox(title="Error", message="Button error", icon="cancel", bg_color=self.color.very_dark_gray, title_color=self.color.white, fg_color=self.color.white, border_width=0)
+            print('Clear Results button error')
+        
         
     def user_info_dropdowns(self, value):
         if self.userinfo.affStringVar.get() == 'Employee':
@@ -108,145 +114,171 @@ class SmartID_GUI:
                 return True        
 
     def save(self):
-        information_validation = self.validate_required_field()
-        if information_validation == False:
-            return
-        
-        # mycursor = self.mydb.cursor()
-        if self.userinfo.selectedUserId == 0:
-            # insert_personalinfo = "INSERT INTO personalinformation(personal_fname, personal_mname, personal_lname, personal_suffix, personal_bdate, personal_bplace, personal_gender, personal_address, personal_age, personal_no, personal_email) VALUES (%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s)"
-            personalinfo_values = self.personalInformation.getValues()
-            # insert_emergencyinfo = "INSERT INTO emergencyinformation(emergency_fname, emergency_mname, emergency_lname, emergency_suffix, emergency_gender, emergency_address, emergency_no, emergency_email, emergency_affiliation) VALUES (%s,%s,%s,%s,%s,%s,%s,%s,%s)"
-            emergencyinfo_values = self.emergencyContact.getValues()
-            # insert_userinfo = "INSERT INTO userinformation(user_no, user_type, user_pos_gr_crs, user_dept_section, user_lrn_eno, user_card_id, user_photo) VALUES (%s,%s,%s,%s,%s,%s,%s)"
-            userinfo_values = self.userinfo.getValues()
+        try:
+            information_validation = self.validate_required_field()
+            if information_validation == False:
+                return
+            
+            # mycursor = self.mydb.cursor()
+            if self.userinfo.selectedUserId == 0:
+                # insert_personalinfo = "INSERT INTO personalinformation(personal_fname, personal_mname, personal_lname, personal_suffix, personal_bdate, personal_bplace, personal_gender, personal_address, personal_age, personal_no, personal_email) VALUES (%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s)"
+                personalinfo_values = self.personalInformation.getValues()
+                # insert_emergencyinfo = "INSERT INTO emergencyinformation(emergency_fname, emergency_mname, emergency_lname, emergency_suffix, emergency_gender, emergency_address, emergency_no, emergency_email, emergency_affiliation) VALUES (%s,%s,%s,%s,%s,%s,%s,%s,%s)"
+                emergencyinfo_values = self.emergencyContact.getValues()
+                # insert_userinfo = "INSERT INTO userinformation(user_no, user_type, user_pos_gr_crs, user_dept_section, user_lrn_eno, user_card_id, user_photo) VALUES (%s,%s,%s,%s,%s,%s,%s)"
+                userinfo_values = self.userinfo.getValues()
 
-            # mycursor.execute(insert_personalinfo, personalinfo_values)
-            # mycursor.execute(insert_emergencyinfo, emergencyinfo_values)
-            # mycursor.execute(insert_userinfo, userinfo_values)
-            # self.mydb.commit()
-            self.mydb.save(self.mydb.insert_personalinfo_table, self.mydb.insert_personalinfo_columns, personalinfo_values)
-            self.mydb.save(self.mydb.insert_emergencyinfo_table, self.mydb.insert_emergencyinfo_columns, emergencyinfo_values)
-            self.mydb.save(self.mydb.insert_userinfo_table, self.mydb.insert_userinfo_columns, userinfo_values)
-            CTkMessagebox(title="Success", message="Saved successfully!", icon="check", bg_color=self.color.very_dark_gray, title_color=self.color.white, fg_color=self.color.white, border_width=0)
-        else:
-            # insert_personalinfo = "INSERT INTO personalinformation(personal_fname, personal_mname, personal_lname, personal_suffix, personal_bdate, personal_bplace, personal_gender, personal_address, personal_age, personal_no, personal_email) VALUES (%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s)"
-            personalinfo_values = self.personalInformation.getValues()
-            # insert_emergencyinfo = "INSERT INTO emergencyinformation(emergency_fname, emergency_mname, emergency_lname, emergency_suffix, emergency_gender, emergency_address, emergency_no, emergency_email, emergency_affiliation) VALUES (%s,%s,%s,%s,%s,%s,%s,%s,%s)"
-            emergencyinfo_values = self.emergencyContact.getValues()
-            # insert_userinfo = "INSERT INTO userinformation(user_no, user_type, user_pos_gr_crs, user_dept_section, user_lrn_eno, user_card_id, user_photo) VALUES (%s,%s,%s,%s,%s,%s,%s)"
-            userinfo_values = self.userinfo.getValues()
-            # mycursor.execute(update_personalinfo, personalinfo_values)
-            # mycursor.execute(update_emergencyinfo, emergencyinfo_values)
-            # mycursor.execute(update_userinfo, userinfo_values)
-            # self.mydb.commit()
-            self.mydb.update(self.mydb.insert_personalinfo_table, personalinfo_values, self.userinfo.selectedUserId)
-            self.mydb.update(self.mydb.insert_emergencyinfo_table, emergencyinfo_values, self.userinfo.selectedUserId)
-            self.mydb.update(self.mydb.insert_userinfo_table, userinfo_values, self.userinfo.selectedUserId)
-            CTkMessagebox(title="Success", message="Updated successfully!", icon="check", bg_color=self.color.very_dark_gray, title_color=self.color.white, fg_color=self.color.white, border_width=0)
-        self.clearResults()
-        self.controls.saveUpdate(self.login.currUser)
+                # mycursor.execute(insert_personalinfo, personalinfo_values)
+                # mycursor.execute(insert_emergencyinfo, emergencyinfo_values)
+                # mycursor.execute(insert_userinfo, userinfo_values)
+                # self.mydb.commit()
+                self.mydb.save(self.mydb.insert_personalinfo_table, self.mydb.insert_personalinfo_columns, personalinfo_values)
+                self.mydb.save(self.mydb.insert_emergencyinfo_table, self.mydb.insert_emergencyinfo_columns, emergencyinfo_values)
+                self.mydb.save(self.mydb.insert_userinfo_table, self.mydb.insert_userinfo_columns, userinfo_values)
+                CTkMessagebox(title="Success", message="Saved successfully!", icon="check", bg_color=self.color.very_dark_gray, title_color=self.color.white, fg_color=self.color.white, border_width=0)
+            else:
+                # insert_personalinfo = "INSERT INTO personalinformation(personal_fname, personal_mname, personal_lname, personal_suffix, personal_bdate, personal_bplace, personal_gender, personal_address, personal_age, personal_no, personal_email) VALUES (%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s)"
+                personalinfo_values = self.personalInformation.getValues()
+                # insert_emergencyinfo = "INSERT INTO emergencyinformation(emergency_fname, emergency_mname, emergency_lname, emergency_suffix, emergency_gender, emergency_address, emergency_no, emergency_email, emergency_affiliation) VALUES (%s,%s,%s,%s,%s,%s,%s,%s,%s)"
+                emergencyinfo_values = self.emergencyContact.getValues()
+                # insert_userinfo = "INSERT INTO userinformation(user_no, user_type, user_pos_gr_crs, user_dept_section, user_lrn_eno, user_card_id, user_photo) VALUES (%s,%s,%s,%s,%s,%s,%s)"
+                userinfo_values = self.userinfo.getValues()
+                # mycursor.execute(update_personalinfo, personalinfo_values)
+                # mycursor.execute(update_emergencyinfo, emergencyinfo_values)
+                # mycursor.execute(update_userinfo, userinfo_values)
+                # self.mydb.commit()
+                self.mydb.update(self.mydb.insert_personalinfo_table, personalinfo_values, self.userinfo.selectedUserId)
+                self.mydb.update(self.mydb.insert_emergencyinfo_table, emergencyinfo_values, self.userinfo.selectedUserId)
+                self.mydb.update(self.mydb.insert_userinfo_table, userinfo_values, self.userinfo.selectedUserId)
+                CTkMessagebox(title="Success", message="Updated successfully!", icon="check", bg_color=self.color.very_dark_gray, title_color=self.color.white, fg_color=self.color.white, border_width=0)
+            self.clearResults()
+            self.controls.saveUpdate(self.login.currUser)
+        except:
+            CTkMessagebox(title="Error", message="Button error", icon="cancel", bg_color=self.color.very_dark_gray, title_color=self.color.white, fg_color=self.color.white, border_width=0)
+            print('main save button error')
 
     def clearEmerCont(self):
-        self.emergencyContact.clearUpdate(self.login.currUser)
-        self.emergencyContact.clearAll()
-    
+        try:
+            self.emergencyContact.clearUpdate(self.login.currUser)
+            self.emergencyContact.clearAll()
+        except:
+            CTkMessagebox(title="Error", message="Button error", icon="cancel", bg_color=self.color.very_dark_gray, title_color=self.color.white, fg_color=self.color.white, border_width=0)
+            print('emergency contact clear button error')
+
     def clearPersonalInfo(self):
-        self.personalInformation.clearUpdate(self.login.currUser)
-        self.personalInformation.clearAll()
-    
+        try:
+            self.personalInformation.clearUpdate(self.login.currUser)
+            self.personalInformation.clearAll()
+        except:
+            CTkMessagebox(title="Error", message="Button error", icon="cancel", bg_color=self.color.very_dark_gray, title_color=self.color.white, fg_color=self.color.white, border_width=0)
+            print('personal info clear button error')
+
     def clearUserInfo(self):
-        self.userinfo.clearUpdate(self.login.currUser)
-        self.userinfo.clearAll()
+        try:
+            self.userinfo.clearUpdate(self.login.currUser)
+            self.userinfo.clearAll()
+        except:
+            CTkMessagebox(title="Error", message="Button error", icon="cancel", bg_color=self.color.very_dark_gray, title_color=self.color.white, fg_color=self.color.white, border_width=0)
+            print('user info clear button error')
 
     def search(self):
-        # mycursor = self.mydb.cursor()
-        left_join = "LEFT JOIN emergencyinformation ON personalinformation.personal_id = emergencyinformation.emergency_id LEFT JOIN userinformation ON personalinformation.personal_id = userinformation.user_id"
-        where = "WHERE personal_fname LIKE '"+self.searchgui.firstNameEntry.get()+"%' AND personal_lname LIKE '"+self.searchgui.surnameEntry.get()+"%' AND user_no LIKE '"+self.searchgui.userNoEntry.get()+"%'"
-        search_information = self.mydb.retrieve("*", "personalinformation", left_join, where)
-        # mycursor.execute(search_information)
-        # search_result = mycursor.fetchall()
-        index = 1
-        def selectInfo(i):
-            def button_click():
-                #PERSONAL INFORMATION
-                self.userinfo.selectedUserId = int(i[0])
-                self.personalInformation.clearAll()
-                self.personalInformation.fnameEntry.insert(0, i[1])
-                self.personalInformation.midnameEntry.insert(0, i[2])
-                self.personalInformation.lastNameEntry.insert(0, i[3])
-                self.personalInformation.suffixEntry.insert(0, i[4])
-                self.personalInformation.date = i[5]
-                self.personalInformation.birthDateEntry.configure(text="   "+i[5]+"      ")
-                self.personalInformation.birthPlaceEntry.insert(0, i[6])
-                self.personalInformation.genderStringVar.set(i[7])
-                self.personalInformation.addressEntry.insert(0, i[8])
-                self.personalInformation.ageEntry.configure(state='normal')
-                self.personalInformation.ageEntry.delete(0,'end')
-                self.personalInformation.ageEntry.insert(0, i[9])
-                self.personalInformation.ageEntry.configure(state='disabled')
-                self.personalInformation.mobileNoEntry.insert(0, i[10])
-                self.personalInformation.emailEntry.insert(0, i[11])
+        try:
+            # mycursor = self.mydb.cursor()
+            left_join = "LEFT JOIN emergencyinformation ON personalinformation.personal_id = emergencyinformation.emergency_id LEFT JOIN userinformation ON personalinformation.personal_id = userinformation.user_id"
+            where = "WHERE personal_fname LIKE '"+self.searchgui.firstNameEntry.get()+"%' AND personal_lname LIKE '"+self.searchgui.surnameEntry.get()+"%' AND user_no LIKE '"+self.searchgui.userNoEntry.get()+"%'"
+            search_information = self.mydb.retrieve("*", "personalinformation", left_join, where)
+            # mycursor.execute(search_information)
+            # search_result = mycursor.fetchall()
+            index = 1
+            def selectInfo(i):
+                def button_click():
+                    #PERSONAL INFORMATION
+                    self.userinfo.selectedUserId = int(i[0])
+                    self.personalInformation.clearAll()
+                    self.personalInformation.fnameEntry.insert(0, i[1])
+                    self.personalInformation.midnameEntry.insert(0, i[2])
+                    self.personalInformation.lastNameEntry.insert(0, i[3])
+                    self.personalInformation.suffixEntry.insert(0, i[4])
+                    self.personalInformation.date = i[5]
+                    self.personalInformation.birthDateEntry.configure(text="   "+i[5]+"      ")
+                    self.personalInformation.birthPlaceEntry.insert(0, i[6])
+                    self.personalInformation.genderStringVar.set(i[7])
+                    self.personalInformation.addressEntry.insert(0, i[8])
+                    self.personalInformation.ageEntry.configure(state='normal')
+                    self.personalInformation.ageEntry.delete(0,'end')
+                    self.personalInformation.ageEntry.insert(0, i[9])
+                    self.personalInformation.ageEntry.configure(state='disabled')
+                    self.personalInformation.mobileNoEntry.insert(0, i[10])
+                    self.personalInformation.emailEntry.insert(0, i[11])
 
-                #EMERGENCY CONTACT INFORMATION
-                self.emergencyContact.clearAll() 
-                self.emergencyContact.fnameEntry.insert(0, i[13])
-                self.emergencyContact.mnameEntry.insert(0, i[14])
-                self.emergencyContact.lnameEntry.insert(0, i[15])
-                self.emergencyContact.suffixEntry.insert(0, i[16])
-                self.emergencyContact.genderStringVar.set(i[17])
-                self.emergencyContact.addressEntry.insert(0, i[18])
-                self.emergencyContact.mobileNoEntry.insert(0, i[19])
-                self.emergencyContact.emailEntry.insert(0, i[20])
-                self.emergencyContact.affStringVar.set(i[21]) 
+                    #EMERGENCY CONTACT INFORMATION
+                    self.emergencyContact.clearAll() 
+                    self.emergencyContact.fnameEntry.insert(0, i[13])
+                    self.emergencyContact.mnameEntry.insert(0, i[14])
+                    self.emergencyContact.lnameEntry.insert(0, i[15])
+                    self.emergencyContact.suffixEntry.insert(0, i[16])
+                    self.emergencyContact.genderStringVar.set(i[17])
+                    self.emergencyContact.addressEntry.insert(0, i[18])
+                    self.emergencyContact.mobileNoEntry.insert(0, i[19])
+                    self.emergencyContact.emailEntry.insert(0, i[20])
+                    self.emergencyContact.affStringVar.set(i[21]) 
 
-                #USER INFO
-                self.userinfo.clearAll()
-                self.userinfo.userNoEntry.configure(text="  "+i[23]+"   ")
-                self.userinfo.affStringVar.set(i[24])
-                self.userinfo.posStringVar.set(i[25])
-                self.userinfo.deptStringVar.set(i[26])
-                self.userinfo.lrnEntry.insert(0, i[27])
-                self.userinfo.cardEntry.insert(0, i[28])
-                self.userinfo.generateButton.configure(state='disabled')
-                self.current_path = os.path.dirname(os.path.realpath(__file__))
-                if i[29] != "":
-                    self.headerLogo = ctk.CTkImage(Image.open(i[29]),
-                                                size=(int(self.userinfo.frameWidth * .26), int(self.userinfo.frameHeight * .69)))
-                    self.userinfo.headerLogoLabel.configure(image=self.headerLogo)
-            return button_click 
-       
-        self.clearResults()
-        if len(search_information) > 1:
-            for i in search_information:
+                    #USER INFO
+                    self.userinfo.clearAll()
+                    self.userinfo.userNoEntry.configure(text="  "+i[23]+"   ")
+                    self.userinfo.affStringVar.set(i[24])
+                    self.userinfo.posStringVar.set(i[25])
+                    self.userinfo.deptStringVar.set(i[26])
+                    self.userinfo.lrnEntry.insert(0, i[27])
+                    self.userinfo.cardEntry.insert(0, i[28])
+                    self.userinfo.generateButton.configure(state='disabled')
+                    self.current_path = os.path.dirname(os.path.realpath(__file__))
+                    if i[29] != "":
+                        self.headerLogo = ctk.CTkImage(Image.open(i[29]),
+                                                    size=(int(self.userinfo.frameWidth * .26), int(self.userinfo.frameHeight * .69)))
+                        self.userinfo.headerLogoLabel.configure(image=self.headerLogo)
+                return button_click 
+        
+            self.clearResults()
+            if len(search_information) > 1:
+                for i in search_information:
+                    self.searchResultLabel1 = ctk.CTkButton(master=self.searchResult.searchResultFrame, text=i[23] + " " + i[1] +" "+ i[3], font=ctk.CTkFont(size=int(self.window_height * .0178), family="Inter"), fg_color=self.color.white, text_color=self.color.black, command=selectInfo(i), anchor='w')
+                    self.searchResultLabel1.grid(column=0, row=index, padx=3, pady=1, sticky='nw')      
+                    index += 1
+            else:
+                i = search_information[0]
                 self.searchResultLabel1 = ctk.CTkButton(master=self.searchResult.searchResultFrame, text=i[23] + " " + i[1] +" "+ i[3], font=ctk.CTkFont(size=int(self.window_height * .0178), family="Inter"), fg_color=self.color.white, text_color=self.color.black, command=selectInfo(i), anchor='w')
-                self.searchResultLabel1.grid(column=0, row=index, padx=3, pady=1, sticky='nw')      
-                index += 1
-        else:
-            i = search_information[0]
-            self.searchResultLabel1 = ctk.CTkButton(master=self.searchResult.searchResultFrame, text=i[23] + " " + i[1] +" "+ i[3], font=ctk.CTkFont(size=int(self.window_height * .0178), family="Inter"), fg_color=self.color.white, text_color=self.color.black, command=selectInfo(i), anchor='w')
-            self.searchResultLabel1.invoke()
-        self.searchgui.searchUpdate(self.login.currUser)
+                self.searchResultLabel1.invoke()
+            self.searchgui.searchUpdate(self.login.currUser)
+        except:
+            CTkMessagebox(title="Error", message="Button error", icon="cancel", bg_color=self.color.very_dark_gray, title_color=self.color.white, fg_color=self.color.white, border_width=0)
+            print('main search button error')
         
 
     def logout(self):
-        self.clearResults()
-        self.controls.logoutUpdate(self.login.currUser)
-        self.login.authenticated = False
-        self.login.app.deiconify()
-        self.main()
+        try:
+            self.clearResults()
+            self.controls.logoutUpdate(self.login.currUser)
+            self.login.authenticated = False
+            self.login.app.deiconify()
+            self.main()
+        except:
+            CTkMessagebox(title="Error", message="Button error", icon="cancel", bg_color=self.color.very_dark_gray, title_color=self.color.white, fg_color=self.color.white, border_width=0)
+            print('main logout button error')
 
     def get_login_credentials(self):
         # mycursor = self.mydb.cursor()
         # login_credentials = "SELECT * FROM user_login"
         # mycursor.execute(login_credentials)
-        result = self.mydb.retrieve("*", "user_login")
-        for i in result:
-            temp = list(i)
-            self.login.userid.append(temp[0])
-            self.login.usernames.append(temp[1])
-            self.login.passwords.append(temp[2])
-    
+        try:
+            result = self.mydb.retrieve("*", "user_login")
+            for i in result:
+                temp = list(i)
+                self.login.userid.append(temp[0])
+                self.login.usernames.append(temp[1])
+                self.login.passwords.append(temp[2])
+        except:
+            print('unable to get login credentials')
     # def loginFunc(self):
     #     self.login.login()
 
@@ -261,6 +293,12 @@ class SmartID_GUI:
                 self.get_login_credentials()
                 self.status.mydb = self.mydb
                 self.userinfo.mydb = self.mydb
+                if config[6] != "":
+                    self.headerLogoLabel.configure(text='  ' + config[6] + '’s ID REGISTRATION')
+                else:
+                    self.headerLogoLabel.configure(text='  ' + config[5] + '’s ID REGISTRATION')
+                self.headerLogo.configure(light_image=Image.open(config[7]))
+                self.headerLogoLabel.configure(image=self.headerLogo)
                 while True:
                     if bool(self.login.app.winfo_exists()) and self.login.authenticated:
                         self.login.app.grab_release()
@@ -271,6 +309,8 @@ class SmartID_GUI:
                     if self.login.authenticated and self.controls.settings_clicked:
                         self.controls.settings_clicked = False
                         self.id_reg = IDRegSettingsGUI()
+                        self.id_reg.main_headerLogoLabel = self.headerLogoLabel
+                        self.id_reg.main_headerLogo = self.headerLogo
                         self.id_reg.mydb = self.mydb
                         self.id_reg.app.grab_set()
                         while True:
@@ -288,6 +328,8 @@ class SmartID_GUI:
                     # if not bool(self.id_reg.app.winfo_exists()):
                     if bool(self.login.app.winfo_exists()) and self.login.noAccountDetected and not hasattr(self.id_reg, 'app'):
                         self.id_reg = IDRegSettingsGUI()
+                        self.id_reg.main_headerLogoLabel = self.headerLogoLabel
+                        self.id_reg.main_headerLogo = self.headerLogo
                         self.id_reg.mydb = self.mydb
                         self.id_reg.app.grab_set()
                         self.login.noAccountDetected = False
@@ -304,6 +346,8 @@ class SmartID_GUI:
                     self.app.update()
             else:
                 self.id_reg = IDRegSettingsGUI()
+                self.id_reg.main_headerLogoLabel = self.headerLogoLabel
+                self.id_reg.main_headerLogo = self.headerLogo
                 self.id_reg.mydb = self.mydb
                 self.id_reg.app.grab_set()
                 while True:

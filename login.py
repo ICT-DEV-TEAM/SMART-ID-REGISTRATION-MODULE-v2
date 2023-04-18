@@ -2,6 +2,8 @@ import customtkinter as ctk
 import os
 from PIL import Image
 from color import Color
+from CTkMessagebox import CTkMessagebox
+
 class LoginGUI():
     usernames = []
     passwords = []
@@ -63,29 +65,37 @@ class LoginGUI():
         self.listeners = []
         
     def login(self):
-        username = self.userEntry.get()
-        password = self.passEntry.get()
-        if username in self.usernames:
-            idx = self.usernames.index(username)
-            if password == self.passwords[idx]:
-                print("Login")
-                self.currUser = self.userid[idx]
-                self.authenticated = True
-                self.loginUpdate(self.currUser)
+        try:
+            username = self.userEntry.get()
+            password = self.passEntry.get()
+            if username in self.usernames:
+                idx = self.usernames.index(username)
+                if password == self.passwords[idx]:
+                    print("Login")
+                    self.currUser = self.userid[idx]
+                    self.authenticated = True
+                    self.loginUpdate(self.currUser)
+                else:
+                    print("Wrong credentials")
             else:
-                print("Wrong credentials")
-        else:
-            print("no account")
-            self.noAccountDetected = True
+                print("no account")
+                self.noAccountDetected = True
+        except:
+            CTkMessagebox(title="Error", message="Button error", icon="cancel", bg_color=self.color.very_dark_gray, title_color=self.color.white, fg_color=self.color.white, border_width=0)
+            print('cant login')
 
     def loginUpdate(self, userid):
         for i in self.listeners:
             i(userid, "has logged in")
     
     def clear(self):
-        self.userEntry.delete(0, 'end')
-        self.passEntry.delete(0, 'end')
-
+        try:
+            self.userEntry.delete(0, 'end')
+            self.passEntry.delete(0, 'end')
+        except:
+            CTkMessagebox(title="Error", message="Button error", icon="cancel", bg_color=self.color.very_dark_gray, title_color=self.color.white, fg_color=self.color.white, border_width=0)
+            print('login clear button error')
+            
     def main(self):
         self.app.mainloop()
 
